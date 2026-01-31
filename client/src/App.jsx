@@ -155,7 +155,7 @@ function App() {
   const [loadingSettings, setLoadingSettings] = React.useState(true);
 
   useEffect(() => {
-    // Listen to global settings for maintenance mode
+    // 1. Listen to global settings for maintenance mode
     const unsub = onSnapshot(doc(db, 'settings', 'global'), (doc) => {
       if (doc.exists()) {
         setMaintenanceMode(doc.data().maintenanceMode || false);
@@ -164,6 +164,13 @@ function App() {
     }, (error) => {
       console.error("Error fetching settings:", error);
       setLoadingSettings(false);
+    });
+
+    // 2. Preload language flags to avoid delay in production
+    const flags = ['/flags/fr.png', '/flags/gb.png', '/flags/es.png', '/flags/it.png', '/flags/pt.png', '/flags/de.png'];
+    flags.forEach(src => {
+      const img = new Image();
+      img.src = src;
     });
 
     return () => unsub();
