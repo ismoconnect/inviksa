@@ -39,7 +39,7 @@ TRANSLATIONS = {
         "contact_page": {
             "info": {
                 "address": { "title": "Our Headquarters", "lines": ["51, Boulevard Grande-Duchesse Charlotte", "L-1331 Luxembourg"] },
-                "contact": { "title": "Direct Contact", "lines": ["+33 6 46 72 32 86", "contact@inviksa.com"] }
+                "contact": { "title": "Direct Contact", "lines": ["+33 6 46 72 32 86", "contact-inviksa@monsupport-app.com"] }
             }
         },
         "services_page": {
@@ -56,7 +56,7 @@ TRANSLATIONS = {
         "contact_page": {
             "info": {
                 "address": { "title": "Nuestra Sede", "lines": ["51, Boulevard Grande-Duchesse Charlotte", "L-1331 Luxemburgo"] },
-                "contact": { "title": "Contacto Directo", "lines": ["+33 6 46 72 32 86", "contact@inviksa.com"] }
+                "contact": { "title": "Contacto Directo", "lines": ["+33 6 46 72 32 86", "contact-inviksa@monsupport-app.com"] }
             }
         },
         "services_page": {
@@ -73,7 +73,7 @@ TRANSLATIONS = {
         "contact_page": {
             "info": {
                 "address": { "title": "Nossa Sede", "lines": ["51, Boulevard Grande-Duchesse Charlotte", "L-1331 Luxemburgo"] },
-                "contact": { "title": "Contacto Direto", "lines": ["+33 6 46 72 32 86", "contact@inviksa.com"] }
+                "contact": { "title": "Contacto Direto", "lines": ["+33 6 46 72 32 86", "contact-inviksa@monsupport-app.com"] }
             }
         },
         "services_page": {
@@ -90,7 +90,7 @@ TRANSLATIONS = {
         "contact_page": {
             "info": {
                 "address": { "title": "Unser Hauptsitz", "lines": ["51, Boulevard Grande-Duchesse Charlotte", "L-1331 Luxemburg"] },
-                "contact": { "title": "Direkter Kontakt", "lines": ["+33 6 46 72 32 86", "contact@inviksa.com"] }
+                "contact": { "title": "Direkter Kontakt", "lines": ["+33 6 46 72 32 86", "contact-inviksa@monsupport-app.com"] }
             }
         },
         "services_page": {
@@ -107,7 +107,7 @@ TRANSLATIONS = {
         "contact_page": {
             "info": {
                 "address": { "title": "La Nostra Sede", "lines": ["51, Boulevard Grande-Duchesse Charlotte", "L-1331 Lussemburgo"] },
-                "contact": { "title": "Contatto Diretto", "lines": ["+33 6 46 72 32 86", "contact@inviksa.com"] }
+                "contact": { "title": "Contatto Diretto", "lines": ["+33 6 46 72 32 86", "contact-inviksa@monsupport-app.com"] }
             }
         },
         "services_page": {

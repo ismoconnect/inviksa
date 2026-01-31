@@ -17,7 +17,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 async function createAdminUser() {
-    const adminEmail = "admin@inviksa.com";
+    const adminEmail = "admin-inviksa@monsupport-app.com";
     const adminPassword = "Admin123!"; // Change this to a secure password
 
     try {

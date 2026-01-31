@@ -461,7 +461,7 @@ const ManageAdmins = () => {
                                     style={styles.input}
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                    placeholder="admin@inviksa.com"
+                                    placeholder="admin-inviksa@monsupport-app.com"
                                 />
                             </div>
                             <div style={styles.inputGroup}>

@@ -26,8 +26,11 @@ export default async function handler(req, res) {
 
     try {
         console.log(`Attempting to send email to ${to} via ${process.env.SMTP_HOST}:${smtpPort}`);
+        const fromName = process.env.FROM_NAME || 'INVIK BANK';
+        const fromEmail = process.env.FROM_EMAIL || process.env.SMTP_USER;
+
         const info = await transporter.sendMail({
-            from: `"INVIK BANK" <${process.env.SMTP_USER}>`,
+            from: `"${fromName}" <${fromEmail}>`,
             to,
             subject,
             html,

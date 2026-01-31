@@ -275,7 +275,7 @@ const Contact = () => {
                             <h3 style={styles.cardTitle}>{t('contact_page.info.contact.title')}</h3>
                             <p style={styles.cardText}>
                                 {t('contact_page.info.contact.lines.0')}<br />
-                                <a href="mailto:contact@inviksa.com" style={{ color: '#666', textDecoration: 'none' }}>contact@inviksa.com</a>
+                                <a href="mailto:contact-inviksa@monsupport-app.com" style={{ color: '#666', textDecoration: 'none' }}>contact-inviksa@monsupport-app.com</a>
                             </p>
                         </div>
                     </div>

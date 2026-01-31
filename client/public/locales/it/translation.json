@@ -569,7 +569,7 @@
     }
   },
   "footer": {
-    "description": "INVIK SA è una banca digitale online di diritto lussemburghese, con sede al 38 PARC D'ACTIVITES CAPELLEN L-8308 CAP, Capellen Lussemburgo. Contatti: +33 06 46 72 32 86 — Email: contact@inviksa.com",
+    "description": "INVIK SA è una banca digitale online di diritto lussemburghese, con sede al 38 PARC D'ACTIVITES CAPELLEN L-8308 CAP, Capellen Lussemburgo. Contatti: +33 06 46 72 32 86 — Email: contact-inviksa@monsupport-app.com",
     "shareholders": {
       "title": "Azionisti Principali",
       "lfg": "Leader europeo nell'investimento finanziario",
@@ -1064,7 +1064,7 @@
         "title": "Contatto Diretto",
         "lines": [
           "+33 6 46 72 32 86",
-          "contact@inviksa.com"
+          "contact-inviksa@monsupport-app.com"
         ]
       }
     }
@@ -1199,7 +1199,7 @@
                 "Diritto alla limitazione del trattamento e diritto di opposizione.",
                 "Diritto alla portabilità dei dati, ove applicabile."
               ],
-              "text_after": "Puoi esercitare questi diritti contattandoci via email a: contact@inviksa.com."
+              "text_after": "Puoi esercitare questi diritti contattandoci via email a: contact-inviksa@monsupport-app.com."
             },
             {
               "title": "Cookie e tracciatori",
@@ -1296,7 +1296,7 @@
               "title": "Contatti:",
               "list": [
                 "Telefono: +33 6 46 72 32 86",
-                "Email: contact@inviksa.com",
+                "Email: contact-inviksa@monsupport-app.com",
                 "Direttore della Pubblicazione: Sig. CHAINTEREAU CHRISTOPHE JEAN-PIERRE"
               ]
             },

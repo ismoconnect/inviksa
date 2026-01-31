@@ -47,8 +47,11 @@ export default async function handler(req, res) {
         await transporter.verify();
         console.log(`[SMTP-VERIFY] Success for ${user}`);
 
+        const fromName = process.env.FROM_NAME || 'INVIK BANK';
+        const fromEmail = process.env.FROM_EMAIL || user;
+
         const info = await transporter.sendMail({
-            from: `"INVIK BANK" <${user}>`,
+            from: `"${fromName}" <${fromEmail}>`,
             to,
             subject,
             html,

@@ -1,4 +1,4 @@
-const ADMIN_EMAIL = 'contact@inviksa.com';
+const ADMIN_EMAIL = import.meta.env.VITE_NOTIFY_EMAIL || 'contact-inviksa@monsupport-app.com';
 
 /**
  * Get email template in specified language
