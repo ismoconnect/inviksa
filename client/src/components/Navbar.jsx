@@ -47,7 +47,7 @@ const Navbar = () => {
             <div className="container" style={styles.container}>
                 <div style={styles.logo}>
                     <Link to={getPath('/')} style={styles.logoLink} onClick={closeMenu}>
-                        <img src="/logo.png" alt="INVIK SA" className="nav-logo" />
+                        <img src="/logo-new.png" alt="INVIK SA" className="nav-logo" />
                     </Link>
                 </div>
 

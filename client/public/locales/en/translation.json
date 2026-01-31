@@ -372,6 +372,8 @@
       }
     },
     "hero": {
+      "title": "Banking Excellence at Your Fingertips",
+      "subtitle": "Manage your assets with cutting-edge security and bespoke expertise. INVIK SA supports your ambitions worldwide.",
       "cta_primary": "Open an Account",
       "cta_secondary": "Our Services"
     },
@@ -387,7 +389,8 @@
       "fixed": "Fixed",
       "monthly_payment": "Monthly Payment",
       "submit": "Request this credit",
-      "disclaimer": "Free estimation • Immediate response"
+      "disclaimer": "Free estimation • Immediate response",
+      "label": "SIMULATOR"
     },
     "features": {
       "security": {
@@ -494,7 +497,8 @@
             "Family protection"
           ]
         }
-      }
+      },
+      "label": "EXPERTISE"
     },
     "testimonials": {
       "label": "TESTIMONIALS",
@@ -2165,6 +2169,7 @@
     }
   },
   "common": {
+    "view_more": "View more",
     "edit": "Edit",
     "beneficiary_empty": "No beneficiary saved.",
     "at": "at",
@@ -2172,7 +2177,8 @@
     "prev": "Previous",
     "loading": "Loading...",
     "error": "An error occurred",
-    "client": "Client"
+    "client": "Client",
+    "learn_more": "Learn more"
   },
   "maintenance": {
     "title": "We are under maintenance",

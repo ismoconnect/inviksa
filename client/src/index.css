@@ -163,6 +163,22 @@ button:active {
   padding: 0 1rem;
 }
 
+.glass-card {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.glass-card-dark {
+  background: rgba(0, 51, 102, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45) !important;
+}
+
 /* Info Cards Hover Effects */
 .info-card {
   padding: 2rem 1rem;
@@ -458,7 +474,7 @@ button:active {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
 
   to {
@@ -468,7 +484,7 @@ button:active {
 }
 
 .animate-fade-in {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* Timeline list items */
@@ -731,6 +747,34 @@ button:active {
   z-index: 1;
 }
 
+/* Hero Refinements */
+.hero-section {
+  background-attachment: fixed;
+}
+
+.hero-slide {
+  background-position: center 20% !important;
+}
+
+.hero-overlay {
+  background: linear-gradient(to right, rgba(0, 30, 60, 0.7), rgba(0, 30, 60, 0.2)) !important;
+}
+
+.hero-title {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    display: none !important;
+    /* Managed by Home.jsx logic */
+  }
+}
+
 /* Hide mobile sections on desktop */
 .mobile-hero-section,
 .mobile-calculator-section,
@@ -740,8 +784,28 @@ button:active {
   display: none;
 }
 
-.desktop-register-view {
-  display: block;
+/* Visibility Utilities */
+.desktop-only {
+  display: block !important;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block !important;
+  }
+
+  /* Specific override for flex containers */
+  .mobile-hero-section.mobile-only {
+    display: flex !important;
+  }
 }
 
 /* Mobile Responsiveness */
@@ -968,13 +1032,14 @@ button:active {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    min-height: 60vh !important;
-    background: linear-gradient(135deg, rgba(0, 51, 102, 0.85) 0%, rgba(0, 77, 153, 0.7) 50%, rgba(0, 102, 204, 0.6) 100%),
-      url('/mobile-hero-person.png');
+    min-height: 100dvh !important;
+    /* Full dynamic viewport height */
+    min-height: -webkit-fill-available;
+    background: linear-gradient(rgba(0, 10, 30, 0.75), rgba(0, 10, 30, 0.4)), url('/mobile-hero-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 3rem 1.5rem;
+    padding: 0 1.5rem;
     position: relative;
     overflow: hidden;
   }
@@ -2010,6 +2075,28 @@ button:active {
   font-weight: 700;
   color: #64748b;
   cursor: pointer;
+
+}
+
+/* Sidebar Logo Optimization for Desktop */
+.logo-container {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  /* Subtle background for better contrast */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-logo {
+  max-width: 150px;
+  /* Limit width */
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 576px) {
@@ -2159,7 +2246,8 @@ button:active {
   }
 
   .sidebar-logo {
-    max-width: 40px;
+    max-width: 100px;
+    /* Increased from 40px for better visibility */
   }
 
   .sidebar-close {
@@ -2227,5 +2315,118 @@ button:active {
     padding: 0.3rem;
     font-size: 0.7rem;
     height: 28px;
+  }
+}
+
+/* Scroll Reveal Animations */
+@keyframes fadeInUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeftReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRightReveal {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleInReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal-up {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal-up.active {
+  animation: fadeInUpReveal 0.8s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.reveal-left {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal-left.active {
+  animation: fadeInLeftReveal 0.8s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.reveal-right {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal-right.active {
+  animation: fadeInRightReveal 0.8s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.reveal-scale {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal-scale.active {
+  animation: scaleInReveal 0.8s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+/* Staggered delays */
+.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+}
+
+.delay-4 {
+  animation-delay: 0.4s;
+}
+
+.delay-5 {
+  animation-delay: 0.5s;
+}
+
+/* Hide desktop footer on mobile devices */
+@media (max-width: 768px) {
+  .desktop-footer {
+    display: none !important;
   }
 }

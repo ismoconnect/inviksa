@@ -49,7 +49,7 @@ const About = () => {
                 <div className="container">
                     <div style={styles.contentGrid} className="about-content-grid">
                         <div style={styles.imageWrapper} className="about-image-wrapper">
-                            <img src="/about-meeting.jpg" alt="Histoire INVIK SA" style={styles.sectionImage} />
+                            <img src="/about-meeting-pro.png" alt="Histoire INVIK SA" style={styles.sectionImage} />
                         </div>
                         <div style={styles.contentWrapper}>
                             <h2 style={styles.sectionTitle}>{t('about_page.history.title')}</h2>

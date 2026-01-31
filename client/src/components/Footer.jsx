@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="container footer-container" style={styles.container}>
                 {/* Colonne 1: Logo & Info */}
                 <div style={styles.columnLogo} className="footer-column">
-                    <img src="/logo.png" alt="INVIK SA Logo" style={styles.logo} className="footer-logo" />
+                    <img src="/logo-white-transparent.png" alt="INVIK SA Logo" style={styles.logo} className="footer-logo" />
                     <p style={styles.description}>
                         {t('footer.description')}
                     </p>

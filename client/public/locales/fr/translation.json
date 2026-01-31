@@ -372,10 +372,13 @@
       }
     },
     "hero": {
+      "title": "L'excellence bancaire à votre portée",
+      "subtitle": "Gérez vos actifs avec une sécurité de pointe et une expertise sur-mesure. INVIK SA accompagne vos ambitions partout dans le monde.",
       "cta_primary": "Ouvrir un compte",
       "cta_secondary": "Nos Services"
     },
     "simulator": {
+      "label": "SIMULATEUR",
       "title": "Simulateur de Crédit",
       "subtitle": "Calculez vos mensualités en temps réel ⚡",
       "amount": "Montant souhaité",
@@ -494,7 +497,8 @@
             "Protection famille"
           ]
         }
-      }
+      },
+      "label": "EXPERTISES"
     },
     "testimonials": {
       "label": "TÉMOIGNAGES",
@@ -2121,6 +2125,7 @@
     }
   },
   "common": {
+    "view_more": "Voir plus",
     "edit": "Modifier",
     "beneficiary_empty": "Aucun bénéficiaire enregistré.",
     "at": "à",
@@ -2128,7 +2133,8 @@
     "prev": "Précédent",
     "loading": "Chargement...",
     "error": "Une erreur est survenue",
-    "client": "Client"
+    "client": "Client",
+    "learn_more": "En savoir plus"
   },
   "maintenance": {
     "title": "Nous sommes en maintenance",

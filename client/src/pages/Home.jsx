@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import HomeMobile from './HomeMobile';
 
 const Home = () => {
     const { t, i18n } = useTranslation();
     const currentLang = i18n.language;
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [currentSlide, setCurrentSlide] = useState(0);
-
     const getPath = (path) => `/${currentLang}${path}`;
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const slides = [
         {
-            image: '/banner-6.jpg',
-            title: t('home.slides.0.title'),
-            subtitle: t('home.slides.0.subtitle')
+            image: '/hero-bg.png',
+            title: t('home.hero.title'),
+            subtitle: t('home.hero.subtitle')
         },
         {
             image: '/banner-7.jpg',
@@ -24,11 +31,6 @@ const Home = () => {
             image: '/banner-8.jpg',
             title: t('home.slides.2.title'),
             subtitle: t('home.slides.2.subtitle')
-        },
-        {
-            image: '/banner-9.jpg',
-            title: t('home.slides.0.title'), // Reusing slide 0 text for banner 9 as in original
-            subtitle: t('home.slides.0.subtitle')
         }
     ];
 
@@ -99,19 +101,19 @@ const Home = () => {
     // Note: Testimonials are kept static for now as they are specific people, but could be translated if needed.
     // Testimonials images mapping (order must match translation file)
     const testimonialImages = [
-        "/testimonial-1.png",
-        "/avatar-male.png",
-        "/testimonial-3.png",
-        "/avatar-female.png",
-        "/testimonial-5.png",
-        "/testimonial-6.jpg",
-        "/testimonial-7.jpg",
-        "/testimonial-8.jpg",
-        "/testimonial-9.jpg",
-        "/testimonial-10.jpg",
-        "/avatar-male.png",
-        "/avatar-female.png",
-        "/avatar-male.png"
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png",
+        "/avatar-female-pro.png",
+        "/avatar-male-pro.png"
     ];
 
     const testimonialData = t('home.testimonials.items', { returnObjects: true });
@@ -123,21 +125,20 @@ const Home = () => {
     })) : [];
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => {
-                // On mobile (window width < 768px), cycle only between first 2 slides
-                const isMobile = window.innerWidth < 768;
-                const maxSlides = isMobile ? 2 : slides.length;
-                return (prev + 1) % maxSlides;
-            });
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % slides.length);
         }, 6000);
-        return () => clearInterval(timer);
+        return () => clearInterval(interval);
     }, [slides.length]);
+
+    if (isMobile) {
+        return <HomeMobile />;
+    }
 
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="hero-section">
+            <section style={styles.hero} className="hero-section desktop-only">
                 {slides.map((slide, index) => (
                     <div
                         key={index}
@@ -146,6 +147,7 @@ const Home = () => {
                             ...styles.slide,
                             backgroundImage: `url(${slide.image})`,
                             opacity: currentSlide === index ? 1 : 0,
+                            zIndex: currentSlide === index ? 1 : 0
                         }}
                     />
                 ))}
@@ -153,8 +155,8 @@ const Home = () => {
                 <div style={styles.overlay} className="hero-overlay">
                     <div className="container" style={styles.heroSplit}>
                         <div style={styles.heroLeft} className="hero-content fadeInUp">
-                            <h1 style={styles.heroTitle} className="hero-title mobile-hero-title">{slides[currentSlide].title}</h1>
-                            <p style={styles.heroSubtitle} className="hero-subtitle mobile-hero-subtitle">{slides[currentSlide].subtitle}</p>
+                            <h1 style={styles.heroTitle} className="hero-title">{slides[currentSlide].title}</h1>
+                            <p style={styles.heroSubtitle} className="hero-subtitle">{slides[currentSlide].subtitle}</p>
                             <div style={styles.heroButtons} className="hero-buttons">
                                 <Link to={getPath('/register')} style={styles.primaryButton}>{t('home.hero.cta_primary')}</Link>
                                 <Link to={getPath('/services')} style={styles.secondaryButton}>{t('home.hero.cta_secondary')}</Link>
@@ -162,7 +164,7 @@ const Home = () => {
                         </div>
 
                         <div style={styles.heroRight} className="hero-right fadeInUp">
-                            <div style={styles.simulatorBox} className="simulator-card">
+                            <div style={styles.simulatorBox} className="simulator-card glass-card">
                                 <h3 style={styles.simTitle}>{t('home.simulator.title')}</h3>
                                 <p style={styles.simSubtitle}>{t('home.simulator.subtitle')}</p>
 
@@ -225,99 +227,22 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div style={styles.dots} className="hero-dots">
+                <div style={styles.dots}>
                     {slides.map((_, index) => (
-                        <button key={index} onClick={() => setCurrentSlide(index)}
+                        <button
+                            key={index}
+                            onClick={() => setCurrentSlide(index)}
                             style={{
                                 ...styles.dot,
                                 backgroundColor: currentSlide === index ? '#00ccff' : 'rgba(255,255,255,0.3)',
-                                width: currentSlide === index ? '30px' : '10px',
+                                width: currentSlide === index ? '40px' : '10px'
                             }}
                         />
                     ))}
                 </div>
             </section>
 
-            {/* Mobile Hero Section - Visible only on mobile */}
-            <section className="mobile-hero-section">
-                <div className="mobile-hero-content">
-                    <h1 className="mobile-hero-h1">{slides[currentSlide].title}</h1>
-                    <p className="mobile-hero-p">{slides[currentSlide].subtitle}</p>
-                    <div className="mobile-hero-actions">
-                        <Link to={getPath('/register')} className="mobile-hero-btn mobile-hero-btn-primary">
-                            {t('home.hero.cta_primary')}
-                        </Link>
-                        <Link to={getPath('/services')} className="mobile-hero-btn mobile-hero-btn-secondary">
-                            {t('home.hero.cta_secondary')}
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            {/* Mobile Calculator Section - Visible only on mobile */}
-            <section className="mobile-calculator-section">
-                <div className="container">
-                    <div style={styles.simulatorBox} className="simulator-card mobile-simulator">
-                        <h3 style={styles.simTitle}>{t('home.simulator.title')}</h3>
-                        <p style={styles.simSubtitle}>{t('home.simulator.subtitle')}</p>
-
-                        <div style={styles.simGroup}>
-                            <label style={styles.simLabel}>
-                                {t('home.simulator.amount')} : <span style={styles.simValue}>{amount.toLocaleString()} €</span>
-                            </label>
-                            <input
-                                type="range" min="5000" max="900000" step="5000"
-                                value={amount} onChange={(e) => setAmount(Number(e.target.value))}
-                                style={styles.range}
-                            />
-                        </div>
-
-                        <div style={styles.simGroup}>
-                            <label style={styles.simLabel}>
-                                {t('home.simulator.duration')} : <span style={styles.simValue}>{duration} {t('home.simulator.months')} ({Math.floor(duration / 12)} {t('home.simulator.years')})</span>
-                            </label>
-                            <input
-                                type="range" min="12" max="360" step="12"
-                                value={duration} onChange={(e) => setDuration(Number(e.target.value))}
-                                style={styles.range}
-                            />
-                        </div>
-
-                        <div style={styles.simGroup}>
-                            <label style={styles.simLabel}>
-                                {t('home.simulator.rate')} : <span style={styles.simValue}>{interestRate}%</span>
-                            </label>
-                            <select
-                                value={interestRate}
-                                onChange={(e) => setInterestRate(Number(e.target.value))}
-                                style={styles.simSelect}
-                            >
-                                {rates.map(r => <option key={r} value={r}>{r}%</option>)}
-                            </select>
-                        </div>
-
-                        <div style={styles.simResults}>
-                            <div style={styles.simResultItem}>
-                                <span style={styles.simResLabel}>{t('home.simulator.rate_type')}</span>
-                                <span style={styles.simResVal}>{t('home.simulator.fixed')}</span>
-                            </div>
-                            <div style={styles.simResultItem}>
-                                <span style={styles.simResLabel}>{t('home.simulator.monthly_payment')}</span>
-                                <span style={styles.simResValHighlight}>{monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
-                            </div>
-                        </div>
-
-                        <Link
-                            to={getPath('/credit-request')}
-                            state={{ amount, duration, interestRate }}
-                            style={styles.simBtn}
-                        >
-                            {t('home.simulator.submit')}
-                        </Link>
-                        <p style={styles.simDisclaimer}>{t('home.simulator.disclaimer')}</p>
-                    </div>
-                </div>
-            </section>
+            {/* Removed redundant mobile markers as we use a separate component */}
 
             {/* Features Info Section */}
             <section style={styles.infoSection} className="info-section">
@@ -352,7 +277,7 @@ const Home = () => {
                 <div style={styles.aboutContainer} className="container about-container">
                     <div style={styles.aboutImageWrapper} className="about-image-wrapper">
                         <div className="dot-pattern"></div>
-                        <img src="/about-meeting.jpg" alt="About" style={styles.aboutImage} className="about-image" />
+                        <img src="/about-meeting-pro.png" alt="About" style={styles.aboutImage} className="about-image" />
                         <div style={styles.reviewBadge} className="review-badge">★★★★★<br />{t('home.about.badge_review')}</div>
                         <div style={styles.experienceBadge} className="experience-badge">
                             <span style={styles.experienceNumber}>15</span>
@@ -378,29 +303,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Mobile About Section - Visible only on mobile */}
-            <section className="mobile-about-section">
-                <div className="container">
-                    <div className="mobile-about-image-container">
-                        <img src="/mobile-about-person.png" alt="Professional Banking" className="mobile-about-image" />
-                    </div>
-                    <div className="mobile-about-header">
-                        <span className="mobile-about-label">{t('home.about.label')}</span>
-                        <h2 className="mobile-about-title">{t('home.about.title')}</h2>
-                    </div>
-                    <div className="mobile-about-body">
-                        <p>{t('home.about.p1')}</p>
-                        <p>{t('home.about.p2')}</p>
-                        <p>{t('home.about.p3')}</p>
-                        <p className="mobile-about-highlight">
-                            <strong>{t('home.about.highlight')}</strong>
-                        </p>
-                    </div>
-                    <div className="mobile-about-actions">
-                        <Link to={getPath('/about')} style={styles.primaryButton}>{t('home.about.cta')}</Link>
-                    </div>
-                </div>
-            </section>
+            {/* Removed mobile markers */}
 
             {/* Services Section - 8 CARDS */}
             <section style={styles.servicesSection} className="services-section">
@@ -460,23 +363,48 @@ const Home = () => {
 
 const styles = {
     page: { minHeight: '100vh', backgroundColor: '#fff' },
-    hero: { position: 'relative', height: '800px', backgroundColor: '#000', overflow: 'hidden' },
-    slide: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundSize: 'cover', backgroundPosition: 'center', transition: 'opacity 1s ease-in-out', zIndex: 1 },
-    overlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 30, 60, 0.45)', zIndex: 2, display: 'flex', alignItems: 'center' },
-    heroSplit: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem', alignItems: 'center' },
+    hero: { position: 'relative', height: '850px', backgroundColor: '#000', overflow: 'hidden' },
+    slide: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundSize: 'cover', backgroundPosition: 'center 20%', transition: 'opacity 1s ease-in-out', zIndex: 1 },
+    overlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 5, 20, 0.75)', zIndex: 2, display: 'flex', alignItems: 'center' },
+    heroSplit: { display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '4rem', alignItems: 'center' },
     heroLeft: { color: 'white' },
-    heroTitle: { fontSize: '3.5rem', fontWeight: '800', lineHeight: '1.2', marginBottom: '1.5rem' },
-    heroSubtitle: { fontSize: '1.2rem', color: '#f0f0f0', marginBottom: '2.5rem', maxWidth: '600px' },
+    heroTitle: { fontSize: '4.5rem', fontWeight: '900', lineHeight: '1.1', marginBottom: '2rem', letterSpacing: '-0.02em', color: '#FFFFFF', textShadow: '0 4px 10px rgba(0,0,0,0.3)' },
+    heroSubtitle: { fontSize: '1.4rem', color: 'rgba(255,255,255,0.9)', marginBottom: '3rem', maxWidth: '650px', fontWeight: '400' },
     heroButtons: { display: 'flex', gap: '1.5rem' },
-    primaryButton: { backgroundColor: '#00ccff', color: 'white', padding: '1rem 2rem', borderRadius: '50px', textDecoration: 'none', fontWeight: '700' },
-    secondaryButton: { border: '2px solid white', color: 'white', padding: '1rem 2rem', borderRadius: '50px', textDecoration: 'none', fontWeight: '700' },
+    primaryButton: {
+        background: 'linear-gradient(135deg, #00ccff 0%, #0099cc 100%)',
+        color: 'white',
+        padding: '1.2rem 2.5rem',
+        borderRadius: '50px',
+        textDecoration: 'none',
+        fontWeight: '800',
+        fontSize: '1.1rem',
+        boxShadow: '0 10px 20px rgba(0, 204, 255, 0.3)',
+        transition: 'all 0.3s ease'
+    },
+    secondaryButton: {
+        border: '2px solid rgba(255,255,255,0.5)',
+        color: 'white',
+        padding: '1.2rem 2.5rem',
+        borderRadius: '50px',
+        textDecoration: 'none',
+        fontWeight: '800',
+        fontSize: '1.1rem',
+        backdropFilter: 'blur(10px)',
+        transition: 'all 0.3s ease'
+    },
     heroRight: { display: 'flex', justifyContent: 'flex-end' },
-    simulatorBox: { width: '100%', maxWidth: '420px', backgroundColor: 'rgba(255,255,255,0.98)', padding: '2.5rem', borderRadius: '24px', boxShadow: '0 20px 50px rgba(0,0,0,0.3)' },
+    simulatorBox: {
+        width: '100%',
+        maxWidth: '450px',
+        padding: '3rem',
+        borderRadius: '32px'
+    },
     simTitle: { fontSize: '1.6rem', color: '#003366', fontWeight: '800', marginBottom: '0.5rem' },
     simSubtitle: { color: '#666', fontSize: '0.9rem', marginBottom: '1.5rem' },
     simGroup: { marginBottom: '1.5rem' },
     simLabel: { display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#333', marginBottom: '0.5rem' },
-    simValue: { float: 'right', color: '#00ccff', fontWeight: '800' },
+    simValue: { float: 'right', color: '#003366', fontWeight: '800' },
     range: { width: '100%', accentColor: '#003366' },
     simSelect: {
         width: '100%',

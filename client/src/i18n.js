@@ -30,13 +30,17 @@ i18n
             request: async (options, url, payload, callback) => {
                 try {
                     // Check localStorage first
+                    const I18N_CACHE_VERSION = 'v1.3'; // Bump version to invalidate cache
                     const cacheKey = `i18n_res_${url}`;
                     const cached = localStorage.getItem(cacheKey);
+
                     if (cached) {
                         try {
-                            const data = JSON.parse(cached);
-                            callback(null, { status: 200, data });
-                            return;
+                            const { version, data } = JSON.parse(cached);
+                            if (version === I18N_CACHE_VERSION) {
+                                callback(null, { status: 200, data });
+                                return;
+                            }
                         } catch (e) {
                             localStorage.removeItem(cacheKey);
                         }
@@ -50,7 +54,10 @@ i18n
                     const data = await response.json();
 
                     // Save to cache for next time
-                    localStorage.setItem(cacheKey, JSON.stringify(data));
+                    localStorage.setItem(cacheKey, JSON.stringify({
+                        version: I18N_CACHE_VERSION,
+                        data
+                    }));
                     callback(null, { status: 200, data });
                 } catch (error) {
                     console.error('i18n cache error:', error);

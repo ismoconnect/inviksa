@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, Outlet, 
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FooterMobile from './components/FooterMobile';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -50,14 +51,23 @@ const ResponsiveCreditRequest = () => {
   return isMobile ? <CreditRequestMobile /> : <CreditRequest />;
 };
 
+
 const PublicLayout = ({ children }) => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="public-page-wrapper" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
       <main style={{ flex: 1 }}>
         {children}
       </main>
-      <Footer />
+      {isMobile ? <FooterMobile /> : <Footer />}
     </div>
   );
 };

@@ -48,7 +48,7 @@ const Documents = () => {
         doc.rect(0, 0, pageWidth, 40, 'F');
 
         try {
-            const logoData = await loadImage('/logo.png');
+            const logoData = await loadImage('/logo-new.png');
             doc.addImage(logoData, 'PNG', 20, 8, 25, 25);
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(22);
@@ -190,7 +190,7 @@ const Documents = () => {
             // Pre-load logo to avoid signature errors
             let logoData = null;
             try {
-                logoData = await loadImage('/logo.png');
+                logoData = await loadImage('/logo-new.png');
             } catch (e) {
                 console.warn("Could not load logo", e);
             }

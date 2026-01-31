@@ -372,6 +372,8 @@
       }
     },
     "hero": {
+      "title": "Excelencia bancaria a su alcance",
+      "subtitle": "Gestione sus activos con seguridad de vanguardia y experiencia a medida. INVIK SA acompaña sus ambiciones en todo el mundo.",
       "cta_primary": "Abrir una cuenta",
       "cta_secondary": "Nuestros Servicios"
     },
@@ -387,7 +389,8 @@
       "fixed": "Fija",
       "monthly_payment": "Mensualidad fija",
       "submit": "Solicitar este crédito",
-      "disclaimer": "Estimación gratuita • Respuesta inmediata"
+      "disclaimer": "Estimación gratuita • Respuesta inmediata",
+      "label": "SIMULADOR"
     },
     "features": {
       "security": {
@@ -494,7 +497,8 @@
             "Protección familiar"
           ]
         }
-      }
+      },
+      "label": "EXPERIENCIA"
     },
     "testimonials": {
       "label": "TESTIMONIOS",
@@ -2156,6 +2160,7 @@
   "welcome": "¡Hola, {{name}} 👋",
   "loading": "Preparando su espacio personal...",
   "common": {
+    "view_more": "Ver más",
     "edit": "Editar",
     "beneficiary_empty": "No hay beneficiarios guardados.",
     "at": "a",
@@ -2163,7 +2168,8 @@
     "prev": "Anterior",
     "loading": "Cargando...",
     "error": "Ocurrió un error",
-    "client": "Cliente"
+    "client": "Cliente",
+    "learn_more": "Saber más"
   },
   "maintenance": {
     "title": "Estamos en mantenimiento",

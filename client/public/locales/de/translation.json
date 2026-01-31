@@ -372,6 +372,8 @@
       }
     },
     "hero": {
+      "title": "Bankexzellenz in greifbarer Nähe",
+      "subtitle": "Verwalten Sie Ihr Vermögen mit modernster Sicherheit und maßgeschneiderter Expertise. INVIK SA unterstützt Ihre Ambitionen weltweit.",
       "cta_primary": "Konto eröffnen",
       "cta_secondary": "Unsere Leistungen"
     },
@@ -387,7 +389,8 @@
       "fixed": "Festzins",
       "monthly_payment": "Monatliche Fixrate",
       "submit": "Kredit anfragen",
-      "disclaimer": "Kostenlose Schätzung • Sofortige Antwort"
+      "disclaimer": "Kostenlose Schätzung • Sofortige Antwort",
+      "label": "SIMULATOR"
     },
     "features": {
       "security": {
@@ -494,7 +497,8 @@
             "Familienschutz"
           ]
         }
-      }
+      },
+      "label": "KOMPETENZEN"
     },
     "testimonials": {
       "label": "KUNDENSTIMMEN",
@@ -2127,6 +2131,7 @@
     }
   },
   "common": {
+    "view_more": "Mehr anzeigen",
     "edit": "Bearbeiten",
     "client": "Kunde",
     "loading": "Wird geladen...",
@@ -2134,7 +2139,8 @@
     "beneficiary_empty": "Keine Empfänger gespeichert.",
     "at": "um",
     "next": "Weiter",
-    "prev": "Zurück"
+    "prev": "Zurück",
+    "learn_more": "Mehr erfahren"
   },
   "beneficiaries": {
     "title": "Empfänger",

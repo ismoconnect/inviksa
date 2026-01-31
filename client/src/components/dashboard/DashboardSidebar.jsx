@@ -46,7 +46,7 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
         <aside className={`dashboard-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="sidebar-header">
                 <div className="logo-container">
-                    <img src="/logo.png" alt="INVIK SA" className="sidebar-logo" />
+                    <img src="/logo-white-transparent.png" alt="INVIK SA" className="sidebar-logo" />
                 </div>
                 <button className="sidebar-close md-only" onClick={toggleSidebar}>
                     <i className="fas fa-times"></i>
