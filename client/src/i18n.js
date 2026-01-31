@@ -26,17 +26,51 @@ i18n
         // Backend options
         backend: {
             loadPath: '/locales/{{lng}}/translation.json',
+            // Custom request to implement simple localStorage caching
+            request: async (options, url, payload, callback) => {
+                try {
+                    // Check localStorage first
+                    const cacheKey = `i18n_res_${url}`;
+                    const cached = localStorage.getItem(cacheKey);
+                    if (cached) {
+                        try {
+                            const data = JSON.parse(cached);
+                            callback(null, { status: 200, data });
+                            return;
+                        } catch (e) {
+                            localStorage.removeItem(cacheKey);
+                        }
+                    }
+
+                    // Fetch from network if not in cache
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        return callback(new Error(`Failed to load ${url}`), { status: response.status });
+                    }
+                    const data = await response.json();
+
+                    // Save to cache for next time
+                    localStorage.setItem(cacheKey, JSON.stringify(data));
+                    callback(null, { status: 200, data });
+                } catch (error) {
+                    console.error('i18n cache error:', error);
+                    callback(error, { status: 500 });
+                }
+            }
         },
 
         // Detection options
         detection: {
-            order: ['queryString', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+            order: ['path', 'queryString', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'subdomain'],
             lookupQuerystring: 'lang',
+            lookupFromPathIndex: 0,
             caches: ['localStorage', 'cookie'],
         },
 
         // Supported languages
         supportedLngs: ['fr', 'en', 'es', 'it', 'pt', 'de'],
+        preload: ['fr'], // Preload default language
+        load: 'currentOnly', // Optimized for current language only
     });
 
 // Keep Firebase Auth language in sync with i18next

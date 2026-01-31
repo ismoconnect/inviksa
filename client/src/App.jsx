@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, Outlet, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
@@ -180,7 +180,9 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <AppRoutes />
+      <Suspense fallback={<div className="loading-screen"><div className="spinner"></div></div>}>
+        <AppRoutes />
+      </Suspense>
     </Router>
   );
 }
