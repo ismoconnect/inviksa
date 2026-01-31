@@ -29,7 +29,7 @@ const FAQ = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="faq-hero">
+            <section style={styles.hero} className="faq-hero faq-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container">
                         <h1 style={styles.heroTitle}>{t('faq_page.hero.title')}</h1>
@@ -82,6 +82,19 @@ const FAQ = () => {
                     </div>
                 </div>
             </section>
+            <style>
+                {`
+                    @media (max-width: 768px) {
+                        .faq-hero-mobile {
+                            height: 150px !important;
+                            margin-bottom: 2rem !important;
+                        }
+                        .faq-hero-mobile h1 {
+                            font-size: 1.3rem !important;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
@@ -126,11 +139,11 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        height: '300px',
+        height: '200px', // Reduced height
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '4rem',
+        marginBottom: '3rem', // Reduced margin
     },
     heroOverlay: {
         position: 'absolute',

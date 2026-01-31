@@ -72,7 +72,7 @@ const Contact = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="contact-hero">
+            <section style={styles.hero} className="contact-hero contact-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container contact-animate">
                         <h1 style={styles.heroTitle}>{t('contact_page.hero.title')}</h1>
@@ -281,6 +281,19 @@ const Contact = () => {
                     </div>
                 </div>
             </section>
+            <style>
+                {`
+                    @media (max-width: 768px) {
+                        .contact-hero-mobile {
+                            height: 180px !important;
+                            margin-bottom: 2rem !important;
+                        }
+                        .contact-hero-mobile h1 {
+                            font-size: 1.3rem !important;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
@@ -295,11 +308,11 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        height: '400px', // slightly taller for impact
+        height: '250px', // Reduced height
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '6rem',
+        marginBottom: '4rem', // Reduced margin
     },
     heroOverlay: {
         position: 'absolute',

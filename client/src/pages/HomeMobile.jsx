@@ -260,38 +260,43 @@ const HomeMobile = () => {
             <section style={styles.servicesSection}>
                 <style>
                     {`
-                        .service-card-hover {
-                            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+                        .service-card-hypersonic {
+                            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
                             position: relative;
                             overflow: hidden;
+                            transform-style: preserve-3d;
+                            perspective: 1000px;
                         }
-                        .service-card-hover:hover, .service-card-hover:active {
-                            transform: translateY(-8px) scale(1.02);
-                            box-shadow: 0 20px 40px rgba(0, 51, 102, 0.12) !important;
-                            border-color: #00ccff !important;
+                        .service-card-hypersonic:active {
+                            transform: scale(0.98) rotateX(2deg);
                         }
-                        .service-card-hover::after {
+                        .service-card-hypersonic::after {
                             content: '';
                             position: absolute;
-                            top: 0;
-                            left: -100%;
-                            width: 100%;
-                            height: 100%;
+                            top: -50%;
+                            left: -50%;
+                            width: 200%;
+                            height: 200%;
                             background: linear-gradient(
-                                90deg,
-                                transparent,
-                                rgba(255, 255, 255, 0.2),
-                                transparent
+                                to bottom right,
+                                rgba(255, 255, 255, 0) 0%,
+                                rgba(255, 255, 255, 0.1) 40%,
+                                rgba(255, 255, 255, 0.4) 50%,
+                                rgba(255, 255, 255, 0.1) 60%,
+                                rgba(255, 255, 255, 0) 100%
                             );
-                            transition: 0.5s;
+                            transform: rotate(45deg) translate(-100%, -100%);
+                            transition: transform 0.6s;
                         }
-                        .service-card-hover:hover::after {
-                            left: 100%;
+                        .service-card-hypersonic:hover::after, .service-card-hypersonic:active::after {
+                            transform: rotate(45deg) translate(100%, 100%);
+                            transition: transform 0.4s;
                         }
                         .feature-check {
-                            color: #00ccff;
+                            color: white; /* Changed to white */
                             margin-right: 10px;
-                            font-weight: bold;
+                            font-weight: 900;
+                            text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
                         }
                     `}
                 </style>
@@ -302,7 +307,7 @@ const HomeMobile = () => {
                 </div>
                 <div style={styles.servicesGrid}>
                     {services.map((s, i) => (
-                        <div key={i} style={styles.serviceItem} className={`service-card-hover reveal-up delay-${(i % 3) + 1}`}>
+                        <div key={i} style={styles.serviceItem} className={`service-card-hypersonic reveal-up delay-${(i % 3) + 1}`}>
                             <div style={styles.serviceHeader}>
                                 <div style={styles.serviceIconWrap}>
                                     <span style={styles.serviceIcon}>{s.icon}</span>
@@ -326,24 +331,24 @@ const HomeMobile = () => {
                         </div>
                     ))}
                 </div>
-            </section>
+            </section >
 
             {/* 5. FEATURES INFO */}
-            <section style={styles.infoSection}>
+            < section style={styles.infoSection} >
                 <div style={styles.infoGrid}>
                     <div style={styles.infoCard}>
-                        <h3>{t('home.features.security.title')}</h3>
-                        <p>{t('home.features.security.text')}</p>
+                        <h3 style={styles.infoCardTitle}>{t('home.features.security.title')}</h3>
+                        <p style={styles.infoCardText}>{t('home.features.security.text')}</p>
                     </div>
                     <div style={styles.infoCard}>
-                        <h3>{t('home.features.fees.title')}</h3>
-                        <p>{t('home.features.fees.text')}</p>
+                        <h3 style={styles.infoCardTitle}>{t('home.features.fees.title')}</h3>
+                        <p style={styles.infoCardText}>{t('home.features.fees.text')}</p>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* 6. ABOUT SECTION */}
-            <section style={styles.aboutMini} className="reveal-up">
+            < section style={styles.aboutMini} className="reveal-up" >
                 <div style={styles.aboutImgContainer} className="reveal-scale">
                     <img src="/mobile-about-pro.png" alt="Expertise" style={styles.aboutImg} />
                 </div>
@@ -355,10 +360,10 @@ const HomeMobile = () => {
                     <p style={styles.aboutTextHighlight}><strong>{t('home.about.highlight')}</strong></p>
                 </div>
                 <Link to={getPath('/about')} style={styles.aboutLink}>{t('home.about.cta')}</Link>
-            </section>
+            </section >
 
             {/* 7. TESTIMONIALS */}
-            <section style={styles.testimonialsSection} className="reveal-up">
+            < section style={styles.testimonialsSection} className="reveal-up" >
                 <h2 style={styles.sectionTitle}>{t('home.testimonials.title')}</h2>
                 <div style={styles.testimonialTrack}>
                     {testimonials.slice(0, 3).map((t, i) => (
@@ -373,8 +378,8 @@ const HomeMobile = () => {
                 <div style={{ textAlign: 'center', marginTop: '2rem' }}>
                     <Link to={getPath('/reviews')} style={styles.viewMoreBtn}>{t('common.view_more') || 'Voir plus'}</Link>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };
 
@@ -414,19 +419,20 @@ const styles = {
         position: 'relative',
         zIndex: 5,
         width: '90%',
-        padding: '1.5rem 1rem', // Reduced padding
-        backgroundColor: 'transparent',
-        border: '2px solid rgba(255, 255, 255, 0.8)',
+        padding: '2rem 1.5rem', // Increased padding for better spacing
+        backgroundColor: 'rgba(0, 51, 102, 0.4)', // Semi-transparent dark blue background
+        border: '1px solid rgba(255, 255, 255, 0.2)', // Subtle border
         borderRadius: '30px',
         margin: '20px auto 0',
         textAlign: 'center',
-        backdropFilter: 'none'
+        backdropFilter: 'blur(12px)', // Increased blur effect
+        boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
     },
     heroTitle: {
-        fontSize: '1.85rem', // Reduced font size
+        fontSize: '1.1rem', // Aggressively reduced from 1.5rem
         fontWeight: '900',
         color: '#fff',
-        lineHeight: '1.2',
+        lineHeight: '1.1',
         marginBottom: '1rem',
         textShadow: `
             2px 2px 0 #000,
@@ -437,7 +443,7 @@ const styles = {
         `
     },
     heroSubtitle: {
-        fontSize: '0.9rem', // Reduced font size
+        fontSize: '0.8rem', // Reduced from 0.9rem
         color: '#fff',
         marginBottom: '2rem',
         lineHeight: '1.5',
@@ -568,14 +574,14 @@ const styles = {
         marginTop: '3rem'
     },
     serviceItem: {
-        backgroundColor: '#fff',
+        background: 'linear-gradient(135deg, #00ccff 0%, #0088cc 100%)', // Pure, strong blue gradient
         padding: '2.5rem 1.8rem',
         borderRadius: '32px',
-        border: '1.5px solid #f0f3f6',
-        boxShadow: '0 15px 40px rgba(0,0,0,0.06)',
+        border: 'none',
+        boxShadow: '0 15px 40px rgba(0, 204, 255, 0.4)', // Strong glowing shadow
         position: 'relative',
         transition: 'all 0.4s ease',
-        backgroundImage: 'radial-gradient(circle at top right, rgba(0, 204, 255, 0.03) 0%, transparent 40%)'
+        color: 'white' // Text becomes white
     },
     serviceHeader: {
         display: 'flex',
@@ -586,29 +592,30 @@ const styles = {
     serviceIconWrap: {
         width: '55px',
         height: '55px',
-        background: 'linear-gradient(135deg, #f0faff 0%, #e6f7ff 100%)',
+        background: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white
         borderRadius: '16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: '1px solid #e6f7ff'
+        border: '1px solid rgba(255, 255, 255, 0.3)'
     },
-    serviceIcon: { fontSize: '1.8rem' },
-    serviceLabel: { fontSize: '1.25rem', fontWeight: '900', color: '#003366', margin: 0 },
+    serviceIcon: { fontSize: '1.8rem', color: 'white' }, // Icon white
+    serviceLabel: { fontSize: '1.25rem', fontWeight: '900', color: 'white', margin: 0 }, // Title white
     serviceDivider: {
         height: '1px',
-        background: 'linear-gradient(90deg, #f0f3f6 0%, transparent 100%)',
+        background: 'rgba(255, 255, 255, 0.3)', // Divider transparent white
         marginBottom: '1.5rem'
     },
     featuresList: { listStyle: 'none', padding: 0, margin: '0 0 2rem 0' },
     featureItem: {
         fontSize: '0.95rem',
-        color: '#4b5563',
+        color: '#000000', // Pure black text
         marginBottom: '1rem',
         lineHeight: '1.5',
         display: 'flex',
         alignItems: 'center',
-        gap: '12px'
+        gap: '12px',
+        fontWeight: '700' // Bold for contrast
     },
     serviceFooter: {
         display: 'flex',
@@ -616,19 +623,45 @@ const styles = {
     },
     learnMore: {
         fontSize: '0.85rem',
-        color: '#00ccff',
-        fontWeight: '800',
+        color: '#000000', // Pure black button
+        fontWeight: '900',
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
         textDecoration: 'none'
     },
-    infoSection: { padding: '2rem 1.2rem', backgroundColor: '#f9faff' },
+    infoSection: {
+        padding: '3rem 1.5rem',
+        background: 'linear-gradient(180deg, #001f3f 0%, #001122 100%)', // Deep dark ocean
+        marginTop: '-2rem',
+        paddingTop: '4rem',
+        position: 'relative',
+        zIndex: 1
+    },
     infoGrid: { display: 'flex', flexDirection: 'column', gap: '1rem' },
     infoCard: {
-        padding: '1.5rem',
-        backgroundColor: 'white',
-        borderRadius: '16px',
-        borderLeft: '4px solid #00ccff'
+        padding: '2rem',
+        background: 'rgba(0, 5, 20, 0.6)', // Dark semi-transparent
+        borderRadius: '24px',
+        border: '1px solid rgba(255, 255, 255, 0.15)', // Subtle white border
+        backdropFilter: 'blur(15px)', // Glass effect
+        color: 'white',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem',
+        transition: 'transform 0.3s ease',
+        textAlign: 'center'
+    },
+    infoCardTitle: {
+        fontSize: '1.4rem',
+        fontWeight: '800',
+        color: '#00ccff', // Highlight title in Cyan
+        marginBottom: '0.5rem'
+    },
+    infoCardText: {
+        fontSize: '1rem',
+        color: 'rgba(255,255,255,0.85)',
+        lineHeight: 1.6
     },
     aboutMini: { padding: '5rem 1.5rem', textAlign: 'center' },
     aboutImgContainer: { marginBottom: '2.5rem', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' },

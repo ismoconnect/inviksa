@@ -9,7 +9,7 @@ const MentionsLegales = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="legal-hero">
+            <section style={styles.hero} className="legal-hero legal-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container">
                         <h1 style={styles.heroTitle}>{t('legal.mentions.title')}</h1>
@@ -64,6 +64,19 @@ const MentionsLegales = () => {
                     </div>
                 </div>
             </section>
+            <style>
+                {`
+                    @media (max-width: 768px) {
+                        .legal-hero-mobile {
+                            height: 120px !important;
+                            margin-bottom: 1.5rem !important;
+                        }
+                        .legal-hero-mobile h1 {
+                            font-size: 1.2rem !important;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
@@ -79,11 +92,11 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        height: '300px',
+        height: '180px', // Reduced height
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '4rem',
+        marginBottom: '2rem', // Reduced margin
     },
     heroOverlay: {
         position: 'absolute',

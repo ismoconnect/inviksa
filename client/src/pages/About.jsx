@@ -35,7 +35,7 @@ const About = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section with Background */}
-            <section style={styles.hero} className="about-hero">
+            <section style={styles.hero} className="about-hero about-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container">
                         <h1 style={styles.heroTitle}>{t('about_page.hero.title')}</h1>
@@ -270,6 +270,18 @@ const About = () => {
                     </div>
                 </div>
             </section>
+            <style>
+                {`
+                    @media (max-width: 768px) {
+                        .about-hero-mobile {
+                            min-height: 160px !important;
+                        }
+                        .about-hero-mobile h1 {
+                            font-size: 1.3rem !important;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
@@ -283,7 +295,7 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        minHeight: '400px',
+        minHeight: '220px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -371,29 +383,34 @@ const styles = {
         gap: '2rem',
     },
     serviceCard: {
-        backgroundColor: 'white',
+        background: 'linear-gradient(135deg, #00ccff 0%, #0088cc 100%)', // Pure Blue
         padding: '2.5rem 2rem',
-        borderRadius: '16px',
-        boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
+        borderRadius: '24px',
+        boxShadow: '0 15px 40px rgba(0, 204, 255, 0.3)',
         textAlign: 'center',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        border: '2px solid transparent',
+        border: 'none',
         cursor: 'pointer',
+        position: 'relative',
+        overflow: 'hidden'
     },
     serviceIcon: {
         fontSize: '3rem',
         marginBottom: '1.5rem',
+        textShadow: '0 4px 10px rgba(0,0,0,0.2)'
     },
     cardTitle: {
         marginBottom: '1rem',
-        color: 'var(--primary-color)',
-        fontSize: '1.3rem',
-        fontWeight: '700',
+        color: 'white', // White Title
+        fontSize: '1.4rem',
+        fontWeight: '800',
+        textShadow: '0 2px 4px rgba(0,0,0,0.1)'
     },
     cardText: {
-        color: '#666',
+        color: 'black', // Black Text as requested
         lineHeight: 1.6,
-        fontSize: '0.95rem',
+        fontSize: '1rem',
+        fontWeight: '700' // Bold for legibility on blue
     },
     partnersSection: {
         marginBottom: '4rem',
@@ -480,16 +497,16 @@ const styles = {
         margin: '0 auto 2rem',
     },
     ctaButton: {
-        backgroundColor: '#00ccff',
-        color: 'var(--primary-color)',
+        backgroundColor: 'black', // Black Button
+        color: 'white',
         padding: '1.2rem 3rem',
         fontSize: '1.1rem',
-        fontWeight: '700',
+        fontWeight: '800',
         border: 'none',
         borderRadius: '50px',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
-        boxShadow: '0 4px 15px rgba(0,204,255,0.3)',
+        boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
     },
     valuesGrid: {
         display: 'grid',
@@ -497,17 +514,18 @@ const styles = {
         gap: '2rem',
     },
     valueCard: {
-        backgroundColor: 'white',
+        background: 'linear-gradient(135deg, #00ccff 0%, #0088cc 100%)', // Pure Blue
         padding: '2.5rem 2rem',
-        borderRadius: '16px',
-        boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
+        borderRadius: '24px',
+        boxShadow: '0 15px 40px rgba(0, 204, 255, 0.3)',
         textAlign: 'center',
         transition: 'transform 0.3s ease',
-        border: '2px solid transparent',
+        border: 'none',
     },
     valueIcon: {
         fontSize: '3.5rem',
         marginBottom: '1.5rem',
+        textShadow: '0 4px 10px rgba(0,0,0,0.2)'
     },
     timelineContainer: {
         display: 'grid',

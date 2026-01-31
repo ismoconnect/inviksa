@@ -503,7 +503,7 @@ const styles = {
     page: { minHeight: '100vh', backgroundColor: '#f0f2f5', paddingBottom: '5rem' },
     hero: {
         backgroundImage: 'url(/service/service-8.jpg)', backgroundSize: 'cover', backgroundPosition: 'center',
-        height: '280px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'
+        height: '180px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'
     },
     heroOverlay: {
         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
@@ -520,16 +520,24 @@ const styles = {
     gatewaySubtitle: { color: '#666', marginBottom: '3.5rem', fontSize: '1.1rem' },
     cardsGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem' },
     selectionCard: {
-        backgroundColor: '#f8fbff', padding: '3rem 2rem', borderRadius: '16px', cursor: 'pointer', textAlign: 'center',
-        border: '2px solid transparent', transition: 'all 0.3s ease'
+        background: 'linear-gradient(135deg, #00ccff 0%, #0088cc 100%)', // Pure Blue
+        padding: '3rem 2rem',
+        borderRadius: '24px',
+        cursor: 'pointer',
+        textAlign: 'center',
+        border: 'none',
+        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        boxShadow: '0 15px 40px rgba(0, 204, 255, 0.3)',
+        position: 'relative',
+        overflow: 'hidden'
     },
-    iconCircle: { width: '80px', height: '80px', backgroundColor: '#eef6ff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem' },
-    iconCircleBlue: { width: '80px', height: '80px', backgroundColor: '#003366', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem' },
-    cardTypeTitle: { fontSize: '1.5rem', fontWeight: '800', color: '#003366', marginBottom: '1rem' },
-    cardTypeDesc: { color: '#555', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.5' },
-    cardFeatures: { listStyle: 'none', padding: 0, margin: '0 0 2rem', textAlign: 'left', color: '#666', fontSize: '0.9rem' },
-    cardBtn: { width: '100%', padding: '1rem', backgroundColor: '#00ccff', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '700', cursor: 'pointer' },
-    cardBtnBlue: { width: '100%', padding: '1rem', backgroundColor: '#003366', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '700', cursor: 'pointer' },
+    iconCircle: { width: '80px', height: '80px', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem', color: 'white', backdropFilter: 'blur(5px)' },
+    iconCircleBlue: { width: '80px', height: '80px', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem', color: 'white', backdropFilter: 'blur(5px)' },
+    cardTypeTitle: { fontSize: '1.5rem', fontWeight: '800', color: 'white', marginBottom: '1rem' }, // White Title
+    cardTypeDesc: { color: 'white', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.5', fontWeight: '500', opacity: 0.95 }, // White/High contrast desc
+    cardFeatures: { listStyle: 'none', padding: 0, margin: '0 0 2rem', textAlign: 'left', color: 'black', fontSize: '0.95rem', fontWeight: '700' }, // Black Features
+    cardBtn: { width: '100%', padding: '1rem', backgroundColor: 'black', color: 'white', border: 'none', borderRadius: '50px', fontWeight: '800', cursor: 'pointer', boxShadow: '0 5px 15px rgba(0,0,0,0.2)' }, // Black Button
+    cardBtnBlue: { width: '100%', padding: '1rem', backgroundColor: 'black', color: 'white', border: 'none', borderRadius: '50px', fontWeight: '800', cursor: 'pointer', boxShadow: '0 5px 15px rgba(0,0,0,0.2)' }, // Black Button
 
     // Form Styles
     formCard: { backgroundColor: 'white', padding: '4rem', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' },

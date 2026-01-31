@@ -12,7 +12,7 @@ const Cards = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="cards-hero">
+            <section style={styles.hero} className="cards-hero cards-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container">
                         <h1 style={styles.heroTitle}>{t('cards_page.hero.title')}</h1>
@@ -141,6 +141,28 @@ const Cards = () => {
                     </div>
                 </div>
             </section>
+            <style>
+                {`
+                    @media (max-width: 768px) {
+                        .cards-hero-mobile {
+                            height: 160px !important;
+                            margin-bottom: 2rem !important;
+                        }
+                        .cards-hero-mobile h1 {
+                            font-size: 1.3rem !important;
+                        }
+                        .virtual-section {
+                            padding-top: 3rem !important;
+                            padding-bottom: 8rem !important;
+                            gap: 2rem !important;
+                        }
+                        .virtual-visual-wrapper {
+                            height: 300px !important;
+                            margin-top: 2rem !important;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
@@ -156,11 +178,11 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        height: '350px',
+        height: '220px', // Reduced height
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '4rem',
+        marginBottom: '3rem', // Reduced margin
     },
     heroOverlay: {
         position: 'absolute',
@@ -326,7 +348,7 @@ const styles = {
     virtualVisual: {
         flex: 1,
         minWidth: '300px',
-        height: '190px',
+        height: '320px', // Further increased from 260px to 320px
         perspective: '1000px',
         cursor: 'pointer',
     },

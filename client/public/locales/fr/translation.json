@@ -1969,82 +1969,142 @@
     },
     "services_list": [
       {
-        "id": 1,
-        "title": "Comptes & Cartes Bancaires",
-        "description": "Gérez votre argent au quotidien avec nos comptes courants et cartes premium",
+        "id": 5,
+        "title": "Crédits & Prêts",
+        "description": "Réalisez vos projets avec nos solutions de financement flexibles. Prêt personnel, immobilier ou financement d'entreprise, profitez de taux compétitifs et d'une réponse rapide.",
         "features": [
-          "Compte courant gratuit sans frais cachés",
-          "Carte Visa/Mastercard internationale",
-          "Retraits gratuits illimités en zone euro",
-          "Application mobile intuitive",
-          "Virements SEPA instantanés gratuits"
+          "Prêt personnel de 1 000 € à 75 000 €",
+          "Crédit immobilier jusqu'à 500 000 €",
+          "Taux à partir de 2,0 % TAEG",
+          "Simulation en ligne instantanée",
+          "Décision de principe en 48h",
+          "Aucune pénalité de remboursement anticipé"
         ],
-        "cta": "OUVRIR UN COMPTE"
+        "useCases": [
+          {
+            "title": "Thomas, Achat véhicule",
+            "text": "Thomas a obtenu un prêt personnel de 15 000 € sur 5 ans à un TAEG de 2,9 % pour acheter une voiture électrique. Sa mensualité de 268 € est 40 € moins chère que l'offre de sa banque traditionnelle. Il a reçu l'argent sur son compte en 3 jours ouvrables."
+          },
+          {
+            "title": "Famille Dubois, Achat Immobilier",
+            "text": "La famille Dubois a financé sa maison de 280 000 € avec un prêt immobilier INVIK SA à 1,85 % sur 25 ans. Grâce à ce taux compétitif, ils économisent 18 000 € d'intérêts sur la durée totale du prêt par rapport à leur première offre bancaire."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Investissements & Épargne",
+        "description": "Faites fructifier votre argent avec nos solutions d'investissement diversifiées. Du livret d'épargne rémunéré aux portefeuilles gérés automatiquement, nous vous accompagnons dans la constitution de votre patrimoine.",
+        "features": [
+          "Livret d'épargne jusqu'à 3 % par an",
+          "Portefeuilles d'investissement automatisés",
+          "Accès aux ETF et fonds indiciels",
+          "Investissement Socialement Responsable (ISR)",
+          "Conseils personnalisés selon votre profil",
+          "Frais de gestion parmi les plus bas du marché"
+        ],
+        "useCases": [
+          {
+            "title": "Julie, 32 ans, Cadre en entreprise",
+            "text": "Julie a ouvert un livret d'épargne INVIK SA avec un taux de 2,8 % et investit 300 €/mois dans un portefeuille d'ETF diversifié (60 % actions, 40 % obligations). Après 3 ans, son épargne de 10 800 € a généré 1 450 € de gains, soit un rendement annuel moyen de 4,5 %."
+          },
+          {
+            "title": "Pierre & Anne, Couple de retraités",
+            "text": "Ce couple a transféré ses 150 000 € d'épargne chez INVIK SA. Ils ont opté pour un portefeuille conservateur (20 % actions, 80 % obligations) qui leur rapporte en moyenne 3,2 % par an, soit 4 800 € de revenus annuels, tout en préservant leur capital."
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "title": "Comptes Courants & Cartes",
+        "description": "Gérez votre argent au quotidien avec nos comptes courants flexibles et nos cartes bancaires internationales. Profitez d'une gestion simplifiée et d'une sécurité maximale pour toutes vos transactions.",
+        "features": [
+          "Compte courant en EUR avec IBAN européen",
+          "Carte de débit Mastercard ou Visa",
+          "Virements SEPA gratuits et illimités",
+          "Retraits gratuits dans toute l'Europe",
+          "Application mobile intuitive",
+          "Notifications en temps réel"
+        ],
+        "useCases": [
+          {
+            "title": "Sophie, Designer Freelance",
+            "text": "Sophie utilise son compte INVIK SA pour recevoir les paiements de ses clients internationaux. Grâce aux virements SEPA gratuits, elle économise plus de 200 € par an en frais bancaires. L'application mobile lui permet de suivre ses revenus en temps réel et de catégoriser ses dépenses professionnelles."
+          },
+          {
+            "title": "Marc, Étudiant Erasmus",
+            "text": "Lors de son échange universitaire en Espagne, Marc utilise sa carte INVIK SA pour retirer des espèces sans frais dans toute l'Europe. Il reçoit son allocation mensuelle instantanément et peut payer ses achats en ligne sans surcoût."
+          }
+        ]
       },
       {
         "id": 2,
         "title": "Virements Internationaux",
-        "description": "Transférez de l'argent partout dans le monde rapidement et en toute sécurité",
+        "description": "Envoyez et recevez de l'argent partout dans le monde en quelques clics. Nos transferts internationaux sont rapides, sécurisés et à des tarifs compétitifs, avec une transparence totale sur les frais et taux de change.",
         "features": [
-          "Transferts vers plus de 150 pays",
-          "Taux de change compétitifs en temps réel",
-          "Frais transparents et réduits",
-          "Exécution rapide (24-48h)",
-          "Suivi en temps réel de vos virements"
+          "Virements vers plus de 150 pays",
+          "Taux de change en temps réel",
+          "Frais réduits et transparents",
+          "Délai d'exécution : 1 à 3 jours ouvrés",
+          "Suivi en temps réel de vos transferts",
+          "Support multidevises (USD, GBP, CHF, etc.)"
         ],
-        "cta": "FAIRE UN VIREMENT"
-      },
-      {
-        "id": 3,
-        "title": "Solutions Professionnelles",
-        "description": "Des outils bancaires puissants pour développer votre entreprise",
-        "features": [
-          "Compte professionnel dédié",
-          "Gestion multi-utilisateurs",
-          "Cartes corporate pour vos équipes",
-          "Outils de comptabilité intégrés",
-          "Financement et lignes de crédit"
-        ],
-        "cta": "DÉCOUVRIR"
-      },
-      {
-        "id": 4,
-        "title": "Épargne & Investissements",
-        "description": "Faites fructifier votre argent avec nos solutions d'épargne et d'investissement",
-        "features": [
-          "Livrets d'épargne rémunérés",
-          "Accès aux marchés financiers",
-          "Portefeuilles diversifiés",
-          "Conseils personnalisés",
-          "Gestion pilotée disponible"
-        ],
-        "cta": "COMMENCER À ÉPARGNER"
-      },
-      {
-        "id": 5,
-        "title": "Crédits & Prêts",
-        "description": "Financez vos projets personnels et professionnels avec nos solutions de crédit",
-        "features": [
-          "Prêts personnels de 1 000€ à 75 000€",
-          "Crédits immobiliers jusqu'à 500 000€",
-          "Taux compétitifs à partir de 1,2% TAEG",
-          "Réponse de principe en 24h",
-          "Simulation gratuite en ligne"
-        ],
-        "cta": "SIMULER UN CRÉDIT"
+        "useCases": [
+          {
+            "title": "Ahmed, Entrepreneur Import-Export",
+            "text": "Ahmed importe des produits d'Asie et exporte vers l'Afrique. Avec INVIK SA, il effectue ses virements internationaux en USD et CNY à des taux 40 % plus avantageux que sa banque traditionnelle. Il a économisé plus de 5 000 € en frais de change l'année dernière."
+          },
+          {
+            "title": "Maria, Expatriée au Luxembourg",
+            "text": "Maria envoie 500 € chaque mois à sa famille au Portugal. Grâce aux virements SEPA gratuits d'INVIK SA, l'argent arrive en 24h sans aucun frais, contrairement à son ancienne banque qui facturait 15 € par virement."
+          }
+        ]
       },
       {
         "id": 6,
         "title": "Assurances & Protection",
-        "description": "Protégez ce qui compte le plus avec nos solutions d'assurance complètes",
+        "description": "Protégez ce qui compte le plus avec nos solutions d'assurance complètes. En partenariat avec les leaders européens de l'assurance, nous vous offrons une protection optimale à des tarifs négociés.",
         "features": [
-          "Assurance voyage et annulation",
+          "Assurance voyage internationale",
+          "Complémentaire santé",
+          "Assurance vie et prévoyance",
           "Protection des moyens de paiement",
-          "Assurance santé et prévoyance",
-          "Assurance habitation",
-          "Garanties décès et invalidité"
+          "Assurance habitation et auto",
+          "Assistance juridique 24h/24 et 7j/7"
         ],
-        "cta": "EN SAVOIR PLUS"
+        "useCases": [
+          {
+            "title": "Emma, Nomad Digital",
+            "text": "Emma voyage 8 mois par an pour son travail. Son assurance voyage INVIK SA (45 €/mois) couvre tous ses déplacements dans 180 pays, incluant le rapatriement, les frais médicaux jusqu'à 500 000 € et l'assurance bagages. Elle a été remboursée de 2 800 € suite à une hospitalisation en Thaïlande."
+          },
+          {
+            "title": "Famille Martin, Protection Complète",
+            "text": "Les Martin ont souscrit à un pack famille INVIK SA (120 €/mois) incluant l'assurance habitation, 2 voitures, la complémentaire santé et la prévoyance. Ils économisent 35 % par rapport à leurs anciennes assurances séparées et gèrent tout depuis une seule application."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Solutions Business",
+        "description": "Des solutions bancaires professionnelles adaptées aux besoins des PME, startups et indépendants. Gérez votre trésorerie, vos factures et vos paiements avec des outils dédiés aux pros.",
+        "features": [
+          "Compte business multi-utilisateurs",
+          "Cartes bancaires corporate illimitées",
+          "Gestion avancée de la trésorerie",
+          "Facturation et comptabilité intégrées",
+          "API pour intégration ERP/CRM",
+          "Conseiller dédié aux entreprises"
+        ],
+        "useCases": [
+          {
+            "title": "TechStart SaaS, Startup de 15 employés",
+            "text": "TechStart utilise INVIK Business Pro pour gérer sa trésorerie. Chaque département dispose de sa propre carte virtuelle avec une limite personnalisée. Le PDG suit les dépenses en temps réel via le tableau de bord et exporte automatiquement les données vers leur logiciel de comptabilité. Temps gagné : 10h/mois."
+          },
+          {
+            "title": "Dupont & Fils, Commerce de détail",
+            "text": "Cette PME familiale a centralisé tous ses comptes chez INVIK SA. Ils utilisent l'API pour synchroniser leurs ventes avec leur compte bancaire, automatisant le rapprochement bancaire. Leur conseiller dédié les a aidés à optimiser leur trésorerie et à obtenir une ligne de crédit de 50 000 €."
+          }
+        ]
       }
     ],
     "intro": {

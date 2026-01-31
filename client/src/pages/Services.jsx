@@ -44,7 +44,7 @@ const Services = () => {
     return (
         <div style={styles.page}>
             {/* Hero Section */}
-            <section style={styles.hero} className="services-hero">
+            <section style={styles.hero} className="services-hero services-hero-mobile">
                 <div style={styles.heroOverlay}>
                     <div className="container">
                         <h1 style={styles.heroTitle}>{t('services_page.hero.title')}</h1>
@@ -56,7 +56,7 @@ const Services = () => {
             {/* Services Sections */}
             {/* Navigation Anchor Buttons */}
             <div style={styles.navContainer} className="services-nav-sticky">
-                <div className="container no-scrollbar" style={styles.navGrid}>
+                <div className="container no-scrollbar nav-grid-mobile" style={styles.navGrid}>
                     {services.map((service) => (
                         <button
                             key={service.id}
@@ -72,7 +72,7 @@ const Services = () => {
                                     });
                                 }
                             }}
-                            className="nav-button-hover"
+                            className="nav-button-hover nav-button-mobile"
                             style={styles.navButton}
                         >
                             <span style={styles.navIcon}>{service.icon}</span>
@@ -83,6 +83,78 @@ const Services = () => {
             </div>
 
             <div className="container services-list-container" style={{ padding: '4rem 2rem' }}>
+                <style>
+                    {`
+                        @media (max-width: 768px) {
+                            .service-top-split {
+                                flex-direction: column !important;
+                            }
+                            .service-image-wrapper {
+                                width: 100% !important;
+                                height: 250px !important;
+                            }
+                            .service-content-wrapper {
+                                width: 100% !important;
+                                padding: 2rem 0 !important;
+                            }
+                            .services-list-container {
+                                padding: 2rem 0.2rem !important;
+                            }
+                            .use-cases-section-mobile {
+                                padding: 0.8rem 0.2rem !important;
+                                border-radius: 8px !important;
+                                margin-bottom: 0.8rem !important;
+                            }
+                            .use-case-card-mobile {
+                                padding: 0.5rem !important;
+                                border-radius: 8px !important;
+                            }
+                            .use-cases-grid {
+                                grid-template-columns: 1fr !important;
+                                gap: 0.5rem !important;
+                            }
+                            .nav-grid-mobile {
+                                flex-wrap: wrap !important;
+                                justify-content: center !important;
+                                gap: 0.4rem !important;
+                                padding: 0.4rem !important;
+                                overflow-x: hidden !important;
+                            }
+                            .nav-button-mobile {
+                                width: calc(50% - 0.5rem) !important;
+                                flex-shrink: 1 !important;
+                                padding: 0.6rem 0.6rem !important;
+                                font-size: 0.75rem !important;
+                                font-weight: 800 !important;
+                                justify-content: center !important;
+                                white-space: normal !important;
+                                text-align: center !important;
+                                height: 60px !important;
+                                background: linear-gradient(135deg, #f0f7ff 0%, #e1efff 100%) !important;
+                                border: 1px solid rgba(0, 82, 204, 0.1) !important;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+                            }
+                            .nav-button-mobile span {
+                                font-size: 0.9rem !important;
+                            }
+                            .services-hero-mobile {
+                                min-height: 160px !important;
+                            }
+                            .services-hero-mobile h1 {
+                                font-size: 1.3rem !important;
+                            }
+                            .about-hero-mobile h1 {
+                                font-size: 1.3rem !important;
+                            }
+                        }
+                        .use-case-hover:hover {
+                            background-color: rgba(255, 255, 255, 0.15) !important;
+                            transform: translateY(-5px);
+                            border-color: rgba(255, 255, 255, 0.3) !important;
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                        }
+                    `}
+                </style>
                 {services.map((service, index) => (
                     <section key={service.id} id={`service-${service.id}`} style={styles.serviceSection} className="service-item-card">
                         <div style={{
@@ -123,14 +195,16 @@ const Services = () => {
                             </div>
                         </div>
 
-                        {/* Use Cases - Full Width Below */}
-                        <div style={styles.useCasesSection}>
-                            <h3 style={styles.useCasesTitle}>{t('services_page.use_cases_title')}</h3>
+                        {/* Expertises (Cas d'utilisation) */}
+                        <div style={styles.useCasesSection} className="use-cases-section-mobile">
+                            <h3 style={styles.useCasesTitle}>
+                                {t('services_page.use_cases_title')}
+                            </h3>
                             <div style={styles.useCasesGrid} className="use-cases-grid">
                                 {service.useCases && service.useCases.map((useCase, idx) => (
-                                    <div key={idx} className="use-case-hover" style={styles.useCaseCard}>
+                                    <div key={idx} className="use-case-hover use-case-card-mobile" style={styles.useCaseCard}>
                                         <h4 style={styles.useCaseTitle}>{useCase.title}</h4>
-                                        <p style={styles.useCaseText}>{useCase.case}</p>
+                                        <p style={styles.useCaseText}>{useCase.text || useCase.case || useCase.description}</p>
                                     </div>
                                 ))}
                             </div>
@@ -162,7 +236,7 @@ const styles = {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        minHeight: '400px',
+        minHeight: '220px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -217,28 +291,29 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         gap: '0.6rem',
-        padding: '0.6rem 1.2rem',
-        border: '1px solid rgba(0, 51, 102, 0.1)',
+        padding: '0.6rem 1.5rem',
+        border: '1px solid rgba(0, 82, 204, 0.15)',
         borderRadius: '50px',
-        backgroundColor: 'white',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%)',
         cursor: 'pointer',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        fontSize: '0.85rem',
-        color: '#444',
-        fontWeight: '600',
+        fontSize: '0.9rem',
+        color: '#003366',
+        fontWeight: '800',
         whiteSpace: 'nowrap',
         flexShrink: 0,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        boxShadow: '0 4px 15px rgba(0, 51, 102, 0.05)',
     },
     navIcon: {
         fontSize: '1.2rem',
     },
     serviceSection: {
         marginBottom: '6rem',
-        backgroundColor: 'white',
-        borderRadius: '16px',
-        padding: '2rem',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+        background: 'linear-gradient(135deg, #00ccff 0%, #0088cc 100%)', // Pure Blue Branding
+        borderRadius: '24px',
+        padding: '3rem',
+        boxShadow: '0 15px 40px rgba(0, 204, 255, 0.2)',
+        color: 'white' // Default text white
     },
     topSection: {
         display: 'flex',
@@ -251,9 +326,10 @@ const styles = {
         minWidth: '400px',
         borderRadius: '16px',
         overflow: 'hidden',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
         transition: 'transform 0.3s ease',
         height: '400px',
+        border: '4px solid rgba(255,255,255,0.2)'
     },
     serviceImage: {
         width: '100%',
@@ -268,25 +344,32 @@ const styles = {
     iconBadge: {
         fontSize: '3rem',
         marginBottom: '1rem',
+        background: 'rgba(255,255,255,0.2)',
+        width: 'fit-content',
+        padding: '1rem',
+        borderRadius: '16px',
+        backdropFilter: 'blur(5px)'
     },
     serviceTitle: {
         fontSize: '2.5rem',
-        color: 'var(--primary-color)',
+        color: 'white', // White Title
         marginBottom: '1.5rem',
-        fontWeight: '700',
+        fontWeight: '800',
+        textShadow: '0 2px 4px rgba(0,0,0,0.1)'
     },
     serviceDescription: {
         fontSize: '1.1rem',
-        color: '#555',
+        color: 'white', // White Description for better contrast on dark blue
         lineHeight: 1.8,
         marginBottom: '2rem',
+        opacity: 0.95
     },
     featuresSection: {
         marginBottom: '2.5rem',
     },
     featuresTitle: {
         fontSize: '1.5rem',
-        color: 'var(--primary-color)',
+        color: 'white',
         marginBottom: '1rem',
         fontWeight: '700',
     },
@@ -298,56 +381,72 @@ const styles = {
     featureItem: {
         padding: '0.8rem 0',
         fontSize: '1.05rem',
-        color: '#444',
+        color: 'black', // Black Features as requested
         display: 'flex',
         alignItems: 'center',
         gap: '0.8rem',
+        fontWeight: '700'
     },
     checkmark: {
-        color: '#4CAF50',
+        color: 'white', // White Checkmark
         fontWeight: 'bold',
         fontSize: '1.3rem',
     },
     useCasesSection: {
         marginBottom: '2.5rem',
+        backgroundColor: 'rgba(255,255,255,0.03)',
+        padding: '2.5rem 2rem',
+        borderRadius: '24px',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255,255,255,0.05)',
+    },
+    useCasesGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '2rem',
+        marginTop: '1.5rem',
     },
     useCasesTitle: {
-        fontSize: '1.5rem',
-        color: 'var(--primary-color)',
-        marginBottom: '1.5rem',
-        fontWeight: '700',
+        fontSize: '1.6rem',
+        color: '#00ccff', // Electric Blue Title
+        marginBottom: '2rem',
+        fontWeight: '800',
+        textTransform: 'uppercase',
+        letterSpacing: '1px'
     },
     useCaseCard: {
-        backgroundColor: '#f8f9fa',
-        padding: '1.5rem',
-        borderRadius: '12px',
-        marginBottom: '1rem',
-        borderLeft: '4px solid var(--primary-color)',
-        transition: 'all 0.3s ease',
+        backgroundColor: 'rgba(255,255,255,0.08)',
+        padding: '2rem',
+        borderRadius: '20px',
+        border: '1px solid rgba(255,255,255,0.1)',
+        transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     useCaseTitle: {
-        fontSize: '1.1rem',
-        color: 'var(--primary-color)',
-        marginBottom: '0.8rem',
-        fontWeight: '600',
+        fontSize: '1.2rem',
+        color: 'white',
+        marginBottom: '1rem',
+        fontWeight: '800',
     },
     useCaseText: {
-        fontSize: '0.95rem',
-        color: '#555',
-        lineHeight: 1.7,
+        fontSize: '1rem',
+        color: 'rgba(255,255,255,0.85)', // High contrast text
+        lineHeight: 1.6,
         margin: 0,
     },
     ctaButton: {
-        backgroundColor: 'var(--primary-color)',
+        backgroundColor: 'black', // Black Button as requested
         color: 'white',
         padding: '1rem 2.5rem',
         fontSize: '1.1rem',
-        fontWeight: '700',
-        border: 'none',
+        fontWeight: '800',
+        border: '2px solid rgba(255,255,255,0.2)',
         borderRadius: '50px',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
-        boxShadow: '0 4px 15px rgba(0,51,102,0.3)',
+        boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
     },
     ctaSection: {
         background: 'linear-gradient(135deg, #003366 0%, #004d99 100%)',
@@ -367,7 +466,7 @@ const styles = {
     },
     ctaButtonLarge: {
         backgroundColor: '#00ccff',
-        color: 'var(--primary-color)',
+        color: 'white',
         padding: '1.2rem 3rem',
         fontSize: '1.2rem',
         fontWeight: '700',

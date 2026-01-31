@@ -780,11 +780,11 @@
         "useCases": [
           {
             "title": "Thomas, Car Purchase",
-            "case": "Thomas obtained a €15,000 personal loan over 5 years at 2.9% APR to buy an electric car. His monthly payment of €268 is €40 cheaper than his traditional bank's offer. He received the money in his account in 3 business days."
+            "text": "Thomas obtained a €15,000 personal loan over 5 years at 2.9% APR to buy an electric car. His monthly payment of €268 is €40 cheaper than his traditional bank's offer. He received the money in his account in 3 business days."
           },
           {
             "title": "Dubois Family, Home Purchase",
-            "case": "The Dubois family financed their €280,000 home with an INVIK SA mortgage at 1.85% over 25 years. Thanks to the competitive rate, they save €18,000 in interest over the total loan term compared to their first bank offer."
+            "text": "The Dubois family financed their €280,000 home with an INVIK SA mortgage at 1.85% over 25 years. Thanks to the competitive rate, they save €18,000 in interest over the total loan term compared to their first bank offer."
           }
         ]
       },
@@ -803,11 +803,11 @@
         "useCases": [
           {
             "title": "Julie, 32, Corporate Executive",
-            "case": "Julie opened an INVIK SA savings account with a 2.8% rate and invests €300/month in a diversified ETF portfolio (60% stocks, 40% bonds). After 3 years, her savings of €10,800 generated €1,450 in gains, representing an average annual return of 4.5%."
+            "text": "Julie opened an INVIK SA savings account with a 2.8% rate and invests €300/month in a diversified ETF portfolio (60% stocks, 40% bonds). After 3 years, her savings of €10,800 generated €1,450 in gains, representing an average annual return of 4.5%."
           },
           {
             "title": "Pierre & Anne, Retired Couple",
-            "case": "This couple transferred their €150,000 savings to INVIK SA. They opted for a conservative portfolio (20% stocks, 80% bonds) which earns them an average of 3.2% per year, or €4,800 in annual income, while preserving their capital."
+            "text": "This couple transferred their €150,000 savings to INVIK SA. They opted for a conservative portfolio (20% stocks, 80% bonds) which earns them an average of 3.2% per year, or €4,800 in annual income, while preserving their capital."
           }
         ]
       },
@@ -826,11 +826,11 @@
         "useCases": [
           {
             "title": "Sophie, Freelance Designer",
-            "case": "Sophie uses her INVIK SA account to receive payments from her international clients. Thanks to free SEPA transfers, she saves over €200 per year in banking fees. The mobile app allows her to track her income in real-time and categorize her professional expenses."
+            "text": "Sophie uses her INVIK SA account to receive payments from her international clients. Thanks to free SEPA transfers, she saves over €200 per year in banking fees. The mobile app allows her to track her income in real-time and categorize her professional expenses."
           },
           {
             "title": "Marc, Erasmus Student",
-            "case": "While on university exchange in Spain, Marc uses his INVIK SA card to withdraw cash fee-free throughout Europe. He receives his monthly allowance instantly and can pay for his online purchases without extra cost."
+            "text": "While on university exchange in Spain, Marc uses his INVIK SA card to withdraw cash fee-free throughout Europe. He receives his monthly allowance instantly and can pay for his online purchases without extra cost."
           }
         ]
       },
@@ -849,11 +849,11 @@
         "useCases": [
           {
             "title": "Ahmed, Import-Export Entrepreneur",
-            "case": "Ahmed imports products from Asia and exports to Africa. With INVIK SA, he makes international transfers in USD and CNY at rates 40% better than his traditional bank. He saved over €5,000 in exchange fees last year."
+            "text": "Ahmed imports products from Asia and exports to Africa. With INVIK SA, he makes international transfers in USD and CNY at rates 40% better than his traditional bank. He saved over €5,000 in exchange fees last year."
           },
           {
             "title": "Maria, Expat in Luxembourg",
-            "case": "Maria sends €500 every month to her family in Portugal. Thanks to INVIK SA's free SEPA transfers, the money arrives in 24h without any fees, unlike her former bank which charged €15 per transfer."
+            "text": "Maria sends €500 every month to her family in Portugal. Thanks to INVIK SA's free SEPA transfers, the money arrives in 24h without any fees, unlike her former bank which charged €15 per transfer."
           }
         ]
       },
@@ -872,11 +872,11 @@
         "useCases": [
           {
             "title": "Emma, Digital Nomad",
-            "case": "Emma travels 8 months a year for work. Her INVIK SA travel insurance (€45/month) covers all her trips in 180 countries, including repatriation, medical expenses up to €500,000, and luggage insurance. She was reimbursed €2,800 following a hospitalization in Thailand."
+            "text": "Emma travels 8 months a year for work. Her INVIK SA travel insurance (€45/month) covers all her trips in 180 countries, including repatriation, medical expenses up to €500,000, and luggage insurance. She was reimbursed €2,800 following a hospitalization in Thailand."
           },
           {
             "title": "Martin Family, Complete Protection",
-            "case": "The Martins subscribed to an INVIK SA family pack (€120/month) including home insurance, 2 cars, supplementary health, and providence. They save 35% compared to their old separate insurances and manage everything from a single app."
+            "text": "The Martins subscribed to an INVIK SA family pack (€120/month) including home insurance, 2 cars, supplementary health, and providence. They save 35% compared to their old separate insurances and manage everything from a single app."
           }
         ]
       },
@@ -895,11 +895,11 @@
         "useCases": [
           {
             "title": "TechStart SaaS, 15-employee Startup",
-            "case": "TechStart uses INVIK Business Pro to manage its cash flow. Each department has its own virtual card with a custom limit. The CEO tracking expenses in real-time via the dashboard and automatically exports data to their accounting software. Time saved: 10h/month."
+            "text": "TechStart uses INVIK Business Pro to manage its cash flow. Each department has its own virtual card with a custom limit. The CEO tracking expenses in real-time via the dashboard and automatically exports data to their accounting software. Time saved: 10h/month."
           },
           {
             "title": "Dupont & Sons, Retail",
-            "case": "This family SME centralized all its accounts at INVIK SA. They use the API to synchronize their sales with their bank account, automating bank reconciliation. Their dedicated advisor helped them optimize their cash flow and obtain a €50,000 credit line."
+            "text": "This family SME centralized all its accounts at INVIK SA. They use the API to synchronize their sales with their bank account, automating bank reconciliation. Their dedicated advisor helped them optimize their cash flow and obtain a €50,000 credit line."
           }
         ]
       }
