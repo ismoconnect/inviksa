@@ -29,11 +29,28 @@ const WalletManagement = () => {
     }, []);
 
     const handleUpdateBalance = async (userId, walletId, currentBalance) => {
-        const newBalanceInput = window.prompt("Nouveau solde (€) :", currentBalance);
-        if (newBalanceInput === null || isNaN(newBalanceInput)) return;
+        const input = window.prompt("Nouveau solde (€) ou modification (+/-) :", currentBalance);
+        if (input === null || input.trim() === '') return;
 
-        const newBalance = Number(newBalanceInput);
-        const amount = newBalance - Number(currentBalance);
+        let newBalance;
+        let amount;
+
+        const trimmedInput = input.trim();
+        if (trimmedInput.startsWith('+') || trimmedInput.startsWith('-')) {
+            amount = Number(trimmedInput);
+            if (isNaN(amount)) {
+                alert("Format invalide. Utilisez +100 ou -50 par exemple.");
+                return;
+            }
+            newBalance = Number(currentBalance) + amount;
+        } else {
+            newBalance = Number(trimmedInput);
+            if (isNaN(newBalance)) {
+                alert("Montant invalide.");
+                return;
+            }
+            amount = newBalance - Number(currentBalance);
+        }
 
         try {
             await adminService.createAdminDeposit(userId, walletId, amount, newBalance);
@@ -47,13 +64,24 @@ const WalletManagement = () => {
     const handleEditDetails = async (wallet) => {
         const newIban = window.prompt("Nouvel IBAN :", wallet.iban || '');
         const newBic = window.prompt("Nouvel BIC :", wallet.bic || '');
-        if (newIban === null && newBic === null) return;
+        const newHolder = window.prompt("Nom du titulaire :", wallet.holderName || '');
+
+        if (newIban === null && newBic === null && newHolder === null) return;
+
         try {
-            await adminService.updateWalletDetails(wallet.id, {
-                iban: newIban || wallet.iban,
-                bic: newBic || wallet.bic
-            });
-        } catch (e) { alert('Erreur'); }
+            const updates = {};
+            if (newIban !== null) updates.iban = newIban;
+            if (newBic !== null) updates.bic = newBic;
+            if (newHolder !== null) updates.holderName = newHolder;
+
+            if (Object.keys(updates).length === 0) return;
+
+            await adminService.updateWalletDetails(wallet.id, updates);
+            alert('Coordonnées mises à jour');
+        } catch (e) {
+            console.error(e);
+            alert('Erreur lors de la mise à jour');
+        }
     };
 
     const handleToggleStatus = async (walletId, currentStatus) => {
@@ -144,6 +172,10 @@ const WalletManagement = () => {
                                     </div>
 
                                     <div style={{ background: 'white', padding: '0.8rem', borderRadius: '12px', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <span style={styles.ribLabel}>NOM DU TITULAIRE</span>
+                                            <p style={{ fontSize: '0.8rem', color: '#1e293b', margin: '2px 0', fontWeight: 'bold' }}>{wallet.holderName || 'Non défini'}</p>
+                                        </div>
                                         <div style={{ marginBottom: '8px' }}>
                                             <span style={styles.ribLabel}>IBAN</span>
                                             <p style={{ fontSize: '0.8rem', color: '#1e293b', margin: '2px 0', wordBreak: 'break-all', fontFamily: 'monospace' }}>{wallet.iban || 'Non défini'}</p>
@@ -253,6 +285,10 @@ const WalletManagement = () => {
                                         </div>
                                     </div>
                                     <div style={styles.ribSection}>
+                                        <div style={styles.ribRow}>
+                                            <span style={styles.ribLabel}>TITULAIRE</span>
+                                            <span style={{ ...styles.ribValue, fontWeight: 'bold' }}>{wallet.holderName || 'Non défini'}</span>
+                                        </div>
                                         <div style={styles.ribRow}>
                                             <span style={styles.ribLabel}>IBAN</span>
                                             <span style={styles.ribValue}>{wallet.iban || 'Non défini'}</span>
