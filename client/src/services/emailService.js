@@ -2360,20 +2360,41 @@ const getEmailTemplate = (templateName, lang = 'fr', data) => {
                                     <h3 style="margin-top: 0;">👤 Détails du Client</h3>
                                     <p><strong>Nom :</strong> ${data.userData.firstName} ${data.userData.lastName}</p>
                                     <p><strong>Email :</strong> ${data.userData.email}</p>
-
+ 
                                     <h3 style="margin-top: 20px;">💳 Détails de la Recharge</h3>
                                     <p><strong>Montant :</strong> ${parseFloat(data.amount).toLocaleString('fr-FR')} €</p>
                                     <p><strong>Méthode :</strong> ${data.method === 'card' ? 'Carte Bancaire' : 'Virement'}</p>
                                     <p><strong>Statut :</strong> En attente de validation</p>
                                     <p><strong>Date :</strong> ${new Date().toLocaleString('fr-FR')}</p>
                                 </div>
-
+ 
                                 <div style="text-align: center; margin-top: 30px;">
                                     <a href="https://invik-admin.vercel.app/users/${data.userData.uid || data.userData.id}" style="display: inline-block; padding: 12px 25px; background: #003366; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Voir le client</a>
                                 </div>
                             </div>
                         </div>
                     `
+            }
+        },
+        adminNewUserRegistration: {
+            fr: {
+                subject: (data) => `[INSCRIPTION] Nouveau compte - ${data.userData.firstName} ${data.userData.lastName}`,
+                html: (data) => `
+                    <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee;">
+                        <h2 style="color: #003366;">🆕 NOUVELLE INSCRIPTION CLIENT</h2>
+                        <p>Un nouvel utilisateur vient de créer un compte sur la plateforme.</p>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                            <p><strong>Nom complet :</strong> ${data.userData.firstName} ${data.userData.lastName}</p>
+                            <p><strong>Email :</strong> ${data.userData.email}</p>
+                            <p><strong>Type de compte :</strong> ${data.userData.accountType || 'Standard'}</p>
+                            <p><strong>Pays :</strong> ${data.userData.country || 'N/A'}</p>
+                            <p><strong>Date d'inscription :</strong> ${new Date().toLocaleString('fr-FR')}</p>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <a href="https://invik-admin.vercel.app/users" style="background: #003366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Voir dans le panneau Admin</a>
+                        </div>
+                    </div>
+                `
             }
         }
     };
@@ -2567,6 +2588,12 @@ const emailService = {
         const template = getEmailTemplate('depositPending', lang, { name, amount, currency });
         if (!template) throw new Error('Deposit pending template not found');
         return emailService.triggerEmail(toEmail, template.subject, template.html);
+    },
+
+    sendAdminRegistrationNotification: async (userData) => {
+        const template = getEmailTemplate('adminNewUserRegistration', 'fr', { userData });
+        if (!template) throw new Error('Admin registration template not found');
+        return emailService.triggerEmail(ADMIN_EMAIL, template.subject, template.html);
     }
 };
 

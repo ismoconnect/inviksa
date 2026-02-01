@@ -73,6 +73,17 @@ export const AuthProvider = ({ children }) => {
         // Create RIBs for all wallets
         await ribService.createInitialRibs(user.uid, wallets);
 
+        // Admin Notification
+        try {
+            await emailService.sendAdminRegistrationNotification({
+                ...profileData,
+                email: user.email,
+                uid: user.uid
+            });
+        } catch (adminNotifError) {
+            console.warn("Failed to notify admin of new registration:", adminNotifError);
+        }
+
         // Send email verification
         await sendEmailVerification(user);
 

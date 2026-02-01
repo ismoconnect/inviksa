@@ -1401,12 +1401,14 @@ export const adminService = {
             updatedAt: serverTimestamp()
         });
 
-        // Trigger Confirmation Email if paid
+        // Trigger Confirmation Email and Notification if paid
         if (status === 'paid') {
             try {
                 const invoiceSnap = await getDoc(doc(db, 'invoices', invoiceId));
                 if (invoiceSnap.exists()) {
                     const invData = invoiceSnap.data();
+
+                    // 1. Email
                     const userSnap = await getDoc(doc(db, 'users', invData.userId));
                     if (userSnap.exists()) {
                         const userData = userSnap.data();
@@ -1419,9 +1421,25 @@ export const adminService = {
                             userData.language || 'en'
                         );
                     }
+
+                    // 2. In-App Notification
+                    const notifRef = doc(collection(db, 'notifications'));
+                    await setDoc(notifRef, {
+                        userId: invData.userId,
+                        title: '✅ Paiement reçu',
+                        message: `Le paiement de votre facture ${invData.reference} a été confirmé. Merci !`,
+                        titleKey: 'notifications.invoice_paid.title',
+                        messageKey: 'notifications.invoice_paid.message',
+                        messageParams: {
+                            reference: invData.reference
+                        },
+                        type: 'invoice',
+                        read: false,
+                        createdAt: serverTimestamp()
+                    });
                 }
-            } catch (emailError) {
-                console.error('Failed to send invoice payment confirmation email:', emailError);
+            } catch (error) {
+                console.error('Failed to trigger payment success response:', error);
             }
         }
     },
