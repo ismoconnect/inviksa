@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotifications } from '../contexts/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 const Login = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const { login, resetPassword } = useAuth();
+    const location = useLocation();
+    const { login, resetPassword, currentUser } = useAuth();
     const { showToast } = useNotifications();
+
+    // Auto-redirect if already logged in
+    useEffect(() => {
+        if (currentUser) {
+            const from = location.state?.from?.pathname || `/${i18n.language}/dashboard`;
+            navigate(from, { replace: true });
+        }
+    }, [currentUser, navigate, i18n.language, location.state]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +51,8 @@ const Login = () => {
 
         try {
             await login(email, password);
-            navigate(`/${i18n.language}/dashboard`);
+            const from = location.state?.from?.pathname || `/${i18n.language}/dashboard`;
+            navigate(from, { replace: true });
         } catch (err) {
             console.error("Erreur de connexion:", err);
             setError(t('auth.login.error_login'));

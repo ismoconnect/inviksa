@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { countries } from '../data/countries';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotifications } from '../contexts/NotificationContext';
@@ -319,8 +319,18 @@ const MobileSelection = ({ handleSelectType, t }) => (
 const Register = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const { register } = useAuth();
+    const location = useLocation();
+    const { register, currentUser } = useAuth();
     const { showToast } = useNotifications();
+
+    // Auto-redirect if already logged in
+    useEffect(() => {
+        if (currentUser) {
+            const from = location.state?.from?.pathname || `/${i18n.language}/dashboard`;
+            navigate(from, { replace: true });
+        }
+    }, [currentUser, navigate, i18n.language, location.state]);
+
     const [step, setStep] = useState(0); // 0: Selection, 1: Form
     const [userType, setUserType] = useState(null); // 'personal' or 'business'
     const [error, setError] = useState('');

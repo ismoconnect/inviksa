@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 const ProtectedRoute = ({ children }) => {
     const { currentUser, loading } = useAuth();
     const { lang } = useParams();
+    const location = useLocation();
     const { i18n } = useTranslation();
     const [isAdmin, setIsAdmin] = useState(false);
     const [checkingRole, setCheckingRole] = useState(true);
@@ -49,12 +49,12 @@ const ProtectedRoute = ({ children }) => {
     }
 
     if (!currentUser) {
-        return <Navigate to={`/${currentLang}/login`} />;
+        return <Navigate to={`/${currentLang}/login`} state={{ from: location }} replace />;
     }
 
     // Skip email verification check for admin users
     if (!isAdmin && !currentUser.emailVerified) {
-        return <Navigate to={`/${currentLang}/email-verification-pending`} />;
+        return <Navigate to={`/${currentLang}/email-verification-pending`} state={{ from: location }} replace />;
     }
 
     return children;
