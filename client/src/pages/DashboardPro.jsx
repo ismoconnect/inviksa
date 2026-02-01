@@ -329,7 +329,7 @@ const DashboardPro = () => {
                         <i className="fas fa-plus-circle"></i> {t('actions.deposit')}
                     </button>
                     <button style={styles.actionBtn} onClick={() => navigate(`/${i18n.language}/dashboard/history`)}>
-                        <i className="fas fa-history"></i> {t('sidebar.history')}
+                        <i className="fas fa-history"></i> {t('sidebar.nav.history')}
                     </button>
                 </div>
             </div>
