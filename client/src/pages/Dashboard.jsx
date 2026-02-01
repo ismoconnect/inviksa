@@ -9,8 +9,8 @@ import DashboardPro from './DashboardPro';
 const Dashboard = () => {
     const { currentUser, userData } = useAuth();
 
-    // Redirect to professional dashboard if user has professional account
-    if (userData?.accountType === 'professional') {
+    // Redirect to professional dashboard if user has professional account or business userType
+    if (userData?.accountType === 'professional' || userData?.userType === 'business') {
         return <DashboardPro />;
     }
 
