@@ -30,10 +30,15 @@ const Dashboard = () => {
 
     // Function to get translated transaction description
     const getTransactionDescription = (tx) => {
+        const targetAcc = getWalletName(tx.toWalletId);
+
+        if (tx.method === 'admin') {
+            return `VIREMENT INVIK BANK → ${targetAcc}`;
+        }
+
         if (tx.type === 'credit' || tx.type === 'deposit') {
             const method = tx.method || 'card';
             const methodText = method === 'card' ? t('transactions.by_card') : t('transactions.by_transfer');
-            const targetAcc = getWalletName(tx.toWalletId);
             return `${t('transactions.deposit')} ${methodText} → ${targetAcc}`;
         } else {
             // Transfer

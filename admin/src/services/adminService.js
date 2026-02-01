@@ -742,10 +742,13 @@ export const adminService = {
                 transaction.set(txRef, {
                     userId,
                     walletId,
+                    toWalletId: walletId,
+                    fromWalletId: 'admin',
                     type: amount >= 0 ? 'credit' : 'debit',
                     amount: Math.abs(amount),
                     status: 'completed',
-                    description: amount >= 0 ? 'Dépôt INVIK BANK' : 'Ajustement de solde Admin',
+                    method: 'admin',
+                    description: 'VIREMENT INVIK BANK',
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp()
                 });
