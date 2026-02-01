@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotifications } from '../contexts/NotificationContext';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 const Login = () => {
     const { t, i18n } = useTranslation();
