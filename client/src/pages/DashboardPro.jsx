@@ -106,7 +106,7 @@ const DashboardPro = () => {
                     <p style={styles.balance} className="balance-mobile">
                         {savingsAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} {savingsAcc.currency}
                     </p>
-                    <p style={styles.cardInfo}>{t('accounts.savings_rate_description')}</p>
+                    <p style={styles.cardInfo}>{t('accounts.savings_rate_description') || "Taux: 2.5% / an"}</p>
                 </div>
 
                 <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
