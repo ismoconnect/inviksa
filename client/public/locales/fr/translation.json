@@ -999,6 +999,7 @@
     "subtitle": "Gérez vos portefeuilles et consultez vos coordonnées bancaires.",
     "main": "Compte Courant",
     "savings": "Compte Épargne",
+    "savings_desc": "Taux: 2.5% / an",
     "credit": "Compte Crédit",
     "hidden_iban": "IBAN masqué (Vérification requise)",
     "rate": "Taux: 2.5% / an",
