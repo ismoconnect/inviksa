@@ -1209,7 +1209,8 @@
       "blocked": "Bloquée",
       "virtual": "Virtuelle",
       "physical": "Physique",
-      "recently": "Récemment"
+      "recently": "Récemment",
+      "savings_desc": "Taux: 2.5% / an"
     },
     "physical_order": {
       "title": "Carte Physique",
