@@ -63,6 +63,10 @@
     "transferPending": {
       "title": "⏳ Virement SEPA en attente",
       "message": "Votre virement de {{amount}} {{currency}} vers {{beneficiary}} est en cours de traitement. Délai habituel : 24h-48h."
+    },
+    "new_invoice": {
+      "title": "📄 Nouvelle facture disponible",
+      "message": "Une nouvelle facture de {{amount}} {{currency}} a été émise pour votre compte."
     }
   },
   "sidebar": {
@@ -2203,5 +2207,17 @@
     "title": "Nous sommes en maintenance",
     "message": "Notre équipe technique améliore actuellement la plateforme pour vous offrir une meilleure expérience. Nous serons de retour très bientôt.",
     "estimated_time": "Retour estimé : Quelques minutes"
+  },
+  "invoicing": {
+    "empty_state": {
+      "title": "Aucune facture n'est actuellement disponible pour votre compte.",
+      "subtitle": "Dès qu'une facture sera émise par votre conseiller financier, elle apparaîtra ici et vous recevrez une notification immédiate."
+    },
+    "advisor_label": "Votre Conseiller",
+    "default_advisor": "Conseiller INVIK",
+    "rib_section": {
+      "title": "RIB du Conseiller Financier",
+      "subtitle": "Veuillez utiliser les coordonnées bancaires ci-dessous pour le règlement de vos factures."
+    }
   }
 }

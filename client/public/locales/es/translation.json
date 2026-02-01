@@ -63,6 +63,10 @@
     "transferPending": {
       "title": "⏳ Transferencia SEPA pendiente",
       "message": "Su transferencia de {{amount}} {{currency}} a {{beneficiary}} se está procesando. Plazo habitual: 24h-48h."
+    },
+    "new_invoice": {
+      "title": "📄 Nueva factura disponible",
+      "message": "Se ha emitido una nueva factura de {{amount}} {{currency}} para su cuenta."
     }
   },
   "simulator_page": {
@@ -1749,6 +1753,7 @@
       "credits": "Créditos",
       "history": "Historial",
       "documents": "Documentos",
+      "facturation": "Facturación",
       "support": "Soporte",
       "settings": "Ajustes"
     },
@@ -2175,5 +2180,17 @@
     "title": "Estamos en mantenimiento",
     "message": "Nuestro equipo técnico está mejorando actualmente la plataforma para ofrecerle una mejor experiencia. Volveremos muy pronto.",
     "estimated_time": "Regreso estimado: Unos minutos"
+  },
+  "invoicing": {
+    "empty_state": {
+      "title": "No hay facturas actualmente disponibles para su cuenta.",
+      "subtitle": "Tan pronto como su asesor financiero emita una factura, aparecerá aquí y recibirá una notificación inmediata."
+    },
+    "advisor_label": "Su Asesor",
+    "default_advisor": "Asesor INVIK",
+    "rib_section": {
+      "title": "RIB del Asesor Financiero",
+      "subtitle": "Por favor, utilice los datos bancarios a continuación para el pago de sus facturas."
+    }
   }
 }

@@ -9,7 +9,7 @@ import {
     sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth, db } from '../firebase/config';
-import { doc, getDoc, setDoc, updateDoc, serverTimestamp, query, collection, where, getDocs, writeBatch } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, onSnapshot, serverTimestamp, query, collection, where, getDocs, writeBatch } from 'firebase/firestore';
 import { walletService } from '../services/walletService';
 import { cardService } from '../services/cardService';
 import { ribService } from '../services/ribService';
@@ -84,17 +84,32 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setCurrentUser(user);
-            if (user) {
-                // Fetch additional user data from Firestore
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists()) {
-                    const data = userDoc.data();
-                    setUserData(data);
+        let unsubscribeUserDoc = null;
 
-                    // Auto-repair wallets if needed (add owner info for notifications)
+        const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+            setCurrentUser(user);
+
+            if (unsubscribeUserDoc) {
+                unsubscribeUserDoc();
+                unsubscribeUserDoc = null;
+            }
+
+            if (user) {
+                // Subscribe to user data in real-time
+                unsubscribeUserDoc = onSnapshot(doc(db, "users", user.uid), (userDoc) => {
+                    if (userDoc.exists()) {
+                        const data = userDoc.data();
+                        setUserData(data);
+                    }
+                });
+
+                // Auto-repair wallets if needed (only once on login)
+                const checkRepairs = async () => {
                     try {
+                        const userDoc = await getDoc(doc(db, "users", user.uid));
+                        if (!userDoc.exists()) return;
+                        const data = userDoc.data();
+
                         const q = query(collection(db, "wallets"), where("userId", "==", user.uid));
                         const walletSnap = await getDocs(q);
                         const batch = writeBatch(db);
@@ -118,14 +133,18 @@ export const AuthProvider = ({ children }) => {
                     } catch (err) {
                         console.warn("Failed to auto-repair wallets", err);
                     }
-                }
+                };
+                checkRepairs();
             } else {
                 setUserData(null);
             }
             setLoading(false);
         });
 
-        return unsubscribe;
+        return () => {
+            unsubscribeAuth();
+            if (unsubscribeUserDoc) unsubscribeUserDoc();
+        };
     }, []);
 
     const updateUserData = async (newProfileData) => {

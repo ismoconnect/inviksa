@@ -63,8 +63,8 @@ const Invoicing = () => {
         );
     }
 
-    // LOCK SCREEN if no invoices
-    if (invoices.length === 0) {
+    // LOCK SCREEN if no invoices OR manually locked
+    if (invoices.length === 0 || userData?.invoicingLocked) {
         return (
             <KycVerificationBanner>
                 <div style={styles.lockScreenContainer}>
@@ -74,11 +74,11 @@ const Invoicing = () => {
                         </div>
                         <h1 style={styles.lockTitle}>{t('sidebar.nav.facturation')}</h1>
                         <p style={styles.lockText}>
-                            Aucune facture n'est actuellement disponible pour votre compte.
+                            {t('invoicing.empty_state.title')}
                         </p>
                         <div style={styles.lockDivider}></div>
                         <p style={styles.lockSubtext}>
-                            Dès qu'une facture sera émise par votre conseiller financier, elle apparaîtra ici et vous recevrez une notification immédiate.
+                            {t('invoicing.empty_state.subtitle')}
                         </p>
                         <div style={styles.advisorBrief}>
                             <div style={styles.briefAvatar}>
@@ -89,8 +89,8 @@ const Invoicing = () => {
                                 )}
                             </div>
                             <div style={styles.briefInfo}>
-                                <span style={styles.briefLabel}>Votre Conseiller</span>
-                                <span style={styles.briefValue}>{userData?.advisorName || 'Conseiller INVIK'}</span>
+                                <span style={styles.briefLabel}>{t('invoicing.advisor_label')}</span>
+                                <span style={styles.briefValue}>{userData?.advisorName || t('invoicing.default_advisor')}</span>
                             </div>
                         </div>
                     </div>
@@ -141,9 +141,9 @@ const Invoicing = () => {
                         <div style={styles.card}>
                             <h2 style={styles.cardTitle}>
                                 <i className="fas fa-university" style={{ marginRight: '10px' }}></i>
-                                RIB du Conseiller Financier
+                                {t('invoicing.rib_section.title')}
                             </h2>
-                            <p style={styles.cardDesc}>Veuillez utiliser les coordonnées bancaires ci-dessous pour le règlement de vos factures.</p>
+                            <p style={styles.cardDesc}>{t('invoicing.rib_section.subtitle')}</p>
 
                             <div style={styles.ribContainer}>
                                 <div style={styles.ribRow}>

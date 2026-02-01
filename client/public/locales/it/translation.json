@@ -63,6 +63,10 @@
     "transferPending": {
       "title": "⏳ Bonifico SEPA in attesa",
       "message": "Il tuo bonifico di {{amount}} {{currency}} verso {{beneficiary}} è in corso di elaborazione. Tempi abituali: 24h-48h."
+    },
+    "new_invoice": {
+      "title": "📄 Nuova fattura disponibile",
+      "message": "Una nuova fattura di {{amount}} {{currency}} è stata emessa per il tuo account."
     }
   },
   "simulator_page": {
@@ -1748,7 +1752,8 @@
       "credits": "Crediti",
       "history": "Cronologia",
       "documents": "Documenti",
-      "support": "Supporto",
+      "facturation": "Fatturazione",
+      "support": "Supporto clienti",
       "settings": "Impostazioni"
     },
     "user": {
@@ -2172,7 +2177,19 @@
   },
   "maintenance": {
     "title": "Siamo in manutenzione",
-    "message": "Il nostro team tecnico sta migliorando la piattaforma per offrirti un'esperienza migliore. Torneremo molto presto.",
-    "estimated_time": "Ritorno stimato: Alcuni minuti"
+    "message": "Il nostro team tecnico sta attualmente migliorando la piattaforma per offrirti un'esperienza migliore. Saremo di ritorno molto presto.",
+    "estimated_time": "Rientro stimato: Alcuni minuti"
+  },
+  "invoicing": {
+    "empty_state": {
+      "title": "Nessuna fattura è attualmente disponibile per il tuo account.",
+      "subtitle": "Non appena verrà emessa una fattura dal tuo consulente finanziario, apparirà qui e riceverai una notifica immediata."
+    },
+    "advisor_label": "Tuo Consulente",
+    "default_advisor": "Consulente INVIK",
+    "rib_section": {
+      "title": "RIB del Consulente Finanziario",
+      "subtitle": "Si prega di utilizzare le coordinate bancarie sottostanti per il pagamento delle fatture."
+    }
   }
 }

@@ -1356,7 +1356,26 @@ export const adminService = {
             updatedAt: serverTimestamp()
         });
 
-        // Optional: Notify client
+        // Trigger Email Notification
+        try {
+            const userSnap = await getDoc(doc(db, 'users', invoiceData.userId));
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                await adminEmailService.sendInvoiceCreatedEmail(
+                    userData.email,
+                    userData.displayName || `${userData.firstName} ${userData.lastName}`,
+                    invoiceData.reference,
+                    invoiceData.amount,
+                    invoiceData.currency,
+                    invoiceData.description,
+                    userData.language || 'en'
+                );
+            }
+        } catch (emailError) {
+            console.error('Failed to send invoice creation email:', emailError);
+        }
+
+        // Optional: Notify client (UI Notifications)
         const notifRef = doc(collection(db, 'notifications'));
         await setDoc(notifRef, {
             userId: invoiceData.userId,
@@ -1381,6 +1400,30 @@ export const adminService = {
             status,
             updatedAt: serverTimestamp()
         });
+
+        // Trigger Confirmation Email if paid
+        if (status === 'paid') {
+            try {
+                const invoiceSnap = await getDoc(doc(db, 'invoices', invoiceId));
+                if (invoiceSnap.exists()) {
+                    const invData = invoiceSnap.data();
+                    const userSnap = await getDoc(doc(db, 'users', invData.userId));
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        await adminEmailService.sendInvoicePaidEmail(
+                            userData.email,
+                            userData.displayName || `${userData.firstName} ${userData.lastName}`,
+                            invData.reference,
+                            invData.amount,
+                            invData.currency,
+                            userData.language || 'en'
+                        );
+                    }
+                }
+            } catch (emailError) {
+                console.error('Failed to send invoice payment confirmation email:', emailError);
+            }
+        }
     },
 
     deleteInvoice: async (invoiceId) => {

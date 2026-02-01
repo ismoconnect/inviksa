@@ -20,13 +20,59 @@ const getInputValue = (dateVal) => {
     return !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : '';
 };
 
+// Modern Toggle Switch Component
+const ToggleSwitch = ({ checked, onChange, disabled }) => (
+    <label style={{ position: 'relative', display: 'inline-block', width: '42px', height: '22px', cursor: disabled ? 'not-allowed' : 'pointer' }}>
+        <input
+            type="checkbox"
+            checked={!!checked}
+            onChange={onChange}
+            disabled={disabled}
+            style={{ opacity: 0, width: 0, height: 0 }}
+        />
+        <span style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: checked ? '#ef4444' : '#E2E8F0',
+            transition: '0.3s',
+            borderRadius: '22px'
+        }} />
+        <span style={{
+            position: 'absolute',
+            height: '16px',
+            width: '16px',
+            left: checked ? '22px' : '4px',
+            bottom: '3px',
+            backgroundColor: 'white',
+            transition: '0.3s',
+            borderRadius: '50%',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+        }} />
+    </label>
+);
+
 // RenderField component moved outside to avoid re-creation and potential hook issues
-const RenderField = ({ label, name, type = 'text', options = null, isEditing, data, onChange, editData }) => {
+const RenderField = ({ label, name, type = 'text', options = null, isEditing, data, onChange, editData, onToggle }) => {
     if (!isEditing) {
+        if (type === 'toggle') {
+            return (
+                <div style={styles.infoRow}>
+                    <span style={styles.label}>{label}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <ToggleSwitch checked={!!data[name]} onChange={(e) => onToggle && onToggle(name, e.target.checked)} />
+                        <span style={{ fontSize: '0.8rem', color: data[name] ? '#ef4444' : '#64748b', fontWeight: 'bold' }}>
+                            {data[name] ? 'BLOQUÉ' : 'ACCÈS LIBRE'}
+                        </span>
+                    </div>
+                </div>
+            );
+        }
+
         let displayValue = data[name];
         if (type === 'date') displayValue = formatDate(data[name]);
         if (name === 'gender') displayValue = data.gender === 'M' ? 'Masculin' : data.gender === 'F' ? 'Féminin' : data.gender;
         if (name === 'accountType') displayValue = data.accountType === 'savings' ? 'Standard + Épargne' : 'Standard';
+        if (type === 'toggle') displayValue = data[name] ? '🔴 BLOQUÉ' : '🟢 ACCÈS LIBRE';
 
         return (
             <div style={styles.infoRow}>
@@ -39,7 +85,17 @@ const RenderField = ({ label, name, type = 'text', options = null, isEditing, da
     return (
         <div style={styles.infoRow}>
             <label style={styles.label}>{label}</label>
-            {type === 'select' ? (
+            {type === 'toggle' ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <ToggleSwitch
+                        checked={!!editData[name]}
+                        onChange={(e) => onChange({ target: { name, value: e.target.checked, type: 'checkbox', checked: e.target.checked } })}
+                    />
+                    <span style={{ fontSize: '0.8rem', color: editData[name] ? '#ef4444' : '#64748b', fontWeight: 'bold' }}>
+                        {editData[name] ? 'BLOQUÉ' : 'ACCÈS LIBRE'}
+                    </span>
+                </div>
+            ) : type === 'select' ? (
                 <select
                     name={name}
                     value={editData[name] || ''}
@@ -93,7 +149,7 @@ const UserDetails = () => {
             if (!id) return;
             try {
                 setLoading(true);
-                const [userData, userTransactions, userKYC, userCards, userBeneficiaries, userWallets] = await Promise.all([
+                const [userData, userTransactions, userKYC, userCards, userBeneficiaries, userWallets, userInvoices] = await Promise.all([
                     adminService.getUser(id),
                     adminService.getUserTransactions(id),
                     adminService.getUserKYC(id),
@@ -133,6 +189,16 @@ const UserDetails = () => {
     }, [user]);
 
     // --- HANDLERS ---
+    const handleStandaloneToggle = async (name, value) => {
+        try {
+            await adminService.updateUser(id, { [name]: value, updatedAt: new Date() });
+            setUser(prev => ({ ...prev, [name]: value }));
+        } catch (error) {
+            console.error('Error in standalone toggle:', error);
+            alert('Erreur lors de la mise à jour instantanée');
+        }
+    };
+
     const handleAction = async (action) => {
         if (action === 'toggleStatus' && user) {
             try {
@@ -159,8 +225,9 @@ const UserDetails = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEditFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        const val = type === 'checkbox' ? checked : value;
+        setEditFormData(prev => ({ ...prev, [name]: val }));
     };
 
     const handleSave = async () => {
@@ -526,6 +593,10 @@ const UserDetails = () => {
                     <RenderField label="Email Advisor" name="advisorEmail" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Tél Advisor" name="advisorPhone" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Photo (URL) Advisor" name="advisorPhoto" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="Banque Advisor" name="advisorBankName" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="IBAN Advisor" name="advisorIBAN" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="BIC Advisor" name="advisorBIC" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="Titulaire Advisor" name="advisorHolder" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                 </div>
             </div>
 
@@ -646,6 +717,18 @@ const UserDetails = () => {
                         + CRÉER
                     </button>
                 </h3>
+                <div style={{ marginBottom: '1rem', padding: '0.8rem', background: '#fff5f5', borderRadius: '16px', border: '1px solid #fed7d7' }}>
+                    <RenderField
+                        label="Bloquer la page Facturation"
+                        name="invoicingLocked"
+                        type="toggle"
+                        data={user}
+                        isEditing={isEditing}
+                        onChange={handleChange}
+                        editData={editFormData}
+                        onToggle={handleStandaloneToggle}
+                    />
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                     {invoices.length > 0 ? (
                         invoices.map(inv => (
@@ -916,6 +999,18 @@ const UserDetails = () => {
                         >
                             <i className="fas fa-plus"></i> Créer une facture
                         </button>
+                    </div>
+                    <div style={{ marginBottom: '1.5rem', padding: '1rem', background: '#fff5f5', borderRadius: '12px', border: '1px solid #fed7d7' }}>
+                        <RenderField
+                            label="Bloquer la page Facturation"
+                            name="invoicingLocked"
+                            type="toggle"
+                            data={user}
+                            isEditing={isEditing}
+                            onChange={handleChange}
+                            editData={editFormData}
+                            onToggle={handleStandaloneToggle}
+                        />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         {invoices.length > 0 ? (

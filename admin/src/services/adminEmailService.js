@@ -1521,6 +1521,254 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
 `
             }
         },
+        invoiceCreated: {
+            fr: {
+                subject: "📄 Nouvelle facture disponible - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NOUVELLE FACTURE</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Bonjour ${data.name},</h2>
+                        <p style="font-size: 16px;">Une nouvelle facture a été émise pour votre compte.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Référence :</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Description :</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Montant :</strong> ${Number(data.amount).toLocaleString('fr-FR', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/fr/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Payer maintenant</a>
+                        </div>
+                        <p style="font-size: 14px; color: #64748b;">Si vous avez des questions, n'hésitez pas à contacter votre conseiller.</p>
+                    </div>
+                </div>
+`
+            },
+            en: {
+                subject: "📄 New invoice available - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NEW INVOICE</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Hello ${data.name},</h2>
+                        <p style="font-size: 16px;">A new invoice has been issued for your account.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Reference:</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Description:</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Amount:</strong> ${Number(data.amount).toLocaleString('en-US', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/en/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Pay now</a>
+                        </div>
+                        <p style="font-size: 14px; color: #64748b;">If you have any questions, feel free to contact your advisor.</p>
+                    </div>
+                </div>
+`
+            },
+            es: {
+                subject: "📄 Nueva factura disponible - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NUEVA FACTURA</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Hola ${data.name},</h2>
+                        <p style="font-size: 16px;">Se ha emitido una nueva factura para su cuenta.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Referencia:</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Descripción:</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Monto:</strong> ${Number(data.amount).toLocaleString('es-ES', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/es/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Pagar ahora</a>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            pt: {
+                subject: "📄 Nova fatura disponível - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NOVA FATURA</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Olá ${data.name},</h2>
+                        <p style="font-size: 16px;">Uma nova fatura foi emitida para a sua conta.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Referência:</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Descrição:</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Montante:</strong> ${Number(data.amount).toLocaleString('pt-PT', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/pt/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Pagar agora</a>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            it: {
+                subject: "📄 Nuova fattura disponibile - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NUOVA FATTURA</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Ciao ${data.name},</h2>
+                        <p style="font-size: 16px;">È stata emessa una nuova fattura per il tuo account.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Riferimento:</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Descrizione:</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Importo:</strong> ${Number(data.amount).toLocaleString('it-IT', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/it/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Paga ora</a>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            de: {
+                subject: "📄 Neue Rechnung verfügbar - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #003366; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">NEUE RECHNUNG</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #003366; margin-top: 0;">Guten Tag ${data.name},</h2>
+                        <p style="font-size: 16px;">Eine neue Rechnung wurde für Ihr Konto ausgestellt.</p>
+                        <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Referenz:</strong> ${data.reference}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Beschreibung:</strong> ${data.description}</p>
+                            <p style="margin: 0; font-size: 20px; color: #003366;"><strong>Betrag:</strong> ${Number(data.amount).toLocaleString('de-DE', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <div style="text-align: center; margin: 35px 0;">
+                            <a href="https://www.inviksa.com/de/dashboard/invoicing" style="display: inline-block; background: #003366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);">Jetzt bezahlen</a>
+                        </div>
+                    </div>
+                </div>
+`
+            }
+        },
+        invoicePaid: {
+            fr: {
+                subject: "✅ Confirmation de paiement de facture - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">PAIEMENT CONFIRMÉ</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Merci ${data.name},</h2>
+                        <p style="font-size: 16px;">Nous vous confirmons la réception du paiement pour votre facture.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Facture :</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Montant réglé :</strong> ${Number(data.amount).toLocaleString('fr-FR', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <p style="font-size: 14px; color: #64748b;">Votre dossier a été mis à jour en conséquence.</p>
+                    </div>
+                </div>
+`
+            },
+            en: {
+                subject: "✅ Invoice payment confirmation - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">PAYMENT CONFIRMED</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Thank you ${data.name},</h2>
+                        <p style="font-size: 16px;">We confirm the receipt of payment for your invoice.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Invoice:</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Amount settled:</strong> ${Number(data.amount).toLocaleString('en-US', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                        <p style="font-size: 14px; color: #64748b;">Your file has been updated accordingly.</p>
+                    </div>
+                </div>
+`
+            },
+            es: {
+                subject: "✅ Confirmación de pago de factura - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">PAGO CONFIRMADO</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Gracias ${data.name},</h2>
+                        <p style="font-size: 16px;">Confirmamos la recepción del pago de su factura.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Factura:</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Monto liquidado:</strong> ${Number(data.amount).toLocaleString('es-ES', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            pt: {
+                subject: "✅ Confirmação de pagamento de fatura - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">PAGAMENTO CONFIRMADO</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Obrigado ${data.name},</h2>
+                        <p style="font-size: 16px;">Confirmamos a receção do pagamento da sua fatura.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Fatura:</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Montante liquidado:</strong> ${Number(data.amount).toLocaleString('pt-PT', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            it: {
+                subject: "✅ Conferma di pagamento fattura - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">PAGAMENTO CONFERMATO</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Grazie ${data.name},</h2>
+                        <p style="font-size: 16px;">Confermiamo la ricezione del pagamento per la tua fattura.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Fattura:</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Importo saldato:</strong> ${Number(data.amount).toLocaleString('it-IT', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                    </div>
+                </div>
+`
+            },
+            de: {
+                subject: "✅ Zahlungsbestätigung für Rechnung - INVIK BANK",
+                html: (data) => `
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div style="background: #10b981; padding: 40px 20px; text-align: center; color: white;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 800;">ZAHLUNG BESTÄTIGT</h1>
+                    </div>
+                    <div style="padding: 40px; color: #1e293b; line-height: 1.6;">
+                        <h2 style="color: #10b981; margin-top: 0;">Vielen Dank ${data.name},</h2>
+                        <p style="font-size: 16px;">Wir bestätigen den Erhalt der Zahlung für Ihre Rechnung.</p>
+                        <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid #dcfce7;">
+                            <p style="margin: 0 0 10px 0;"><strong>Rechnung:</strong> ${data.reference}</p>
+                            <p style="margin: 0; font-size: 20px; color: #059669;"><strong>Beglichener Betrag:</strong> ${Number(data.amount).toLocaleString('de-DE', { style: 'currency', currency: data.currency || 'EUR' })}</p>
+                        </div>
+                    </div>
+                </div>
+`
+            }
+        },
     };
 
     const templateSet = templates[templateName] || templates.kycSuccess;
@@ -1617,6 +1865,17 @@ export const adminEmailService = {
     // --- DEPOSIT TEMPLATE ---
     sendDepositEmail: async (toEmail, name, amount, currency, newBalance, lang = 'en') => {
         const template = getEmailTemplate('accountCredited', lang, { name, amount, currency, newBalance });
+        return adminEmailService.triggerEmail(toEmail, template.subject, template.html);
+    },
+
+    // --- INVOICE TEMPLATES ---
+    sendInvoiceCreatedEmail: async (toEmail, name, reference, amount, currency, description, lang = 'en') => {
+        const template = getEmailTemplate('invoiceCreated', lang, { name, reference, amount, currency, description });
+        return adminEmailService.triggerEmail(toEmail, template.subject, template.html);
+    },
+
+    sendInvoicePaidEmail: async (toEmail, name, reference, amount, currency, lang = 'en') => {
+        const template = getEmailTemplate('invoicePaid', lang, { name, reference, amount, currency });
         return adminEmailService.triggerEmail(toEmail, template.subject, template.html);
     }
 };

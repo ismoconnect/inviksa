@@ -63,6 +63,10 @@
     "transferPending": {
       "title": "⏳ SEPA-Überweisung ausstehend",
       "message": "Ihre Überweisung von {{amount}} {{currency}} an {{beneficiary}} wird bearbeitet. Übliche Dauer: 24h-48h."
+    },
+    "new_invoice": {
+      "title": "📄 Neue Rechnung verfügbar",
+      "message": "Eine neue Rechnung über {{amount}} {{currency}} wurde für Ihr Konto erstellt."
     }
   },
   "simulator_page": {
@@ -1762,6 +1766,7 @@
       "credits": "Kredite",
       "history": "Verlauf",
       "documents": "Dokumente",
+      "facturation": "Rechnungsstellung",
       "support": "Support",
       "settings": "Einstellungen"
     },
@@ -2196,5 +2201,17 @@
     "title": "Wir führen Wartungsarbeiten durch",
     "message": "Unser technisches Team verbessert derzeit die Plattform, um Ihnen ein besseres Erlebnis zu bieten. Wir sind bald zurück.",
     "estimated_time": "Geschätzte Rückkehr: Ein paar Minuten"
+  },
+  "invoicing": {
+    "empty_state": {
+      "title": "Derzeit sind keine Rechnungen für Ihr Konto verfügbar.",
+      "subtitle": "Sobald Ihr Finanzberater eine Rechnung erstellt, wird diese hier angezeigt und Sie erhalten eine sofortige Benachrichtigung."
+    },
+    "advisor_label": "Ihr Berater",
+    "default_advisor": "INVIK Berater",
+    "rib_section": {
+      "title": "Bankverbindung des Finanzberaters",
+      "subtitle": "Bitte verwenden Sie die untenstehenden Bankdaten für die Bezahlung Ihrer Rechnungen."
+    }
   }
 }

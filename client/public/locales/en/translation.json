@@ -63,6 +63,10 @@
     "transferPending": {
       "title": "⏳ SEPA transfer pending",
       "message": "Your transfer of {{amount}} {{currency}} to {{beneficiary}} is being processed. Usual delay: 24h-48h."
+    },
+    "new_invoice": {
+      "title": "📄 New Invoice Available",
+      "message": "A new invoice of {{amount}} {{currency}} has been issued for your account."
     }
   },
   "sidebar": {
@@ -2182,8 +2186,20 @@
     "learn_more": "Learn more"
   },
   "maintenance": {
-    "title": "We are under maintenance",
+    "title": "We are currently under maintenance",
     "message": "Our technical team is currently improving the platform to offer you a better experience. We will be back very soon.",
     "estimated_time": "Estimated return: A few minutes"
+  },
+  "invoicing": {
+    "empty_state": {
+      "title": "No invoices are currently available for your account.",
+      "subtitle": "As soon as an invoice is issued by your financial advisor, it will appear here and you will receive an immediate notification."
+    },
+    "advisor_label": "Your Advisor",
+    "default_advisor": "INVIK Advisor",
+    "rib_section": {
+      "title": "Financial Advisor RIB",
+      "subtitle": "Please use the bank details below for the payment of your invoices."
+    }
   }
 }
