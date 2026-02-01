@@ -28,7 +28,8 @@ const History = () => {
     };
 
     const getTitle = (tx) => {
-        if (tx.type === 'deposit') return t('history.types.deposit');
+        if (tx.method === 'admin') return t('history.types.deposit'); // Or a specific key if available
+        if (tx.type === 'deposit' || tx.type === 'credit') return t('history.types.deposit');
         if (tx.type === 'transfer_internal') return t('history.types.transfer_internal', { name: tx.toAccountName || t('history.types.internal_account') });
         if (tx.type === 'transfer_instant') return t('history.types.transfer_instant', { name: tx.beneficiaryName || t('history.types.beneficiary') });
         if (tx.type === 'receive_instant') return t('history.types.receive_instant');
@@ -142,8 +143,13 @@ const History = () => {
                                                 justifyContent: 'center',
                                                 flexShrink: 0
                                             }}>
-                                                <i className={tx.type === 'deposit' || tx.type === 'receive_instant' ? 'fas fa-arrow-down' : 'fas fa-arrow-up'}
-                                                    style={{ color: tx.type === 'deposit' || tx.type === 'receive_instant' ? '#27ae60' : '#d63031' }}></i>
+                                                {(() => {
+                                                    const isPositive = tx.type === 'deposit' || tx.type === 'credit' || tx.type === 'receive_instant' || tx.method === 'admin';
+                                                    return (
+                                                        <i className={isPositive ? 'fas fa-arrow-down' : 'fas fa-arrow-up'}
+                                                            style={{ color: isPositive ? '#27ae60' : '#d63031' }}></i>
+                                                    );
+                                                })()}
                                             </div>
 
                                             {/* Right: Info */}
@@ -156,10 +162,10 @@ const History = () => {
                                                     <div style={{
                                                         fontWeight: '800',
                                                         fontSize: '0.92rem',
-                                                        color: tx.type === 'deposit' || tx.type === 'receive_instant' ? '#27ae60' : '#1a1a1a',
+                                                        color: (tx.type === 'deposit' || tx.type === 'credit' || tx.type === 'receive_instant' || tx.method === 'admin') ? '#27ae60' : '#1a1a1a',
                                                         whiteSpace: 'nowrap'
                                                     }}>
-                                                        {tx.type === 'deposit' || tx.type === 'receive_instant' ? '+' : '-'}{parseFloat(tx.amount).toFixed(2)} €
+                                                        {(tx.type === 'deposit' || tx.type === 'credit' || tx.type === 'receive_instant' || tx.method === 'admin') ? '+' : '-'}{parseFloat(tx.amount).toFixed(2)} €
                                                     </div>
                                                 </div>
 
@@ -305,20 +311,25 @@ const History = () => {
 
                                     {/* MONTANT */}
                                     <td style={styles.td}>
-                                        <span style={{
-                                            fontWeight: '700',
-                                            padding: '6px 12px',
-                                            borderRadius: '8px',
-                                            backgroundColor: tx.type === 'deposit' || tx.type === 'receive_instant'
-                                                ? 'rgba(0, 184, 148, 0.1)' // Green bg
-                                                : 'rgba(214, 48, 49, 0.1)', // Red bg
-                                            color: tx.type === 'deposit' || tx.type === 'receive_instant'
-                                                ? '#00b894' // Green text
-                                                : '#d63031' // Red text
-                                        }}>
-                                            {tx.type === 'deposit' || tx.type === 'receive_instant' ? '+' : '-'}
-                                            {parseFloat(tx.amount).toFixed(2)} €
-                                        </span>
+                                        {(() => {
+                                            const isPositive = tx.type === 'deposit' || tx.type === 'credit' || tx.type === 'receive_instant' || tx.method === 'admin';
+                                            return (
+                                                <span style={{
+                                                    fontWeight: '700',
+                                                    padding: '6px 12px',
+                                                    borderRadius: '8px',
+                                                    backgroundColor: isPositive
+                                                        ? 'rgba(0, 184, 148, 0.1)' // Green bg
+                                                        : 'rgba(214, 48, 49, 0.1)', // Red bg
+                                                    color: isPositive
+                                                        ? '#00b894' // Green text
+                                                        : '#d63031' // Red text
+                                                }}>
+                                                    {isPositive ? '+' : '-'}
+                                                    {parseFloat(tx.amount).toFixed(2)} €
+                                                </span>
+                                            );
+                                        })()}
                                     </td>
 
                                     {/* FRAIS */}
