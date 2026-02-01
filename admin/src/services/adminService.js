@@ -713,13 +713,24 @@ export const adminService = {
                 const walletRef = doc(db, 'wallets', walletId);
                 const userRef = doc(db, 'users', userId);
 
+                // --- ALL READS FIRST ---
+                const walletDoc = await transaction.get(walletRef);
+                const userDoc = await transaction.get(userRef);
+
+                if (!walletDoc.exists()) throw new Error("Wallet non trouvé");
+                if (!userDoc.exists()) throw new Error("Utilisateur non trouvé");
+
+                const walletData = walletDoc.data();
+                const userData = userDoc.data();
+
+                // --- ALL WRITES AFTER ---
                 // 1. Update Wallet Balance
                 transaction.update(walletRef, {
                     balance: Number(newBalance),
                     updatedAt: serverTimestamp()
                 });
 
-                // 2. Update User Global Balance (source of truth for some views)
+                // 2. Update User Global Balance
                 transaction.update(userRef, {
                     balance: Number(newBalance),
                     updatedAt: serverTimestamp()
@@ -738,20 +749,11 @@ export const adminService = {
                     updatedAt: serverTimestamp()
                 });
 
-
-
                 // 4. Create Notification for the client
                 if (amount > 0) {
-                    // Fetch wallet and user data within transaction
-                    const walletDoc = await transaction.get(walletRef);
-                    const userDoc = await transaction.get(userRef);
-
-                    const walletData = walletDoc.data();
-                    const userData = userDoc.data();
-
                     const txCurrency = walletData.currency === '€' ? 'EUR' : (walletData.currency || 'EUR');
 
-                    // Localized Notification Logic (Fallback for Admin Dashboard)
+                    // Localized Notification Logic
                     const userLanguage = userData.language || 'en';
                     const strings = getLocalizedNotif(userLanguage);
 
