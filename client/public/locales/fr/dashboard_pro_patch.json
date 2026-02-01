@@ -1,0 +1,20 @@
+{
+    "dashboard": {
+        "pro": {
+            "title": "Espace Professionnel",
+            "revenue": "Chiffre d'affaires",
+            "expenses": "Dépenses professionnelles",
+            "quick_invoice": "Créer une facture",
+            "clients": "Clients récents",
+            "tax_summary": "Résumé TVA",
+            "current_month": "Mois en cours",
+            "total_6months": "Total 6 mois",
+            "no_expenses": "Aucune dépense enregistrée",
+            "vat_collected": "TVA collectée",
+            "vat_deductible": "TVA déductible",
+            "vat_net": "TVA nette à payer",
+            "transactions": "transactions",
+            "no_clients": "Aucun client enregistré"
+        }
+    }
+}

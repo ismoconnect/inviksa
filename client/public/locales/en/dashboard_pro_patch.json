@@ -1,0 +1,20 @@
+{
+    "dashboard": {
+        "pro": {
+            "title": "Professional Dashboard",
+            "revenue": "Revenue",
+            "expenses": "Business Expenses",
+            "quick_invoice": "Create Invoice",
+            "clients": "Recent Clients",
+            "tax_summary": "Tax Summary",
+            "current_month": "Current Month",
+            "total_6months": "Total 6 Months",
+            "no_expenses": "No expenses recorded",
+            "vat_collected": "VAT Collected",
+            "vat_deductible": "VAT Deductible",
+            "vat_net": "Net VAT Payable",
+            "transactions": "transactions",
+            "no_clients": "No clients recorded"
+        }
+    }
+}

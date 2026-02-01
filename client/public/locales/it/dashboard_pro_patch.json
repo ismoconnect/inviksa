@@ -1,0 +1,20 @@
+{
+    "dashboard": {
+        "pro": {
+            "title": "Dashboard Professionale",
+            "revenue": "Fatturato",
+            "expenses": "Spese Professionali",
+            "quick_invoice": "Crea Fattura",
+            "clients": "Clienti Recenti",
+            "tax_summary": "Riepilogo Fiscale",
+            "current_month": "Mese Corrente",
+            "total_6months": "Totale 6 Mesi",
+            "no_expenses": "Nessuna spesa registrata",
+            "vat_collected": "IVA Riscossa",
+            "vat_deductible": "IVA Deducibile",
+            "vat_net": "IVA Netta da Pagare",
+            "transactions": "transazioni",
+            "no_clients": "Nessun cliente registrato"
+        }
+    }
+}

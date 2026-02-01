@@ -1376,6 +1376,7 @@
     "subtitle": "Manage your wallets and view your bank details.",
     "main": "Current Account",
     "savings": "Savings Account",
+    "savings_rate_description": "Rate: 2.5% / year",
     "credit": "Credit Account",
     "hidden_iban": "Hidden IBAN (Verification required)",
     "rate": "Rate: 2.5% / year",

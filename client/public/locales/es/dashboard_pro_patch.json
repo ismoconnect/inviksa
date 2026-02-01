@@ -1,0 +1,20 @@
+{
+    "dashboard": {
+        "pro": {
+            "title": "Panel Profesional",
+            "revenue": "Ingresos",
+            "expenses": "Gastos Profesionales",
+            "quick_invoice": "Crear Factura",
+            "clients": "Clientes Recientes",
+            "tax_summary": "Resumen Fiscal",
+            "current_month": "Mes Actual",
+            "total_6months": "Total 6 Meses",
+            "no_expenses": "Sin gastos registrados",
+            "vat_collected": "IVA Recaudado",
+            "vat_deductible": "IVA Deducible",
+            "vat_net": "IVA Neto a Pagar",
+            "transactions": "transacciones",
+            "no_clients": "Sin clientes registrados"
+        }
+    }
+}
