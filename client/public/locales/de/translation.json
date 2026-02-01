@@ -2125,14 +2125,21 @@
   "welcome": "Willkommen bei der INVIK BANK",
   "loading": "Ihr persönlicher Bereich wird vorbereitet...",
   "dashboard": {
-    "loading": "Dashboard wird geladen...",
-    "status": {
-      "pending": "Ausstehend",
-      "completed": "Abgeschlossen",
-      "status_label": "Status"
-    },
-    "pagination": {
-      "page": "Schritt {{current}} von {{total}}"
+    "pro": {
+      "title": "Professionelles Dashboard",
+      "revenue": "Umsatz",
+      "expenses": "Geschäftsausgaben",
+      "quick_invoice": "Rechnung Erstellen",
+      "clients": "Letzte Kunden",
+      "tax_summary": "Steuerübersicht",
+      "current_month": "Aktueller Monat",
+      "total_6months": "Gesamt 6 Monate",
+      "no_expenses": "Keine Ausgaben erfasst",
+      "vat_collected": "Erhaltene MwSt",
+      "vat_deductible": "Abzugsfähige MwSt",
+      "vat_net": "Netto-MwSt zu zahlen",
+      "transactions": "Transaktionen",
+      "no_clients": "Keine Kunden erfasst"
     }
   },
   "common": {

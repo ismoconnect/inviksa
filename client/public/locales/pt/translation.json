@@ -2118,14 +2118,21 @@
     "profile_title": "Ajustes da conta"
   },
   "dashboard": {
-    "loading": "A carregar o painel...",
-    "status": {
-      "pending": "Pendente",
-      "completed": "Concluído",
-      "status_label": "Status"
-    },
-    "pagination": {
-      "page": "Passo {{current}} de {{total}}"
+    "pro": {
+      "title": "Painel Profissional",
+      "revenue": "Receita",
+      "expenses": "Despesas Profissionais",
+      "quick_invoice": "Criar Fatura",
+      "clients": "Clientes Recentes",
+      "tax_summary": "Resumo Fiscal",
+      "current_month": "Mês Atual",
+      "total_6months": "Total 6 Meses",
+      "no_expenses": "Sem despesas registradas",
+      "vat_collected": "IVA Coletado",
+      "vat_deductible": "IVA Dedutível",
+      "vat_net": "IVA Líquido a Pagar",
+      "transactions": "transações",
+      "no_clients": "Sem clientes registrados"
     }
   },
   "banner": {

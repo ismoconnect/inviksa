@@ -3,10 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
 import KycVerificationBanner from '../components/dashboard/KycVerificationBanner';
-import { useTranslation } from 'react-i18next'; // Import i18n
+import { useTranslation } from 'react-i18next';
+import DashboardPro from './DashboardPro';
 
 const Dashboard = () => {
     const { currentUser, userData } = useAuth();
+
+    // Redirect to professional dashboard if user has professional account
+    if (userData?.accountType === 'professional') {
+        return <DashboardPro />;
+    }
+
     const { wallets, transactions: allTransactions, loading, kycStatus } = useData();
     const navigate = useNavigate();
     const { t, i18n } = useTranslation(); // Hook initialization
