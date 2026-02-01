@@ -70,7 +70,7 @@ i18n
         detection: {
             order: ['path', 'queryString', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'subdomain'],
             lookupQuerystring: 'lang',
-            lookupFromPathIndex: 0,
+            lookupFromPathIndex: 1,
             caches: ['localStorage', 'cookie'],
         },
 

@@ -90,7 +90,21 @@ const LanguageWrapper = () => {
   }, [lang, i18n]);
 
   if (!validLangs.includes(lang)) {
-    return <Navigate to="/fr" replace />;
+    // If the lang prefix is invalid (e.g. /favicon.ico or a typo), 
+    // redirect to the detected language or 'fr', preserving the rest of the path.
+    const pathSegments = location.pathname.split('/');
+    const detectedLang = i18n.language && validLangs.includes(i18n.language) ? i18n.language : 'fr';
+
+    // If we have at least 2 segments (the first is empty), replace the first real segment
+    if (pathSegments.length > 1) {
+      pathSegments[1] = detectedLang;
+    } else {
+      pathSegments.push(detectedLang);
+    }
+
+    const targetPath = pathSegments.join('/') || `/${detectedLang}`;
+    console.log(`LanguageWrapper: Invalid lang "${lang}", redirecting to ${targetPath}`);
+    return <Navigate to={targetPath} replace />;
   }
 
   return <Outlet />;
