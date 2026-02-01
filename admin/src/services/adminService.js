@@ -730,9 +730,10 @@ export const adminService = {
                     updatedAt: serverTimestamp()
                 });
 
-                // 2. Update User Global Balance
+                // 2. Update User Global Balance by adding/subtracting the delta
+                const currentGlobal = userDoc.data().balance || 0;
                 transaction.update(userRef, {
-                    balance: Number(newBalance),
+                    balance: currentGlobal + amount,
                     updatedAt: serverTimestamp()
                 });
 
