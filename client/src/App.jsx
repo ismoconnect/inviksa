@@ -153,6 +153,7 @@ function AppRoutes() {
 
       {/* Auth Action Handler - MUST be outside :lang block to catch Firebase redirects */}
       <Route path="/auth/action" element={<AuthActionHandler />} />
+      <Route path="/__/auth/action" element={<AuthActionHandler />} />
     </Routes>
   );
 }
