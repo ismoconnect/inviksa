@@ -1339,6 +1339,51 @@ export const adminService = {
         }
     },
 
+    // --- Invoicing ---
+    getUserInvoices: async (userId) => {
+        const snapshot = await getDocs(
+            query(collection(db, 'invoices'), where('userId', '==', userId), orderBy('createdAt', 'desc'))
+        );
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    },
+
+    createInvoice: async (invoiceData) => {
+        const docRef = await addDoc(collection(db, 'invoices'), {
+            ...invoiceData,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+        });
+
+        // Optional: Notify client
+        const notifRef = doc(collection(db, 'notifications'));
+        await setDoc(notifRef, {
+            userId: invoiceData.userId,
+            title: '📄 Nouvelle facture disponible',
+            message: `Une nouvelle facture de ${invoiceData.amount.toLocaleString('fr-FR')} ${invoiceData.currency} a été émise pour votre compte.`,
+            titleKey: 'notifications.new_invoice.title',
+            messageKey: 'notifications.new_invoice.message',
+            messageParams: {
+                amount: invoiceData.amount.toLocaleString('fr-FR'),
+                currency: invoiceData.currency
+            },
+            type: 'invoice',
+            read: false,
+            createdAt: serverTimestamp()
+        });
+
+        return docRef.id;
+    },
+
+    updateInvoiceStatus: async (invoiceId, status) => {
+        await updateDoc(doc(db, 'invoices', invoiceId), {
+            status,
+            updatedAt: serverTimestamp()
+        });
+    },
+
+    deleteInvoice: async (invoiceId) => {
+        await deleteDoc(doc(db, 'invoices', invoiceId));
+    },
 };
 
 // Helper to generate IBAN (Duplicated from client for independence)

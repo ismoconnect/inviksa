@@ -65,6 +65,26 @@
       "message": "Your transfer of {{amount}} {{currency}} to {{beneficiary}} is being processed. Usual delay: 24h-48h."
     }
   },
+  "sidebar": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "accounts": "My Accounts",
+      "transfers": "Transfers",
+      "beneficiaries": "Beneficiaries",
+      "deposit": "Deposit / Top up",
+      "cards": "My Cards",
+      "credits": "Credits",
+      "history": "History",
+      "documents": "Documents",
+      "facturation": "Invoicing",
+      "support": "Customer Support",
+      "settings": "Settings"
+    },
+    "user": {
+      "account_type": "{{type}} Account"
+    },
+    "logout": "Logout"
+  },
   "simulator_page": {
     "title": "Credit Simulator",
     "subtitle": "Estimate your monthly payments in a few clicks. Immediate decision in principle.",
@@ -1731,25 +1751,6 @@
     "pagination": {
       "page": "Page {{current}} of {{total}}"
     }
-  },
-  "sidebar": {
-    "nav": {
-      "dashboard": "Dashboard",
-      "accounts": "My Accounts",
-      "transfers": "Transfers",
-      "beneficiaries": "Beneficiaries",
-      "deposit": "Top Up",
-      "cards": "Cards",
-      "credits": "Credits",
-      "history": "History",
-      "documents": "Documents",
-      "support": "Support",
-      "settings": "Settings"
-    },
-    "user": {
-      "account_type": "{{type}} Account"
-    },
-    "logout": "Logout"
   },
   "history": {
     "title": "History",

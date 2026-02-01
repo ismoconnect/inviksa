@@ -15,8 +15,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/dashboard/Accounts';
-import CardsDashboard from './pages/dashboard/Cards'; // Dashboard Cards page
+import CardsDashboard from './pages/dashboard/Cards';
 import DocumentsDashboard from './pages/dashboard/Documents';
+import Invoicing from './pages/dashboard/Invoicing';
 import Transfers from './pages/dashboard/Transfers';
 import Deposit from './pages/dashboard/Deposit';
 import History from './pages/dashboard/History';
@@ -143,6 +144,7 @@ function AppRoutes() {
           <Route path="history" element={<History />} />
           <Route path="beneficiaries" element={<Beneficiaries />} />
           <Route path="documents" element={<DocumentsDashboard />} />
+          <Route path="invoicing" element={<Invoicing />} />
           <Route path="support" element={<Support />} />
           <Route path="settings" element={<Settings />} />
           <Route path="kyc" element={<KycVerification />} />

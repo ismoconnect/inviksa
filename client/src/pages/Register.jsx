@@ -517,7 +517,7 @@ const Register = () => {
                 {`
                     .register-page {
                         position: relative;
-                        overflow-x: hidden;
+                        /* Removed overflow-x: hidden to avoid double scrollbars */
                     }
                     .glass-light-glow {
                         border: 1px solid rgba(0, 204, 255, 0.2) !important;
@@ -630,10 +630,12 @@ const Register = () => {
 
 const styles = {
     page: {
-        minHeight: '100vh',
+        minHeight: 'auto', // Changed from 100vh to avoid double scroll with PublicLayout
         background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #e0f2fe 100%)',
-        paddingBottom: '5rem',
-        position: 'relative'
+        paddingBottom: '2rem',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column'
     },
     gridOverlay: {
         position: 'absolute',
@@ -649,7 +651,7 @@ const styles = {
         backgroundImage: 'url(/service/service-8.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '140px', // Reduced height for more compact look
+        height: '120px', // Further reduced
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
@@ -662,10 +664,17 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center'
     },
-    heroTitle: { color: 'white', fontSize: '2rem', fontWeight: '900', textTransform: 'uppercase', marginBottom: '0.3rem', letterSpacing: '1px' },
-    heroSubtitle: { color: '#f0f9ff', fontSize: '1rem', fontWeight: '500', opacity: 0.9 },
+    heroTitle: { color: 'white', fontSize: '1.8rem', fontWeight: '900', textTransform: 'uppercase', marginBottom: '0.2rem', letterSpacing: '1px' },
+    heroSubtitle: { color: '#f0f9ff', fontSize: '0.9rem', fontWeight: '500', opacity: 0.9 },
 
-    formContainer: { maxWidth: '1000px', margin: '0 auto', padding: '0 1.5rem', marginTop: '-2.5rem', position: 'relative', zIndex: 10 },
+    formContainer: {
+        maxWidth: '1000px',
+        margin: '0 auto',
+        padding: '0 1.5rem',
+        marginTop: '1rem', // Reduced from 2rem
+        position: 'relative',
+        zIndex: 10
+    },
 
     // Selection Gateway Styles
     selectionContainer: { textAlign: 'center' },
@@ -703,7 +712,7 @@ const styles = {
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        padding: '2rem 2.5rem',
+        padding: '1.5rem 2rem', // Reduced padding
         borderRadius: '24px',
     },
     logoWrapper: {

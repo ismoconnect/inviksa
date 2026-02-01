@@ -30,7 +30,7 @@ i18n
             request: async (options, url, payload, callback) => {
                 try {
                     // Check localStorage first
-                    const I18N_CACHE_VERSION = 'v1.5'; // Bump version to invalidate cache
+                    const I18N_CACHE_VERSION = 'v1.6'; // Bump version to invalidate cache
                     const cacheKey = `i18n_res_${url}`;
                     const cached = localStorage.getItem(cacheKey);
 

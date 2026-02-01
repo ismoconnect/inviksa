@@ -38,6 +38,7 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
         { name: t('sidebar.nav.credits'), path: `/${i18n.language}/dashboard/credits`, icon: 'fas fa-hand-holding-usd' },
         { name: t('sidebar.nav.history'), path: `/${i18n.language}/dashboard/history`, icon: 'fas fa-history' },
         { name: t('sidebar.nav.documents'), path: `/${i18n.language}/dashboard/documents`, icon: 'fas fa-file-invoice' },
+        { name: t('sidebar.nav.facturation'), path: `/${i18n.language}/dashboard/invoicing`, icon: 'fas fa-file-invoice-dollar' },
         { name: t('sidebar.nav.support'), path: `/${i18n.language}/dashboard/support`, icon: 'fas fa-headset', badge: unreadSupport },
         { name: t('sidebar.nav.settings'), path: `/${i18n.language}/dashboard/settings`, icon: 'fas fa-cog' },
     ];

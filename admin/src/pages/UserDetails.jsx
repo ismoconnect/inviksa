@@ -74,6 +74,7 @@ const UserDetails = () => {
     const [beneficiaries, setBeneficiaries] = useState([]);
     const [notifications, setNotifications] = useState([]);
     const [wallets, setWallets] = useState([]);
+    const [invoices, setInvoices] = useState([]);
     const [kycData, setKycData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -98,7 +99,8 @@ const UserDetails = () => {
                     adminService.getUserKYC(id),
                     adminService.getUserCards(id),
                     adminService.getUserBeneficiaries(id),
-                    adminService.getUserWallets(id)
+                    adminService.getUserWallets(id),
+                    adminService.getUserInvoices(id)
                 ]);
                 setUser(userData);
                 setTransactions(userTransactions);
@@ -106,6 +108,7 @@ const UserDetails = () => {
                 setCards(userCards);
                 setBeneficiaries(userBeneficiaries);
                 setWallets(userWallets);
+                setInvoices(userInvoices);
             } catch (error) {
                 console.error('Error loading user details:', error);
             } finally {
@@ -314,6 +317,74 @@ const UserDetails = () => {
         } catch (error) {
             console.error("Error updating RIB:", error);
             alert("Erreur lors de la mise à jour du RIB");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleCreateInvoice = async () => {
+        const amountStr = window.prompt("Montant de la facture (EUR) :");
+        if (!amountStr) return;
+        const amount = parseFloat(amountStr);
+        if (isNaN(amount) || amount <= 0) {
+            alert("Montant invalide");
+            return;
+        }
+
+        const description = window.prompt("Description de la facture (ex: Frais de tenue de compte) :");
+        if (!description) return;
+
+        const reference = window.prompt("Référence (optionnel, ex: INV-2024-001) :");
+
+        try {
+            setLoading(true);
+            const invoiceData = {
+                userId: user.id,
+                amount,
+                description,
+                reference: reference || `INV-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+                currency: 'EUR',
+                status: 'pending'
+            };
+            await adminService.createInvoice(invoiceData);
+
+            // Refresh invoices
+            const updatedInvoices = await adminService.getUserInvoices(user.id);
+            setInvoices(updatedInvoices);
+            alert("Facture créée avec succès");
+        } catch (error) {
+            console.error("Error creating invoice:", error);
+            alert("Erreur lors de la création de la facture");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleUpdateInvoiceStatus = async (invoiceId, currentStatus) => {
+        const newStatus = currentStatus === 'paid' ? 'pending' : 'paid';
+        if (!window.confirm(`Marquer cette facture comme ${newStatus === 'paid' ? 'payée' : 'impayée'} ?`)) return;
+
+        try {
+            setLoading(true);
+            await adminService.updateInvoiceStatus(invoiceId, newStatus);
+            setInvoices(prev => prev.map(inv => inv.id === invoiceId ? { ...inv, status: newStatus } : inv));
+        } catch (error) {
+            console.error("Error updating invoice status:", error);
+            alert("Erreur lors de la mise à jour du statut");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDeleteInvoice = async (invoiceId) => {
+        if (!window.confirm("Supprimer définitivement cette facture ?")) return;
+        try {
+            setLoading(true);
+            await adminService.deleteInvoice(invoiceId);
+            setInvoices(prev => prev.filter(inv => inv.id !== invoiceId));
+        } catch (error) {
+            console.error("Error deleting invoice:", error);
+            alert("Erreur lors de la suppression");
         } finally {
             setLoading(false);
         }
@@ -563,6 +634,54 @@ const UserDetails = () => {
                 </div>
             </div>
 
+            <div style={{ background: 'white', borderRadius: '28px', padding: '1.2rem', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#003366', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <i className="fas fa-file-invoice-dollar" style={{ opacity: 0.3 }}></i> Facturation
+                    </div>
+                    <button
+                        onClick={handleCreateInvoice}
+                        style={{ background: '#003366', color: 'white', border: 'none', borderRadius: '10px', padding: '4px 10px', fontSize: '0.7rem', fontWeight: 'bold' }}
+                    >
+                        + CRÉER
+                    </button>
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                    {invoices.length > 0 ? (
+                        invoices.map(inv => (
+                            <div key={inv.id} style={{ padding: '0.8rem', background: '#f8fafc', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                    <span style={{ fontWeight: '700', color: '#003366', fontSize: '0.85rem' }}>{inv.reference}</span>
+                                    <span style={{ ...styles.statusBadge, padding: '2px 8px', fontSize: '0.6rem', background: inv.status === 'paid' ? '#dcfce7' : '#fee2e2', color: inv.status === 'paid' ? '#166534' : '#991b1b' }}>
+                                        {inv.status === 'paid' ? 'PAYÉE' : 'EN ATTENTE'}
+                                    </span>
+                                </div>
+                                <div style={{ fontSize: '0.8rem', color: '#1e293b', marginBottom: '4px' }}>{inv.description}</div>
+                                <div style={{ fontWeight: '800', color: '#1e293b', fontSize: '1rem', marginBottom: '8px' }}>
+                                    {inv.amount.toLocaleString('fr-FR', { style: 'currency', currency: inv.currency })}
+                                </div>
+                                <div style={{ display: 'flex', gap: '10px' }}>
+                                    <button
+                                        onClick={() => handleUpdateInvoiceStatus(inv.id, inv.status)}
+                                        style={{ flex: 1, padding: '6px', borderRadius: '8px', border: '1px solid #003366', background: 'transparent', color: '#003366', fontSize: '0.7rem', fontWeight: 'bold' }}
+                                    >
+                                        {inv.status === 'paid' ? 'MARQUER IMPAYÉE' : 'MARQUER PAYÉE'}
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteInvoice(inv.id)}
+                                        style={{ padding: '6px 10px', borderRadius: '8px', border: 'none', background: '#fee2e2', color: '#991b1b', fontSize: '0.7rem' }}
+                                    >
+                                        <i className="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p style={{ textAlign: 'center', color: '#64748b', fontSize: '0.85rem' }}>Aucune facture</p>
+                    )}
+                </div>
+            </div>
+
             {/* Transactions Section */}
             <div style={{ background: 'white', borderRadius: '28px', padding: '1.2rem', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
@@ -781,6 +900,53 @@ const UserDetails = () => {
                             ))
                         ) : (
                             <p style={styles.emptyText}>Aucun portefeuille trouvé.</p>
+                        )}
+                    </div>
+                </div>
+                <div style={styles.card}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                        <h3 style={styles.cardTitle}>Facturation</h3>
+                        <button
+                            onClick={handleCreateInvoice}
+                            style={{ ...styles.actionBtn, background: '#003366', color: 'white', fontSize: '0.75rem' }}
+                        >
+                            <i className="fas fa-plus"></i> Créer une facture
+                        </button>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        {invoices.length > 0 ? (
+                            invoices.map(inv => (
+                                <div key={inv.id} style={{ padding: '1rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                        <span style={{ fontWeight: '700', color: '#1e293b' }}>{inv.reference}</span>
+                                        <span style={{ ...styles.statusBadge, background: inv.status === 'paid' ? '#dcfce7' : '#fee2e2', color: inv.status === 'paid' ? '#166534' : '#991b1b' }}>
+                                            {inv.status === 'paid' ? 'Payée' : 'En attente'}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>{inv.description}</div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontWeight: '800', color: '#1e293b', fontSize: '1.1rem' }}>
+                                            {inv.amount.toLocaleString('fr-FR', { style: 'currency', currency: inv.currency })}
+                                        </span>
+                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                            <button
+                                                onClick={() => handleUpdateInvoiceStatus(inv.id, inv.status)}
+                                                style={{ ...styles.actionBtn, background: '#f1f5f9', color: '#475569', fontSize: '0.75rem' }}
+                                            >
+                                                {inv.status === 'paid' ? 'Impayée' : 'Payée'}
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteInvoice(inv.id)}
+                                                style={{ ...styles.actionBtn, background: '#fee2e2', color: '#991b1b', fontSize: '0.75rem' }}
+                                            >
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p style={styles.emptyText}>Aucune facture émise.</p>
                         )}
                     </div>
                 </div>

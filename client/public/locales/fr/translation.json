@@ -65,6 +65,26 @@
       "message": "Votre virement de {{amount}} {{currency}} vers {{beneficiary}} est en cours de traitement. Délai habituel : 24h-48h."
     }
   },
+  "sidebar": {
+    "nav": {
+      "dashboard": "Mon Espace Client",
+      "accounts": "Mes Comptes",
+      "transfers": "Virements",
+      "beneficiaries": "Bénéficiaires",
+      "deposit": "Dépôt / Recharger",
+      "cards": "Mes Cartes",
+      "credits": "Crédits",
+      "history": "Historique",
+      "documents": "Documents",
+      "facturation": "Facturation",
+      "support": "Support client",
+      "settings": "Paramètres"
+    },
+    "user": {
+      "account_type": "Compte {{type}}"
+    },
+    "logout": "Déconnexion"
+  },
   "simulator_page": {
     "title": "Simulateur de Crédit",
     "subtitle": "Estimez vos mensualités en quelques clics. Réponse de principe immédiate.",
@@ -1362,25 +1382,6 @@
     "pagination": {
       "page": "Page {{current}} sur {{total}}"
     }
-  },
-  "sidebar": {
-    "nav": {
-      "dashboard": "Mon Espace Client",
-      "accounts": "Mes Comptes",
-      "transfers": "Virements",
-      "beneficiaries": "Bénéficiaires",
-      "deposit": "Dépôt / Recharger",
-      "cards": "Mes Cartes",
-      "credits": "Crédits",
-      "history": "Historique",
-      "documents": "Documents",
-      "support": "Support client",
-      "settings": "Paramètres"
-    },
-    "user": {
-      "account_type": "Compte {{type}}"
-    },
-    "logout": "Déconnexion"
   },
   "beneficiaries": {
     "title": "Bénéficiaires",
