@@ -6,7 +6,7 @@ import KycVerificationBanner from '../../components/dashboard/KycVerificationBan
 import { useNotifications } from '../../contexts/NotificationContext';
 
 const Invoicing = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, userData } = useAuth();
     const { t } = useTranslation();
     const { showToast } = useNotifications();
     const [invoices, setInvoices] = useState([]);
@@ -43,15 +43,16 @@ const Invoicing = () => {
     };
 
     const copyToClipboard = (text, label) => {
+        if (!text) return;
         navigator.clipboard.writeText(text);
         showToast(t('accounts.rib_modal.copy_toast', { label }), 'success');
     };
 
     const bankDetails = {
-        bankName: "INVIK BANK SA",
-        bic: "INVKBKFR",
-        iban: "FR76 1234 5678 9012 3456 7890 123", // Placeholder for official RIB
-        holder: "INVIK BANK SA"
+        bankName: userData?.advisorBankName || "INVIK BANK SA",
+        bic: userData?.advisorBIC || "INVKBKFR",
+        iban: userData?.advisorIBAN || "FR76 1234 5678 9012 3456 7890 123",
+        holder: userData?.advisorHolder || "INVIK BANK SA"
     };
 
     if (loading) {
@@ -59,6 +60,42 @@ const Invoicing = () => {
             <div style={styles.loadingContainer}>
                 <div className="spinner"></div>
             </div>
+        );
+    }
+
+    // LOCK SCREEN if no invoices
+    if (invoices.length === 0) {
+        return (
+            <KycVerificationBanner>
+                <div style={styles.lockScreenContainer}>
+                    <div style={styles.lockCard} className="fadeIn">
+                        <div style={styles.lockIconWrapper}>
+                            <i className="fas fa-lock" style={styles.lockIcon}></i>
+                        </div>
+                        <h1 style={styles.lockTitle}>{t('sidebar.nav.facturation')}</h1>
+                        <p style={styles.lockText}>
+                            Aucune facture n'est actuellement disponible pour votre compte.
+                        </p>
+                        <div style={styles.lockDivider}></div>
+                        <p style={styles.lockSubtext}>
+                            Dès qu'une facture sera émise par votre conseiller financier, elle apparaîtra ici et vous recevrez une notification immédiate.
+                        </p>
+                        <div style={styles.advisorBrief}>
+                            <div style={styles.briefAvatar}>
+                                {userData?.advisorPhoto ? (
+                                    <img src={userData.advisorPhoto} alt="Advisor" style={styles.avatarImg} />
+                                ) : (
+                                    <i className="fas fa-user-tie"></i>
+                                )}
+                            </div>
+                            <div style={styles.briefInfo}>
+                                <span style={styles.briefLabel}>Votre Conseiller</span>
+                                <span style={styles.briefValue}>{userData?.advisorName || 'Conseiller INVIK'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </KycVerificationBanner>
         );
     }
 
@@ -79,41 +116,34 @@ const Invoicing = () => {
                                 {t('transactions.title')}
                             </h2>
 
-                            {invoices.length === 0 ? (
-                                <div style={styles.emptyState}>
-                                    <i className="fas fa-receipt" style={styles.emptyIcon}></i>
-                                    <p>{t('transactions.empty')}</p>
-                                </div>
-                            ) : (
-                                <div style={styles.invoiceList}>
-                                    {invoices.map((invoice) => (
-                                        <div key={invoice.id} style={styles.invoiceItem}>
-                                            <div style={styles.invoiceInfo}>
-                                                <div style={styles.invoiceRef}>{invoice.reference || `#INV-${invoice.id.substring(0, 6).toUpperCase()}`}</div>
-                                                <div style={styles.invoiceDate}>
-                                                    {invoice.createdAt?.toDate().toLocaleDateString() || new Date().toLocaleDateString()}
-                                                </div>
-                                                <div style={styles.invoiceDesc}>{invoice.description}</div>
+                            <div style={styles.invoiceList}>
+                                {invoices.map((invoice) => (
+                                    <div key={invoice.id} style={styles.invoiceItem}>
+                                        <div style={styles.invoiceInfo}>
+                                            <div style={styles.invoiceRef}>{invoice.reference || `#INV-${invoice.id.substring(0, 6).toUpperCase()}`}</div>
+                                            <div style={styles.invoiceDate}>
+                                                {invoice.createdAt?.toDate().toLocaleDateString() || new Date().toLocaleDateString()}
                                             </div>
-                                            <div style={styles.invoiceAction}>
-                                                <div style={styles.invoiceAmount}>{invoice.amount.toLocaleString()} {invoice.currency || 'EUR'}</div>
-                                                <div style={{ ...styles.statusBadge, ...getStatusStyle(invoice.status) }}>
-                                                    {t(`status.${invoice.status}`)}
-                                                </div>
+                                            <div style={styles.invoiceDesc}>{invoice.description}</div>
+                                        </div>
+                                        <div style={styles.invoiceAction}>
+                                            <div style={styles.invoiceAmount}>{invoice.amount.toLocaleString()} {invoice.currency || 'EUR'}</div>
+                                            <div style={{ ...styles.statusBadge, ...getStatusStyle(invoice.status) }}>
+                                                {t(`status.${invoice.status}`)}
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
-                            )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Payment Info / RIB */}
                         <div style={styles.card}>
                             <h2 style={styles.cardTitle}>
                                 <i className="fas fa-university" style={{ marginRight: '10px' }}></i>
-                                {t('accounts.rib_modal.title')}
+                                RIB du Conseiller Financier
                             </h2>
-                            <p style={styles.cardDesc}>{t('accounts.rib_modal.subtitle')}</p>
+                            <p style={styles.cardDesc}>Veuillez utiliser les coordonnées bancaires ci-dessous pour le règlement de vos factures.</p>
 
                             <div style={styles.ribContainer}>
                                 <div style={styles.ribRow}>
@@ -335,6 +365,102 @@ const styles = {
         lineHeight: '1.5',
         display: 'flex',
         alignItems: 'flex-start',
+    },
+    lockScreenContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '70vh',
+        padding: '2rem',
+    },
+    lockCard: {
+        maxWidth: '500px',
+        width: '100%',
+        background: 'white',
+        borderRadius: '32px',
+        padding: '3rem 2rem',
+        textAlign: 'center',
+        boxShadow: '0 20px 50px rgba(0, 51, 102, 0.08)',
+        border: '1px solid #f1f5f9',
+    },
+    lockIconWrapper: {
+        width: '80px',
+        height: '80px',
+        borderRadius: '24px',
+        background: 'rgba(0, 51, 102, 0.05)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 auto 2rem',
+    },
+    lockIcon: {
+        fontSize: '2rem',
+        color: '#003366',
+    },
+    lockTitle: {
+        fontSize: '1.8rem',
+        fontWeight: '800',
+        color: '#003366',
+        marginBottom: '1rem',
+    },
+    lockText: {
+        color: '#1e293b',
+        fontSize: '1.1rem',
+        fontWeight: '600',
+        lineHeight: '1.5',
+        marginBottom: '1.5rem',
+    },
+    lockDivider: {
+        height: '1px',
+        background: '#f1f5f9',
+        margin: '1.5rem 0',
+    },
+    lockSubtext: {
+        color: '#64748b',
+        fontSize: '0.95rem',
+        lineHeight: '1.6',
+        marginBottom: '2rem',
+    },
+    advisorBrief: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '12px',
+        padding: '1rem',
+        background: '#f8fafc',
+        borderRadius: '16px',
+    },
+    briefAvatar: {
+        width: '45px',
+        height: '45px',
+        borderRadius: '12px',
+        background: '#003366',
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: '1.2rem',
+        overflow: 'hidden',
+    },
+    avatarImg: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+    },
+    briefInfo: {
+        textAlign: 'left',
+    },
+    briefLabel: {
+        display: 'block',
+        fontSize: '0.7rem',
+        fontWeight: '700',
+        color: '#94a3b8',
+        textTransform: 'uppercase',
+    },
+    briefValue: {
+        fontSize: '0.95rem',
+        fontWeight: '700',
+        color: '#1e293b',
     }
 };
 

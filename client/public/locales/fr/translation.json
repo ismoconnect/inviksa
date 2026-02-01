@@ -1158,7 +1158,9 @@
     }
   },
   "status": {
+    "paid": "Payée",
     "pending": "En attente",
+    "cancelled": "Annulée",
     "rejected": "Refusé",
     "completed": "Validé",
     "done": "Terminé",

@@ -780,6 +780,10 @@ const UserDetails = () => {
                         <RenderField label="Email Direct" name="advisorEmail" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                         <RenderField label="Ligne Directe" name="advisorPhone" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                         <RenderField label="Photo Advisor (URL)" name="advisorPhoto" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="Banque du Conseiller" name="advisorBankName" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="IBAN du Conseiller" name="advisorIBAN" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="BIC du Conseiller" name="advisorBIC" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="Titulaire (RIB Conseiller)" name="advisorHolder" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     </div>
 
                     <div style={styles.divider}></div>
