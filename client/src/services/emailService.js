@@ -1374,6 +1374,458 @@ const getEmailTemplate = (templateName, lang = 'fr', data) => {
             }
         },
 
+        // Instant Transfer Sent (Sender)
+        transferInstantSent: {
+            fr: {
+                subject: "Confirmation de votre virement - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Virement effectué</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Bonjour ${data.name},</h2>
+                            <p>Votre virement interne a été effectué avec succès et les fonds ont été transférés instantanément.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Montant :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('fr-FR', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Bénéficiaire :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Type :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Interne (Instantané)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Statut :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Complété</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Référence :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Les fonds sont désormais disponibles sur le compte du bénéficiaire.</p>
+                            <p style="margin-top: 30px;">Merci de votre confiance,<br><strong>L'équipe INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            en: {
+                subject: "Transfer Confirmation - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Transfer Completed</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Hello ${data.name},</h2>
+                            <p>Your internal transfer has been successfully completed and the funds have been transferred instantly.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Amount:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('en-US', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Beneficiary:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Type:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Internal (Instant)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Status:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Reference:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>The funds are now available in the beneficiary's account.</p>
+                            <p style="margin-top: 30px;">Thank you for your trust,<br><strong>The INVIK BANK Team</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            es: {
+                subject: "Confirmación de su transferencia - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Transferencia completada</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Hola ${data.name},</h2>
+                            <p>Su transferencia interna se ha completado con éxito y los fondos se han transferido instantáneamente.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Importe:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('es-ES', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Beneficiario:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Tipo:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Interna (Instantánea)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Estado:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Completado</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Referencia:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Los fondos ya están disponibles en la cuenta del beneficiario.</p>
+                            <p style="margin-top: 30px;">Gracias por su confianza,<br><strong>El equipo de INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            de: {
+                subject: "Bestätigung Ihrer Überweisung - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Überweisung abgeschlossen</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Guten Tag ${data.name},</h2>
+                            <p>Ihre interne Überweisung wurde erfolgreich abgeschlossen und die Beträge wurden sofort übertragen.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Betrag:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('de-DE', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Empfänger:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Typ:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Intern (Sofort)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Status:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Abgeschlossen</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Referenz:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Das Guthaben ist nun auf dem Konto des Empfängers verfügbar.</p>
+                            <p style="margin-top: 30px;">Vielen Dank für Ihr Vertrauen,<br><strong>Ihr INVIK BANK Team</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            it: {
+                subject: "Conferma del tuo bonifico - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Bonifico completato</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Buongiorno ${data.name},</h2>
+                            <p>Il tuo bonifico interno è stato completato con successo e i fondi sono stati trasferiti istantaneamente.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Importo:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('it-IT', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Beneficiario:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Tipo:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Interno (Istantaneo)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Stato:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Completato</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Riferimento:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>I fondi sono ora disponibili sul conto del beneficiario.</p>
+                            <p style="margin-top: 30px;">Grazie per la tua fiducia,<br><strong>Il Team INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            pt: {
+                subject: "Confirmação da sua transferência - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.8;">Transferência efetuada</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Olá ${data.name},</h2>
+                            <p>A sua transferência interna foi efetuada com sucesso e os fundos foram transferidos instantaneamente.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Montante:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534;">${(Number(data.amount) || 0).toLocaleString('pt-PT', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Beneficiário:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.beneficiary}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Tipo:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">Interna (Instantânea)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Estado:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Concluído</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Referência:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #888;">${data.ref}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Os fundos estão agora disponíveis na conta do beneficiário.</p>
+                            <p style="margin-top: 30px;">Obrigado pela sua confiança,<br><strong>A Equipa INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            }
+        },
+
+        // Instant Transfer Received (Recipient)
+        transferInstantReceived: {
+            fr: {
+                subject: "Virement reçu instantanément - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Fonds reçus</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Bonjour ${data.name},</h2>
+                            <p>Bonne nouvelle ! Vous avez reçu un virement instantané sur votre compte.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Montant reçu :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('fr-FR', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Expéditeur :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Statut :</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Crédité instantanément</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Les fonds sont immédiatement disponibles sur votre solde.</p>
+                            <p style="margin-top: 30px;">Merci de votre confiance,<br><strong>L'équipe INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            en: {
+                subject: "Instant transfer received - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Funds Received</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Hello ${data.name},</h2>
+                            <p>Great news! You have received an instant transfer to your account.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Amount received:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('en-US', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Sender:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Status:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Credited instantly</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>The funds are immediately available in your balance.</p>
+                            <p style="margin-top: 30px;">Thank you for your trust,<br><strong>The INVIK BANK Team</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            es: {
+                subject: "Transferencia recibida instantáneamente - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Fondos recibidos</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Hola ${data.name},</h2>
+                            <p>¡Buenas noticias! Ha recibido una transferencia instantánea en su cuenta.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Monto recibido:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('es-ES', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Remitente:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Estado:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Acreditado instantáneamente</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Los fondos están disponibles inmediatamente en su saldo.</p>
+                            <p style="margin-top: 30px;">Gracias por su confianza,<br><strong>El equipo de INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            de: {
+                subject: "Sofortüberweisung erhalten - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Gutschrift erhalten</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Guten Tag ${data.name},</h2>
+                            <p>Tolle Neuigkeiten! Sie haben eine Sofortüberweisung auf Ihr Konto erhalten.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Erhaltener Betrag:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('de-DE', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Absender:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Status:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Sofort gutgeschrieben</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Das Guthaben ist sofort auf Ihrem Konto verfügbar.</p>
+                            <p style="margin-top: 30px;">Vielen Dank für Ihr Vertrauen,<br><strong>Ihr INVIK BANK Team</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            it: {
+                subject: "Bonifico istantaneo ricevuto - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Fondi ricevuti</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Buongiorno ${data.name},</h2>
+                            <p>Ottime notizie! Hai ricevuto un bonifico istantaneo sul tuo conto.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 4px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Importo ricevuto:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('it-IT', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Mittente:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Stato:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Accreditato istantaneamente</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>I fondi sono immediatamente disponibili sul tuo saldo.</p>
+                            <p style="margin-top: 30px;">Grazie per la tua fiducia,<br><strong>Il Team INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            pt: {
+                subject: "Transferência recebida instantaneamente - INVIK BANK",
+                html: (data) => `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); padding: 30px; text-align: center; color: white;">
+                            <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">INVIK BANK</h1>
+                            <p style="margin-top: 10px; opacity: 0.9;">Fundos recebidos</p>
+                        </div>
+                        <div style="padding: 40px; color: #333; line-height: 1.6;">
+                            <h2 style="color: #003366; margin-top: 0;">Olá ${data.name},</h2>
+                            <p>Boas notícias! Recebeu uma transferência instantânea na sua conta.</p>
+                            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0; border-left: 44px solid #22c55e;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Montante recebido:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #166534; font-size: 18px;">+ ${(Number(data.amount) || 0).toLocaleString('pt-PT', { style: 'currency', currency: data.currency || 'EUR' })}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Remetente:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right;">${data.sender}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0; color: #666;">Estado:</td>
+                                        <td style="padding: 5px 0; font-weight: bold; text-align: right; color: #22c55e;">Creditado instantaneamente</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p>Os fundos estão imediatamente disponíveis no seu saldo.</p>
+                            <p style="margin-top: 30px;">Obrigado pela sua confiança,<br><strong>A Equipa INVIK BANK</strong></p>
+                        </div>
+                    </div>
+                `
+            }
+        },
+
         // Card Order Confirmation
         cardOrder: {
             fr: {
@@ -2483,6 +2935,18 @@ const emailService = {
     sendTransferReceivedEmail: async (toEmail, name, amount, sender, ref, lang = 'fr') => {
         const template = getEmailTemplate('transferPending', lang, { name, amount, sender, ref });
         if (!template) throw new Error('Transfer received template not found');
+        return emailService.triggerEmail(toEmail, template.subject, template.html);
+    },
+
+    sendTransferInstantSentEmail: async (toEmail, name, amount, beneficiary, ref, lang = 'fr') => {
+        const template = getEmailTemplate('transferInstantSent', lang, { name, amount, beneficiary, ref });
+        if (!template) throw new Error('Instant transfer sent template not found');
+        return emailService.triggerEmail(toEmail, template.subject, template.html);
+    },
+
+    sendTransferInstantReceivedEmail: async (toEmail, name, amount, sender, ref, lang = 'fr') => {
+        const template = getEmailTemplate('transferInstantReceived', lang, { name, amount, sender, ref });
+        if (!template) throw new Error('Instant transfer received template not found');
         return emailService.triggerEmail(toEmail, template.subject, template.html);
     },
 

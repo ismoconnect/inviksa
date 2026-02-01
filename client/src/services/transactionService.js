@@ -271,7 +271,7 @@ export const transactionService = {
                 const senderSnapshot = await getDoc(doc(db, USERS_COLLECTION, userId));
                 if (senderSnapshot.exists()) {
                     const sData = senderSnapshot.data();
-                    await emailService.sendTransferSentEmail(
+                    await emailService.sendTransferInstantSentEmail(
                         sData.email,
                         `${sData.firstName} ${sData.lastName}`,
                         amount,
@@ -303,7 +303,7 @@ export const transactionService = {
                 if (receiverEmail) {
                     // Try to get receiver language from wallet data or fallback
                     const rLang = targetWalletData.ownerLanguage || 'fr';
-                    await emailService.sendTransferReceivedEmail(
+                    await emailService.sendTransferInstantReceivedEmail(
                         receiverEmail,
                         receiverName || 'Cher Client',
                         amount,
