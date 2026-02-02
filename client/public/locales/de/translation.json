@@ -1364,6 +1364,7 @@
     "total_balance": "Gesamtguthaben",
     "main": "Girokonto",
     "savings": "Sparkonto",
+    "savings_rate_description": "Zinssatz: 2.5% / Jahr",
     "credit": "Kreditkonto",
     "hidden_iban": "IBAN ausgeblendet (Verifizierung erforderlich)",
     "rate": "Jahreszins: 3,50%",
@@ -1771,7 +1772,12 @@
       "settings": "Einstellungen"
     },
     "user": {
-      "account_type": "{{type}}-Konto"
+      "account_type": "{{type}}-Konto",
+      "types": {
+        "standard": "Standardkonto",
+        "business": "Geschäftskonto",
+        "pro": "Geschäftskonto"
+      }
     },
     "logout": "Abmelden"
   },
@@ -1833,6 +1839,16 @@
       "pob": "Geburtsort",
       "phone": "Telefon",
       "nationality": "Nationalität",
+      "company_name": "Firmenname",
+      "siret": "Registernummer (SIRET)",
+      "vat": "Umsatzsteuer-ID",
+      "sector": "Branche",
+      "headquarters": "Hauptsitz",
+      "legal_form": "Rechtsform",
+      "creation_date": "Gründungsdatum",
+      "country": "Wohnsitzland",
+      "legal_rep_first": "Vorname des Vertreters",
+      "legal_rep_last": "Nachname des Vertreters",
       "location": "Standort",
       "address": "Adresse",
       "city": "Stadt",

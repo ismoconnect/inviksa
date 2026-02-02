@@ -85,7 +85,12 @@
       "settings": "Settings"
     },
     "user": {
-      "account_type": "{{type}} Account"
+      "account_type": "Account {{type}}",
+      "types": {
+        "standard": "Standard Account",
+        "business": "Business Account",
+        "pro": "Pro Account"
+      }
     },
     "logout": "Logout"
   },
@@ -293,6 +298,7 @@
       "firstname": "First Name",
       "email": "Email",
       "phone": "Phone",
+      "address": "Address",
       "dob": "Date of Birth",
       "id_num_warn": "ID Number (Last reminder before next step)",
       "id_type": "ID Type",
@@ -1865,6 +1871,16 @@
       "zip": "Zip Code",
       "location": "Location",
       "save_btn": "Save settings",
+      "company_name": "Company Name",
+      "siret": "Registration Number (SIRET)",
+      "vat": "VAT Number",
+      "sector": "Business Sector",
+      "headquarters": "Headquarters Address",
+      "legal_form": "Legal Form",
+      "creation_date": "Date of Creation",
+      "country": "Country of Residence",
+      "legal_rep_first": "Representative First Name",
+      "legal_rep_last": "Representative Last Name",
       "update_btn": "Update parameters",
       "not_defined": "Not defined"
     },

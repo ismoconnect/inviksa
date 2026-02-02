@@ -273,6 +273,7 @@
       "firstname": "Nombre(s)",
       "email": "Email",
       "phone": "Teléfono",
+      "address": "Dirección",
       "dob": "Fecha de nacimiento",
       "id_num_warn": "Número de documento de identidad (Último aviso antes del siguiente paso)",
       "id_type": "Tipo de documento de identidad",
@@ -1364,6 +1365,7 @@
     "total_balance": "Saldo Total",
     "main": "Cuenta Corriente",
     "savings": "Cuenta de Ahorros",
+    "savings_rate_description": "Tasa: 2.5% / año",
     "credit": "Cuenta de Crédito",
     "hidden_iban": "IBAN oculto (Verificación requerida)",
     "rate": "Tasa anual: 3.50%",
@@ -1758,7 +1760,12 @@
       "settings": "Ajustes"
     },
     "user": {
-      "account_type": "Cuenta {{type}}"
+      "account_type": "Cuenta {{type}}",
+      "types": {
+        "standard": "Cuenta Estándar",
+        "business": "Cuenta Profesional",
+        "pro": "Cuenta Profesional"
+      }
     },
     "logout": "Cerrar sesión"
   },
@@ -1872,6 +1879,16 @@
       "city": "Ciudad",
       "zip": "Código Postal",
       "save_btn": "Guardar ajustes",
+      "company_name": "Razón Social",
+      "siret": "Número de Registro (SIRET)",
+      "vat": "Número de IVA",
+      "sector": "Sector de Actividad",
+      "headquarters": "Sede Social",
+      "legal_form": "Forma Jurídica",
+      "creation_date": "Fecha de Creación",
+      "country": "País de Residencia",
+      "legal_rep_first": "Nombre del Representante",
+      "legal_rep_last": "Apellido del Representante",
       "update_btn": "Actualizar parámetros",
       "not_defined": "No definido"
     },

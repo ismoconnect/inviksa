@@ -299,6 +299,9 @@ const Documents = () => {
         return <div style={styles.loading}>{t('loading')}</div>;
     }
 
+    // Filter to show only main account RIB
+    const mainRibs = ribs.filter(rib => rib.walletType === 'main');
+
     // --- DESKTOP VIEW ---
     const DesktopView = () => (
         <div style={styles.container}>
@@ -313,7 +316,7 @@ const Documents = () => {
                     {t('documents.sections.rib')}
                 </h2>
 
-                {ribs.length === 0 ? (
+                {mainRibs.length === 0 ? (
                     <div style={styles.emptyState}>
                         <div style={styles.emptyIconCircle}>
                             <i className="fas fa-file-invoice" style={styles.emptyIcon}></i>
@@ -322,7 +325,7 @@ const Documents = () => {
                     </div>
                 ) : (
                     <div style={styles.grid}>
-                        {ribs.map(rib => (
+                        {mainRibs.map(rib => (
                             <div key={rib.id} style={styles.card} className="doc-card">
                                 <div style={styles.cardLeftBorder(rib.walletType)}></div>
                                 <div style={styles.cardContent}>
@@ -426,11 +429,11 @@ const Documents = () => {
         <div style={styles.mobileContainer}>
             <div style={styles.mobileHeader}>
                 <h1>{t('sidebar.nav.documents')}</h1>
-                <span style={styles.mobileBadge}>{ribs.length} {t('documents.messages.available')}</span>
+                <span style={styles.mobileBadge}>{mainRibs.length} {t('documents.messages.available')}</span>
             </div>
 
             <div style={styles.mobileList}>
-                {ribs.map(rib => (
+                {mainRibs.map(rib => (
                     <div key={rib.id} style={styles.mobileCard}>
                         <div style={styles.mobileCardTop}>
                             <div style={{ ...styles.mobileIconBadge, backgroundColor: rib.walletType === 'main' ? '#e3f2fd' : (rib.walletType === 'savings' ? '#e8f5e9' : '#ffebee'), color: rib.walletType === 'main' ? '#1565c0' : (rib.walletType === 'savings' ? '#2e7d32' : '#c62828') }}>

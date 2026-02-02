@@ -273,6 +273,7 @@
       "firstname": "Nome(s)",
       "email": "E-mail",
       "phone": "Telefone",
+      "address": "Morada",
       "dob": "Data de nascimento",
       "id_num_warn": "Número do documento de identidade (Último aviso antes da próxima etapa)",
       "id_type": "Tipo de documento de identidade",
@@ -1364,6 +1365,7 @@
     "total_balance": "Saldo Total",
     "main": "Conta Corrente",
     "savings": "Conta Poupança",
+    "savings_rate_description": "Taxa: 2.5% / ano",
     "credit": "Conta de Crédito",
     "hidden_iban": "IBAN oculto (Verificação necessária)",
     "rate": "Taxa anual: 3.50%",
@@ -1758,7 +1760,12 @@
       "settings": "Ajustes"
     },
     "user": {
-      "account_type": "Conta {{type}}"
+      "account_type": "Conta {{type}}",
+      "types": {
+        "standard": "Conta Standard",
+        "business": "Conta Profissional",
+        "pro": "Conta Profissional"
+      }
     },
     "logout": "Sair"
   },
@@ -1872,6 +1879,16 @@
       "city": "Cidade",
       "zip": "Código Postal",
       "save_btn": "Guardar ajustes",
+      "company_name": "Razão Social",
+      "siret": "NIPC (SIRET)",
+      "vat": "NIF/IVA",
+      "sector": "Setor de Atividade",
+      "headquarters": "Sede Social",
+      "legal_form": "Forma Jurídica",
+      "creation_date": "Data de Criação",
+      "country": "País de Residência",
+      "legal_rep_first": "Nome do Representante",
+      "legal_rep_last": "Sobrenome do Representante",
       "update_btn": "Actualizar parâmetros",
       "not_defined": "Não definido"
     },

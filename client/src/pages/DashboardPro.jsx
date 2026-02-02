@@ -87,7 +87,7 @@ const DashboardPro = () => {
 
             {/* Account Cards */}
             <div style={styles.accountsGrid}>
-                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)' }}>
                     <div style={styles.accountHeader}>
                         <span style={styles.accountType}>{t('accounts.main')}</span>
                         <i className="fas fa-wallet" style={styles.accountIcon}></i>
@@ -98,7 +98,7 @@ const DashboardPro = () => {
                     <p style={styles.cardInfo}>IBAN: {mainAcc.iban}</p>
                 </div>
 
-                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
+                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)' }}>
                     <div style={styles.accountHeader}>
                         <span style={styles.accountType}>{t('accounts.savings')}</span>
                         <i className="fas fa-piggy-bank" style={styles.accountIcon}></i>
@@ -109,7 +109,7 @@ const DashboardPro = () => {
                     <p style={styles.cardInfo}>{t('accounts.savings_rate_description') || "Taux: 2.5% / an"}</p>
                 </div>
 
-                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
+                <div style={{ ...styles.accountCard, background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)' }}>
                     <div style={styles.accountHeader}>
                         <span style={styles.accountType}>{t('accounts.credit')}</span>
                         <i className="fas fa-credit-card" style={styles.accountIcon}></i>
@@ -353,14 +353,14 @@ const styles = {
         display: 'inline-flex',
         alignItems: 'center',
         gap: '8px',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)',
         color: 'white',
         padding: '8px 16px',
         borderRadius: '50px',
         fontWeight: '700',
         fontSize: '0.9rem',
         marginBottom: '1.5rem',
-        boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+        boxShadow: '0 4px 12px rgba(0, 51, 102, 0.3)',
     },
     accountsGrid: {
         display: 'grid',

@@ -192,14 +192,14 @@ const styles = {
         animation: 'pulseBadge 2s infinite'
     },
     banner: {
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)',
         borderRadius: '24px',
         padding: '2rem',
         display: 'flex',
         alignItems: 'center',
         gap: '2rem',
         marginBottom: '2rem',
-        boxShadow: '0 20px 40px rgba(102, 126, 234, 0.2)',
+        boxShadow: '0 20px 40px rgba(0, 51, 102, 0.2)',
         color: 'white'
     },
     // ... existing styles ...
@@ -306,7 +306,7 @@ const styles = {
     button: {
         padding: '12px 30px',
         background: 'white',
-        color: '#667eea',
+        color: '#003366',
         border: 'none',
         borderRadius: '12px',
         fontSize: '1rem',

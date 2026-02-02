@@ -30,7 +30,7 @@ i18n
             request: async (options, url, payload, callback) => {
                 try {
                     // Check localStorage first
-                    const I18N_CACHE_VERSION = 'v1.8'; // Bump version to invalidate cache
+                    const I18N_CACHE_VERSION = 'v2.8'; // Bump version to invalidate cache
                     const cacheKey = `i18n_res_${url}`;
                     const cached = localStorage.getItem(cacheKey);
 
@@ -47,7 +47,7 @@ i18n
                     }
 
                     // Fetch from network if not in cache
-                    const response = await fetch(url);
+                    const response = await fetch(`${url}?v=${I18N_CACHE_VERSION}`);
                     if (!response.ok) {
                         return callback(new Error(`Failed to load ${url}`), { status: response.status });
                     }

@@ -60,7 +60,12 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
                 </div>
                 <div className="user-info">
                     <span className="user-name">{userData?.firstName} {userData?.lastName}</span>
-                    <span className="user-status">{t('sidebar.user.account_type', { type: userData?.accountType || 'Standard' })}</span>
+                    <span className="user-status">
+                        {(userData?.companyName || userData?.accountType === 'business')
+                            ? t('sidebar.user.types.pro')
+                            : t('sidebar.user.types.standard')
+                        }
+                    </span>
                 </div>
             </div>
 

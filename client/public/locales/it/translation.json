@@ -273,6 +273,7 @@
       "firstname": "Nome(i)",
       "email": "Email",
       "phone": "Telefono",
+      "address": "Indirizzo",
       "dob": "Data di nascita",
       "id_num_warn": "Numero documento d'identità (Ultimo avviso prima del prossimo passo)",
       "id_type": "Tipo di documento d'identità",
@@ -1363,6 +1364,7 @@
     "total_balance": "Saldo Totale",
     "main": "Conto Corrente",
     "savings": "Conto di Risparmio",
+    "savings_rate_description": "Tasso: 2.5% / anno",
     "credit": "Conto di Credito",
     "hidden_iban": "IBAN nascosto (Verifica richiesta)",
     "rate": "Tasso annuo: 3.50%",
@@ -1757,7 +1759,12 @@
       "settings": "Impostazioni"
     },
     "user": {
-      "account_type": "Conto {{type}}"
+      "account_type": "Conto {{type}}",
+      "types": {
+        "standard": "Conto Standard",
+        "business": "Conto Professionale",
+        "pro": "Conto Professionale"
+      }
     },
     "logout": "Disconnetti"
   },
@@ -1871,6 +1878,16 @@
       "city": "Città",
       "zip": "Codice Postale",
       "save_btn": "Salva impostazioni",
+      "company_name": "Ragione Sociale",
+      "siret": "Partita IVA (SIRET)",
+      "vat": "Partita IVA (VIES)",
+      "sector": "Settore di Attività",
+      "headquarters": "Sede Legale",
+      "legal_form": "Forma Giuridica",
+      "creation_date": "Data di Costituzione",
+      "country": "Paese di Residenza",
+      "legal_rep_first": "Nome Rappresentante",
+      "legal_rep_last": "Cognome Rappresentante",
       "update_btn": "Aggiorna parametri",
       "not_defined": "Non definito"
     },

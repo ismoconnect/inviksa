@@ -85,7 +85,12 @@
       "settings": "Paramètres"
     },
     "user": {
-      "account_type": "Compte {{type}}"
+      "account_type": "Compte {{type}}",
+      "types": {
+        "standard": "Compte Standard",
+        "business": "Compte Professionnel",
+        "pro": "Compte Professionnel"
+      }
     },
     "logout": "Déconnexion"
   },
@@ -1496,6 +1501,16 @@
       "pob": "Lieu de naissance",
       "phone": "Téléphone",
       "nationality": "Nationalité",
+      "company_name": "Raison Sociale",
+      "siret": "Numéro SIRET",
+      "vat": "Numéro de TVA",
+      "sector": "Secteur d'activité",
+      "headquarters": "Siège Social",
+      "legal_form": "Forme Juridique",
+      "creation_date": "Date de création",
+      "country": "Pays de résidence",
+      "legal_rep_first": "Prénom du Représentant",
+      "legal_rep_last": "Nom du Représentant",
       "address": "Adresse de résidence",
       "city": "Ville",
       "zip": "Code Postal",

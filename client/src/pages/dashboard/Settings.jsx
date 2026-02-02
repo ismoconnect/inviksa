@@ -44,6 +44,14 @@ const Settings = () => {
         dob: userData?.dob || '',
         birthPlace: userData?.birthPlace || '',
         gender: userData?.gender || '',
+        // PRO FIELDS
+        companyName: userData?.companyName || '',
+        legalForm: userData?.legalForm || '',
+        siret: userData?.siret || '',
+        creationDate: userData?.creationDate || '',
+        vatNumber: userData?.vatNumber || '',
+        sector: userData?.sector || '',
+
         notificationsEnabled: userData?.notificationsEnabled ?? true,
         language: getLanguageCode(userData?.language)
     });
@@ -76,6 +84,14 @@ const Settings = () => {
                 dob: userData.dob || '',
                 birthPlace: userData.birthPlace || '',
                 gender: userData.gender || '',
+                // PRO FIELDS
+                companyName: userData.companyName || '',
+                legalForm: userData.legalForm || '',
+                siret: userData.siret || '',
+                creationDate: userData.creationDate || '',
+                vatNumber: userData.vatNumber || '',
+                sector: userData.sector || '',
+
                 notificationsEnabled: userData.notificationsEnabled ?? true,
                 language: getLanguageCode(userData.language)
             });
@@ -449,17 +465,38 @@ const Settings = () => {
                                     </div>
                                     <div style={styles.statusChip}>{t('settings.profile.email_verified')} <i className="fas fa-check-circle"></i></div>
                                 </div>
-                                <div style={styles.formGrid}>
-                                    {renderInput(t('settings.profile.first_name'), 'firstName', 'fas fa-user')}
-                                    {renderInput(t('settings.profile.last_name'), 'lastName', 'fas fa-id-card')}
-                                    {renderInput(t('settings.profile.phone'), 'phone', 'fas fa-phone-alt')}
-                                    {renderInput(t('settings.profile.nationality'), 'nationality', 'fas fa-flag')}
-                                    {renderInput(t('settings.profile.dob'), 'dob', 'fas fa-calendar-alt', 'date')}
-                                    {renderInput(t('settings.profile.pob'), 'birthPlace', 'fas fa-map-marker-alt')}
-                                    <div style={{ gridColumn: '1 / -1' }}>{renderTextarea(t('settings.profile.address'), 'address', 'fas fa-map-marked-alt', '123 Rue de la République, Apt 4B', 2)}</div>
-                                    {renderInput(t('settings.profile.city'), 'city', null)}
-                                    {renderInput(t('settings.profile.zip'), 'zipCode', null)}
-                                </div>
+                                {/* Detect if Pro Account */}
+                                {(userData?.companyName || userData?.accountType === 'business') ? (
+                                    // PROFESSIONAL PROFILE
+                                    <div style={styles.formGrid}>
+                                        {renderInput(t('settings.profile.legal_rep_first'), 'firstName', 'fas fa-user')}
+                                        {renderInput(t('settings.profile.legal_rep_last'), 'lastName', 'fas fa-id-card')}
+                                        {renderInput(t('settings.profile.company_name'), 'companyName', 'fas fa-building')}
+                                        {renderInput(t('settings.profile.legal_form'), 'legalForm', 'fas fa-gavel')}
+                                        {renderInput(t('settings.profile.siret'), 'siret', 'fas fa-fingerprint')}
+                                        {renderInput(t('settings.profile.vat'), 'vatNumber', 'fas fa-percent')}
+                                        {renderInput(t('settings.profile.sector'), 'sector', 'fas fa-briefcase')}
+                                        {renderInput(t('settings.profile.phone'), 'phone', 'fas fa-phone-alt')}
+                                        {renderInput(t('settings.profile.creation_date'), 'creationDate', 'fas fa-calendar-alt', 'date')}
+                                        {renderInput(t('settings.profile.city'), 'city', 'fas fa-city')}
+                                        <div style={{ gridColumn: '1 / -1' }}>{renderTextarea(t('settings.profile.headquarters'), 'address', 'fas fa-map-marked-alt', '123 Avenue des Champs-Élysées, 75008 Paris', 2)}</div>
+                                        {renderInput(t('settings.profile.zip'), 'zipCode', null)}
+                                        {renderInput(t('settings.profile.country'), 'countryOfResidence', 'fas fa-globe')}
+                                    </div>
+                                ) : (
+                                    // PERSONAL PROFILE
+                                    <div style={styles.formGrid}>
+                                        {renderInput(t('settings.profile.first_name'), 'firstName', 'fas fa-user')}
+                                        {renderInput(t('settings.profile.last_name'), 'lastName', 'fas fa-id-card')}
+                                        {renderInput(t('settings.profile.phone'), 'phone', 'fas fa-phone-alt')}
+                                        {renderInput(t('settings.profile.nationality'), 'nationality', 'fas fa-flag')}
+                                        {renderInput(t('settings.profile.dob'), 'dob', 'fas fa-calendar-alt', 'date')}
+                                        {renderInput(t('settings.profile.pob'), 'birthPlace', 'fas fa-map-marker-alt')}
+                                        <div style={{ gridColumn: '1 / -1' }}>{renderTextarea(t('settings.profile.address'), 'address', 'fas fa-map-marked-alt', '123 Rue de la République, Apt 4B', 2)}</div>
+                                        {renderInput(t('settings.profile.city'), 'city', null)}
+                                        {renderInput(t('settings.profile.zip'), 'zipCode', null)}
+                                    </div>
+                                )}
 
                                 <div style={{ marginTop: '4rem', borderTop: '1px solid #f1f5f9', paddingTop: '3rem' }}>
                                     <h3 style={{ ...styles.label, marginBottom: '2rem', color: '#003366' }}>{t('settings.advisor.title')}</h3>
