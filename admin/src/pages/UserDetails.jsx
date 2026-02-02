@@ -567,6 +567,10 @@ const UserDetails = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                     <RenderField label="Prénom" name="firstName" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Nom" name="lastName" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="Genre" name="gender" type="select" options={[
+                        { value: 'M', label: 'Masculin' },
+                        { value: 'F', label: 'Féminin' }
+                    ]} data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Né le" name="dob" type="date" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Nationalité" name="nationality" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                 </div>
@@ -578,10 +582,34 @@ const UserDetails = () => {
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                     <RenderField label="Téléphone" name="phone" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="Adresse" name="address" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    <RenderField label="Code Postal" name="zipCode" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Ville" name="city" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                     <RenderField label="Pays" name="countryOfResidence" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
                 </div>
             </div>
+
+            {(user?.userType === 'business' || user?.companyName) && (
+                <div style={{ background: 'white', borderRadius: '28px', padding: '1.2rem', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#003366', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <i className="fas fa-briefcase" style={{ opacity: 0.3 }}></i> Informations Business
+                    </h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                        <RenderField label="Société" name="companyName" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="Forme Juridique" name="legalForm" type="select" options={[
+                            { value: 'SARL', label: 'SARL / EURL' },
+                            { value: 'SAS', label: 'SAS / SASU' },
+                            { value: 'SA', label: 'SA' },
+                            { value: 'AUTO', label: 'Auto-entrepreneur' },
+                            { value: 'ASSOC', label: 'Association' },
+                            { value: 'OTHER', label: 'Autre' }
+                        ]} data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="SIRET / Enreg." name="registrationNumber" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="Secteur" name="activitySector" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                        <RenderField label="Représentant" name="repFunction" data={user} isEditing={isEditing} onChange={handleChange} editData={editFormData} />
+                    </div>
+                </div>
+            )}
 
             <div style={{ background: 'white', borderRadius: '28px', padding: '1.2rem', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#003366', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -772,7 +800,7 @@ const UserDetails = () => {
                     <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>{transactions.length} total</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                    {transactions.slice(0, 5).map(tx => (
+                    {currentTransactions.map(tx => (
                         <div key={tx.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '0.8rem', background: '#f8fafc', borderRadius: '16px' }}>
                             <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: tx.type === 'credit' ? '#dcfce7' : '#fee2e2', color: tx.type === 'credit' ? '#166534' : '#991b1b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <i className={`fas fa-arrow-${tx.type === 'credit' ? 'down' : 'up'}`}></i>
@@ -796,6 +824,86 @@ const UserDetails = () => {
                         </div>
                     ))}
                 </div>
+
+                {totalPages > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', marginTop: '1.5rem' }}>
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            style={{ ...styles.pageBtn, opacity: currentPage === 1 ? 0.3 : 1 }}
+                        >
+                            <i className="fas fa-chevron-left"></i>
+                        </button>
+                        <span style={{ fontSize: '0.8rem', fontWeight: '700' }}>{currentPage} / {totalPages}</span>
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            style={{ ...styles.pageBtn, opacity: currentPage === totalPages ? 0.3 : 1 }}
+                        >
+                            <i className="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            {/* Notifications Section */}
+            <div style={{ background: 'white', borderRadius: '28px', padding: '1.2rem', border: '1px solid #f1f5f9', marginBottom: '1.2rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#003366', margin: 0 }}>Dernières Notifications</h3>
+                    <button
+                        onClick={handleResetNotifications}
+                        style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '0.7rem', fontWeight: 'bold', cursor: 'pointer' }}
+                    >
+                        TOUT SUPPRIMER
+                    </button>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                    {notifications.length > 0 ? (
+                        notifications.slice(0, 5).map(notif => (
+                            <div key={notif.id} style={{ padding: '0.8rem', background: '#f8fafc', borderRadius: '16px', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '0.8rem', marginBottom: '2px' }}>{notif.title}</div>
+                                    <div style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: '1.4' }}>{notif.message}</div>
+                                    <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: '4px' }}>{formatDate(notif.createdAt)}</div>
+                                </div>
+                                <button
+                                    onClick={() => handleDeleteNotification(notif.id)}
+                                    style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
+                                >
+                                    <i className="fas fa-times"></i>
+                                </button>
+                            </div>
+                        ))
+                    ) : (
+                        <p style={{ textAlign: 'center', color: '#64748b', fontSize: '0.8rem' }}>Aucune notification</p>
+                    )}
+                </div>
+            </div>
+
+            {/* Danger Zone */}
+            <div style={{ background: '#fffafb', borderRadius: '28px', padding: '1.2rem', border: '1px solid #fee2e2', marginBottom: '1.2rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#991b1b', marginBottom: '0.5rem' }}>Zone de Danger</h3>
+                <p style={{ color: '#666', fontSize: '0.8rem', marginBottom: '1.2rem' }}>Actions irréversibles concernant le compte client.</p>
+                <button
+                    onClick={handleDeleteUser}
+                    style={{
+                        width: '100%',
+                        padding: '1rem',
+                        background: '#ef4444',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '16px',
+                        fontWeight: '800',
+                        fontSize: '0.9rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        boxShadow: '0 4px 12px rgba(239, 68, 68, 0.2)'
+                    }}
+                >
+                    <i className="fas fa-trash-alt"></i> SUPPRIMER LE COMPTE
+                </button>
             </div>
         </div>
     );
