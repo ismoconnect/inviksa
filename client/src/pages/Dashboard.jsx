@@ -87,47 +87,89 @@ const Dashboard = () => {
 
             <div style={styles.statsGrid} className="stats-grid-mobile">
                 {/* Main Account Card */}
-                <div style={styles.mainCard}>
+                <div
+                    style={styles.mainCard}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = styles.mainCard['--hover-lift'];
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                >
                     <div style={styles.cardHeader}>
-                        <h3 style={{ ...styles.cardLabel, color: 'rgba(255,255,255,0.8)' }}>{t('accounts.main')}</h3>
-                        <i className="fas fa-wallet" style={{ ...styles.cardIcon, color: 'white' }}></i>
+                        <h3 style={{ ...styles.cardLabel, color: 'rgba(255,255,255,0.7)' }}>{t('accounts.main')}</h3>
+                        <div style={{ ...styles.cardIcon, background: 'rgba(255,255,255,0.1)' }}>
+                            <i className="fas fa-wallet" style={{ color: 'white' }}></i>
+                        </div>
                     </div>
                     <p style={{ ...styles.balance, color: 'white' }} className="balance-mobile">
                         {mainAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} {mainAcc.currency}
                     </p>
                     {kycStatus?.status === 'verified' ? (
                         <p style={{ ...styles.cardInfo, color: 'rgba(255,255,255,0.6)' }}>
+                            <i className="fas fa-id-card-alt" style={{ opacity: 0.7 }}></i>
                             {t('history.details.iban_label', { iban: mainAcc.iban.substring(0, 15) })}...
                         </p>
                     ) : (
-                        <p style={{ ...styles.cardInfo, color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', fontSize: '0.8rem' }}>
-                            <i className="fas fa-lock" style={{ marginRight: '5px' }}></i> {t('accounts.hidden_iban')}
+                        <p style={{ ...styles.cardInfo, color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', fontSize: '0.85rem' }}>
+                            <i className="fas fa-lock"></i> {t('accounts.hidden_iban')}
                         </p>
                     )}
                 </div>
 
                 {/* Savings Card */}
-                <div style={styles.card}>
+                <div
+                    style={styles.card}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-8px)';
+                        e.currentTarget.style.boxShadow = '0 20px 40px rgba(39, 174, 96, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = styles.card.boxShadow;
+                    }}
+                >
                     <div style={styles.cardHeader}>
                         <h3 style={styles.cardLabel}>{t('accounts.savings')}</h3>
-                        <i className="fas fa-piggy-bank" style={{ ...styles.cardIcon, color: '#27ae60' }}></i>
+                        <div style={{ ...styles.cardIcon, background: '#e8f5e9' }}>
+                            <i className="fas fa-piggy-bank" style={{ color: '#27ae60' }}></i>
+                        </div>
                     </div>
-                    <p style={{ ...styles.balance, color: '#27ae60' }} className="balance-mobile">
-                        {savingsAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} {savingsAcc.currency}
+                    <p style={{ ...styles.balance, color: '#1e293b' }} className="balance-mobile">
+                        {savingsAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} <span style={{ color: '#27ae60' }}>{savingsAcc.currency}</span>
                     </p>
-                    <p style={styles.cardInfo}>{t('accounts.rate')}</p>
+                    <p style={styles.cardInfo}>
+                        <i className="fas fa-chart-line" style={{ color: '#27ae60' }}></i>
+                        {t('accounts.rate')}
+                    </p>
                 </div>
 
                 {/* Credit Card */}
-                <div style={styles.card}>
+                <div
+                    style={styles.card}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-8px)';
+                        e.currentTarget.style.boxShadow = '0 20px 40px rgba(231, 76, 60, 0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = styles.card.boxShadow;
+                    }}
+                >
                     <div style={styles.cardHeader}>
                         <h3 style={styles.cardLabel}>{t('accounts.credit')}</h3>
-                        <i className="fas fa-file-invoice-dollar" style={{ ...styles.cardIcon, color: '#e74c3c' }}></i>
+                        <div style={{ ...styles.cardIcon, background: '#fee2e2' }}>
+                            <i className="fas fa-file-invoice-dollar" style={{ color: '#e74c3c' }}></i>
+                        </div>
                     </div>
-                    <p style={{ ...styles.balance, color: '#e74c3c' }} className="balance-mobile">
-                        {creditAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} {creditAcc.currency}
+                    <p style={{ ...styles.balance, color: '#1e293b' }} className="balance-mobile">
+                        {creditAcc.balance.toLocaleString(currentLocale, { minimumFractionDigits: 2 })} <span style={{ color: '#e74c3c' }}>{creditAcc.currency}</span>
                     </p>
-                    <p style={styles.cardInfo}>{creditAcc.balance < 0 ? t('accounts.repayment') : t('accounts.no_debt')}</p>
+                    <p style={styles.cardInfo}>
+                        <i className={creditAcc.balance < 0 ? "fas fa-exclamation-circle" : "fas fa-check-circle"}
+                            style={{ color: creditAcc.balance < 0 ? '#e74c3c' : '#27ae60' }}></i>
+                        {creditAcc.balance < 0 ? t('accounts.repayment') : t('accounts.no_debt')}
+                    </p>
                 </div>
             </div>
 
@@ -244,6 +286,7 @@ const styles = {
     dashboardContainer: {
         maxWidth: '1200px',
         margin: '0 auto',
+        animation: 'fadeIn 0.8s ease-out',
     },
     loading: {
         textAlign: 'center',
@@ -252,166 +295,208 @@ const styles = {
         fontSize: '1.2rem',
     },
     header: {
-        marginBottom: '2rem',
+        marginBottom: '2.5rem',
+        padding: '0.5rem 0',
     },
     welcome: {
-        fontSize: '1.8rem',
+        fontSize: '2rem',
         color: '#003366',
-        fontWeight: '800',
+        fontWeight: '900',
         margin: 0,
+        letterSpacing: '-0.5px',
+        textShadow: '0 2px 4px rgba(0,51,102,0.05)',
     },
     date: {
-        color: '#666',
-        marginTop: '0.3rem',
+        color: '#64748b',
+        marginTop: '0.5rem',
+        fontSize: '0.95rem',
+        fontWeight: '500',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
     },
     statsGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '2.5rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '1.8rem',
+        marginBottom: '3rem',
     },
     mainCard: {
         background: 'linear-gradient(135deg, #003366 0%, #00509e 100%)',
-        padding: '1.8rem',
-        borderRadius: '20px',
-        boxShadow: '0 10px 30px rgba(0, 51, 102, 0.2)',
+        padding: '2rem',
+        borderRadius: '24px',
+        boxShadow: '0 20px 40px rgba(0, 51, 102, 0.15)',
         color: 'white',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        cursor: 'default',
+        border: '1px solid rgba(255,255,255,0.1)',
+        '--hover-lift': 'translateY(-8px)',
     },
     card: {
-        backgroundColor: 'white',
-        padding: '1.8rem',
-        borderRadius: '20px',
-        border: '1px solid #eef2f6',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(10px)',
+        padding: '2rem',
+        borderRadius: '24px',
+        border: '1px solid rgba(238, 242, 246, 0.8)',
+        boxShadow: '0 15px 35px rgba(0,0,0,0.04)',
+        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        cursor: 'default',
     },
     cardHeader: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '1.5rem',
+        marginBottom: '2rem',
     },
     cardIcon: {
-        fontSize: '1.5rem',
-        color: '#003366',
-        opacity: 0.8,
+        fontSize: '1.4rem',
+        width: '45px',
+        height: '45px',
+        borderRadius: '14px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'transform 0.3s ease',
     },
     cardLabel: {
-        fontSize: '0.85rem',
-        color: '#888',
+        fontSize: '0.9rem',
+        color: '#64748b',
         textTransform: 'uppercase',
-        letterSpacing: '1px',
+        letterSpacing: '1.2px',
         margin: 0,
+        fontWeight: '700',
     },
     balance: {
-        fontSize: '2.2rem',
-        fontWeight: '800',
-        color: '#003366',
-        margin: '0 0 0.5rem 0',
+        fontSize: '2.4rem',
+        fontWeight: '900',
+        margin: '0 0 0.8rem 0',
+        letterSpacing: '-1px',
     },
     cardInfo: {
-        fontSize: '0.85rem',
-        color: '#aaa',
-        margin: 0,
+        fontSize: '0.9rem',
+        color: '#94a3b8',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        fontWeight: '500',
     },
     mainContent: {
         display: 'grid',
         gridTemplateColumns: '2fr 1fr',
-        gap: '2rem',
+        gap: '2.5rem',
     },
     transactionsSection: {
         backgroundColor: 'white',
-        padding: '1.8rem',
-        borderRadius: '20px',
-        border: '1px solid #eef2f6',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+        padding: '2rem',
+        borderRadius: '24px',
+        border: '1px solid #f1f5f9',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.02)',
     },
     actionsSection: {
         backgroundColor: 'white',
-        padding: '1.8rem',
-        borderRadius: '20px',
-        border: '1px solid #eef2f6',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+        padding: '2rem',
+        borderRadius: '24px',
+        border: '1px solid #f1f5f9',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.02)',
     },
     sectionTitle: {
-        fontSize: '1.1rem',
+        fontSize: '1.25rem',
         color: '#003366',
-        fontWeight: '700',
-        marginBottom: '1.5rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
+        fontWeight: '800',
+        marginBottom: '2rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     transactionList: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        gap: '0.5rem',
     },
     transactionItem: {
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        padding: '1rem 0',
-        borderBottom: '1px solid #f8fbff',
+        gap: '1.2rem',
+        padding: '1.2rem',
+        borderRadius: '16px',
+        transition: 'background-color 0.2s ease',
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#f8fafc',
+        }
     },
     transIconBox: {
-        width: '40px',
-        height: '40px',
-        backgroundColor: '#f8fbff',
-        borderRadius: '10px',
+        width: '48px',
+        height: '48px',
+        backgroundColor: '#f1f5f9',
+        borderRadius: '14px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        fontSize: '1.1rem',
     },
     transName: {
         margin: 0,
         fontWeight: '700',
-        color: '#333',
-        fontSize: '0.95rem',
+        color: '#1e293b',
+        fontSize: '1rem',
     },
     transDate: {
         margin: 0,
-        fontSize: '0.8rem',
-        color: '#aaa',
+        fontSize: '0.85rem',
+        color: '#64748b',
+        fontWeight: '500',
     },
     transAmount: {
         margin: 0,
-        fontWeight: '800',
-        fontSize: '1rem',
+        fontWeight: '900',
+        fontSize: '1.1rem',
+        letterSpacing: '-0.5px',
     },
     emptyState: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '1rem',
-        color: '#ccc',
-        padding: '2rem 0',
+        justifyContent: 'center',
+        padding: '4rem 0',
+        color: '#94a3b8',
     },
     emptyIcon: {
-        fontSize: '3rem',
+        fontSize: '4rem',
+        marginBottom: '1.5rem',
+        opacity: 0.2,
     },
     emptyMsg: {
+        fontSize: '1.1rem',
+        fontWeight: '500',
         margin: 0,
-        fontStyle: 'italic',
     },
     actionsGrid: {
         display: 'grid',
-        gap: '1rem',
+        gap: '1.2rem',
     },
     actionBtn: {
         padding: '1.2rem',
-        backgroundColor: '#f8fbff',
-        border: '1px solid #eef6ff',
-        borderRadius: '12px',
+        backgroundColor: '#f8fafc',
+        border: '1px solid #f1f5f9',
+        borderRadius: '16px',
         color: '#003366',
         textAlign: 'left',
-        fontWeight: '700',
+        fontWeight: '800',
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.3s ease',
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        fontSize: '0.95rem',
+        gap: '1.2rem',
+        fontSize: '1rem',
+        '&:hover': {
+            backgroundColor: '#003366',
+            color: 'white',
+            transform: 'translateX(5px)',
+            boxShadow: '0 10px 20px rgba(0, 51, 102, 0.1)',
+        }
     }
 };
 
