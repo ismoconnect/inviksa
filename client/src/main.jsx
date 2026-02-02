@@ -8,12 +8,19 @@ import { AuthProvider } from './contexts/AuthContext'
 import { DataProvider } from './contexts/DataContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 
-// Disable console logs in production for security
-if (import.meta.env.PROD) {
-  console.log = () => { };
-  console.info = () => { };
-  console.warn = () => { };
-  // Keep console.error for critical crash reporting
+// Image Protection: Prevent right-click and drag on all images
+if (typeof window !== 'undefined') {
+  window.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, false);
+
+  window.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, false);
 }
 
 createRoot(document.getElementById('root')).render(

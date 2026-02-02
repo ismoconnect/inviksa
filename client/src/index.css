@@ -112,6 +112,11 @@ a:hover {
   height: 70px;
   width: auto;
   transition: height 0.3s ease;
+  -webkit-user-drag: none;
+}
+
+img {
+  -webkit-user-drag: none;
 }
 
 @media (max-width: 768px) {
