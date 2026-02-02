@@ -31,8 +31,8 @@ export const AdminAuthProvider = ({ children }) => {
                         setIsAdmin(true);
                         setIsSuperAdmin(userData.isSuperAdmin || false);
                     } else {
-                        // Not an admin, sign out
-                        await signOut(auth);
+                        // Not an admin, clear local admin state but don't signOut
+                        // to avoid nuking session in other (client) tabs
                         setCurrentUser(null);
                         setIsAdmin(false);
                         setIsSuperAdmin(false);
@@ -88,7 +88,7 @@ export const AdminAuthProvider = ({ children }) => {
             }
 
             if (!userDoc.exists() || userDoc.data().role !== 'admin') {
-                await signOut(auth);
+                // Don't signOut here, just throw error so Login page can handle it
                 throw new Error('Accès refusé. Vous n\'avez pas les droits administrateur.');
             }
 

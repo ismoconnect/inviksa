@@ -35,8 +35,8 @@ const Cards = () => {
                 {/* Visual Card 1: Silver */}
                 <div style={styles.cardWrapper} className="card-hover">
                     <img
-                        src="/resource/card-1.jpg"
-                        alt="Visa Silver Card - Jérémie Martins"
+                        src="/resource/visa_classic_silver_invick.png"
+                        alt="Carte Visa Classic Silver - INVICK SA"
                         style={styles.cardImage}
                     />
                     <div style={styles.cardInfo}>
@@ -51,8 +51,8 @@ const Cards = () => {
                 {/* Visual Card 2: Gold */}
                 <div style={styles.cardWrapper} className="card-hover">
                     <img
-                        src="/resource/card-2.jpg"
-                        alt="Mastercard Gold Card - Ben Donald"
+                        src="/resource/mastercard_gold_invick.png"
+                        alt="Carte Mastercard Gold - INVICK SA"
                         style={styles.cardImage}
                     />
                     <div style={styles.cardInfo}>
@@ -67,8 +67,8 @@ const Cards = () => {
                 {/* Visual Card 3: Platinum */}
                 <div style={styles.cardWrapper} className="card-hover">
                     <img
-                        src="/resource/card-3.jpg"
-                        alt="Visa Platinum Card - Youssouf Adama"
+                        src="/resource/visa_platinum_invick.png"
+                        alt="Carte Visa Platinum - INVICK SA"
                         style={styles.cardImage}
                     />
                     <div style={styles.cardInfo}>

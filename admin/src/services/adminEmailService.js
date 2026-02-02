@@ -987,7 +987,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Bonjour ${data.name},</p>
-                        <p>Nous vous confirmons que votre compte a été crédité suite à un virement interne ou un ajustement manuel.</p>
+                        <p>Nous vous confirmons que votre compte a été crédité suite à un virement interne.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Montant</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('fr-FR', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>
@@ -1008,7 +1008,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Hello ${data.name},</p>
-                        <p>We confirm that your account has been credited following an internal transfer or manual adjustment.</p>
+                        <p>We confirm that your account has been credited following an internal transfer.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Amount</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('en-US', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>
@@ -1029,7 +1029,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Hola ${data.name},</p>
-                        <p>Le confirmamos que su cuenta ha sido acreditada tras una transferencia interna o un ajuste manual.</p>
+                        <p>Le confirmamos que su cuenta ha sido acreditada tras una transferencia interna.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Monto</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('es-ES', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>
@@ -1050,7 +1050,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Olá ${data.name},</p>
-                        <p>Confirmamos que a sua conta foi creditada na sequência de uma transferência interna ou ajuste manual.</p>
+                        <p>Confirmamos que a sua conta foi creditada na sequência de uma transferência interna.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Montante</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('pt-PT', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>
@@ -1071,7 +1071,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Buongiorno ${data.name},</p>
-                        <p>Le confermiamo che il suo conto è stato accreditato a seguito di un bonifico interno o di una rettifica manuale.</p>
+                        <p>Le confermiamo che il suo conto è stato accreditato a seguito di un bonifico interno.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Importo</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('it-IT', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>
@@ -1092,7 +1092,7 @@ const getEmailTemplate = (templateName, lang = 'en', data) => {
                     </div>
                     <div style="padding: 40px; color: #1e293b;">
                         <p>Guten Tag ${data.name},</p>
-                        <p>Wir bestätigen, dass Ihrem Konto nach einer internen Umbuchung oder einer manuellen Anpassung ein Betrag gutgeschrieben wurde.</p>
+                        <p>Wir bestätigen, dass Ihrem Konto nach einer internen Umbuchung ein Betrag gutgeschrieben wurde.</p>
                         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr><td style="color: #64748b; padding-bottom: 10px;">Betrag</td><td style="text-align: right; font-weight: 700; color: #10b981;">+${(Number(data.amount) || 0).toLocaleString('de-DE', { style: 'currency', currency: data.currency || 'EUR' })}</td></tr>

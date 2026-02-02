@@ -46,6 +46,7 @@ const Deposit = () => {
     const { currentUser, userData } = useAuth();
     const { wallets, transactions, loading } = useData();
     const [activeMethod, setActiveMethod] = useState('card');
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     // Form States
     const [amount, setAmount] = useState('');
@@ -57,9 +58,6 @@ const Deposit = () => {
     const [submitting, setSubmitting] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
     const [currentPage, setCurrentPage] = useState(1);
-
-    // Responsive
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const { t, i18n } = useTranslation();
 
     // Transfer states sync
@@ -194,10 +192,83 @@ const Deposit = () => {
 
     if (loading && wallets.length === 0) return <div style={styles.loading}>{t('loading')}</div>;
 
-    // --- MOBILE LAYOUT ---
-    if (isMobile) {
-        return (
-            <KycVerificationBanner>
+    return (
+        <KycVerificationBanner>
+            <style>
+                {`
+                    .modern-card-container {
+                        background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+                        border-radius: 20px;
+                        padding: 1.5rem;
+                        box-shadow: 0 10px 40px rgba(0, 51, 102, 0.3);
+                        margin-bottom: 1rem;
+                        position: relative;
+                        overflow: hidden;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        color: white;
+                    }
+                    .modern-card-container::before {
+                        content: '';
+                        position: absolute;
+                        top: -50%;
+                        right: -50%;
+                        width: 200%;
+                        height: 200%;
+                        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                        pointer-events: none;
+                    }
+                    .card-number-display {
+                        color: #ffffff !important;
+                        font-weight: 700 !important;
+                        font-size: 1.5rem !important;
+                        letter-spacing: 4px !important;
+                        font-family: 'Courier New', monospace !important;
+                        margin-bottom: 1.5rem !important;
+                        text-align: center !important;
+                        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                        min-height: 2rem;
+                        cursor: text;
+                        outline: none;
+                    }
+                    .card-details-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                    }
+                    .card-holder-section {
+                        flex: 1;
+                    }
+                    .card-label-text {
+                        font-size: 0.65rem;
+                        color: rgba(255, 255, 255, 0.7);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        margin-bottom: 4px;
+                        font-weight: 600;
+                    }
+                    .card-value-text {
+                        color: #ffffff !important;
+                        font-weight: 700 !important;
+                        font-size: 0.95rem !important;
+                        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                        background: transparent;
+                        border: none;
+                        outline: none;
+                        width: 100%;
+                    }
+                    .card-expiry-text {
+                        color: #ffffff !important;
+                        font-weight: 700 !important;
+                        font-size: 0.9rem !important;
+                        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                        min-height: 1.2rem;
+                        cursor: text;
+                        outline: none;
+                    }
+                `}
+            </style>
+
+            {isMobile ? (
                 <div style={{ padding: '1rem', paddingBottom: '90px' }}>
                     <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#003366', marginBottom: '1.5rem' }}>{t('sidebar.nav.deposit')}</h1>
 
@@ -251,41 +322,128 @@ const Deposit = () => {
                                 </div>
                             </div>
 
-                            <div style={styles.mobileCardPreview}>
-                                <div style={styles.cardChip}></div>
-                                <div style={styles.cardWifi}><i className="fas fa-wifi"></i></div>
-                                <input
-                                    style={{
-                                        ...styles.cardInputNumber,
-                                        borderColor: cardNumber && !isCardValid() ? '#ff4d4d' : 'transparent'
+                            <div className="modern-card-container">
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                                    <div style={{
+                                        width: '50px',
+                                        height: '35px',
+                                        background: 'linear-gradient(135deg, #d4af37 0%, #f9d976 100%)',
+                                        borderRadius: '6px'
+                                    }}></div>
+                                    <div style={{ fontSize: '1.5rem', color: '#ffffff', opacity: 0.8 }}>
+                                        <i className="fas fa-wifi"></i>
+                                    </div>
+                                </div>
+
+                                <div
+                                    contentEditable
+                                    suppressContentEditableWarning
+                                    className="card-number-display"
+                                    onKeyDown={(e) => {
+                                        // Allow: backspace, delete, tab, escape, enter, arrows
+                                        if ([8, 46, 9, 27, 13, 37, 38, 39, 40].includes(e.keyCode) ||
+                                            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || // Ctrl+A
+                                            (e.keyCode >= 35 && e.keyCode <= 39)) { // end, home
+                                            return;
+                                        }
+                                        // Check if it's a digit and if we reached 16 digits
+                                        const cleanValue = e.currentTarget.textContent.replace(/\D/g, '');
+                                        if (cleanValue.length >= 16 && (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+                                            // Fall through if not a digit anyway
+                                        } else if (cleanValue.length >= 16) {
+                                            e.preventDefault();
+                                        }
                                     }}
-                                    value={cardNumber}
-                                    onChange={handleCardNumberChange}
-                                    placeholder="0000 0000 0000 0000"
-                                    maxLength="19"
-                                />
-                                <div style={styles.cardBottom}>
-                                    <div style={{ flex: 1 }}>
-                                        <div style={styles.cardLabel}>{t('deposit.form.holder_label')}</div>
+                                    onInput={(e) => {
+                                        let value = e.currentTarget.textContent.replace(/\D/g, '');
+                                        if (value.length > 16) value = value.slice(0, 16);
+                                        const formatted = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                                        setCardNumber(formatted);
+                                        e.currentTarget.textContent = formatted;
+
+                                        // Maintain cursor position roughly (simple approach for contentEditable)
+                                        const range = document.createRange();
+                                        const sel = window.getSelection();
+                                        range.setStart(e.currentTarget, e.currentTarget.childNodes.length);
+                                        range.collapse(true);
+                                        sel.removeAllRanges();
+                                        sel.addRange(range);
+                                    }}
+                                    onFocus={(e) => {
+                                        if (e.currentTarget.textContent === '0000 0000 0000 0000') {
+                                            e.currentTarget.textContent = '';
+                                        }
+                                    }}
+                                    onBlur={(e) => {
+                                        if (!e.currentTarget.textContent.trim()) {
+                                            e.currentTarget.textContent = '0000 0000 0000 0000';
+                                            setCardNumber('');
+                                        }
+                                    }}
+                                >
+                                    {cardNumber || '0000 0000 0000 0000'}
+                                </div>
+
+                                <div className="card-details-row">
+                                    <div className="card-holder-section">
+                                        <div className="card-label-text">{t('deposit.form.holder_label')}</div>
                                         <input
-                                            style={styles.cardInputSmall}
+                                            className="card-value-text"
                                             value={cardHolder}
                                             onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
                                             placeholder={t('deposit.form.holder_placeholder')}
                                         />
                                     </div>
-                                    <div style={{ width: '60px' }}>
-                                        <div style={styles.cardLabel}>EXP</div>
-                                        <input
-                                            style={{
-                                                ...styles.cardInputSmall,
-                                                color: expiry && !isExpiryValid() ? '#ff9999' : 'white'
+                                    <div style={{ width: '80px', textAlign: 'right' }}>
+                                        <div className="card-label-text">EXP</div>
+                                        <div
+                                            contentEditable
+                                            suppressContentEditableWarning
+                                            className="card-expiry-text"
+                                            onKeyDown={(e) => {
+                                                if ([8, 46, 9, 27, 13, 37, 38, 39, 40].includes(e.keyCode) ||
+                                                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true))) {
+                                                    return;
+                                                }
+                                                const cleanValue = e.currentTarget.textContent.replace(/\D/g, '');
+                                                if (cleanValue.length >= 4 && (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+                                                } else if (cleanValue.length >= 4) {
+                                                    e.preventDefault();
+                                                }
                                             }}
-                                            value={expiry}
-                                            onChange={handleExpiryChange}
-                                            placeholder="MM/AA"
-                                            maxLength="5"
-                                        />
+                                            onInput={(e) => {
+                                                let value = e.currentTarget.textContent.replace(/\D/g, '');
+                                                if (value.length > 4) value = value.slice(0, 4);
+                                                if (value.length >= 2) {
+                                                    const formatted = `${value.slice(0, 2)}/${value.slice(2)}`;
+                                                    setExpiry(formatted);
+                                                    e.currentTarget.textContent = formatted;
+                                                } else {
+                                                    setExpiry(value);
+                                                    e.currentTarget.textContent = value;
+                                                }
+                                                // Maintain cursor position
+                                                const range = document.createRange();
+                                                const sel = window.getSelection();
+                                                range.setStart(e.currentTarget, e.currentTarget.childNodes.length);
+                                                range.collapse(true);
+                                                sel.removeAllRanges();
+                                                sel.addRange(range);
+                                            }}
+                                            onFocus={(e) => {
+                                                if (e.currentTarget.textContent === 'MM/AA') {
+                                                    e.currentTarget.textContent = '';
+                                                }
+                                            }}
+                                            onBlur={(e) => {
+                                                if (!e.currentTarget.textContent.trim()) {
+                                                    e.currentTarget.textContent = 'MM/AA';
+                                                    setExpiry('');
+                                                }
+                                            }}
+                                        >
+                                            {expiry || 'MM/AA'}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +480,7 @@ const Deposit = () => {
                                         <span>{t('deposit.bank_details.bic')}:</span>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                             <strong>INVKBKFR</strong>
-                                            <button style={styles.smallCopyBtn} onClick={() => copyToClipboard('INVKBKFR', 'BIC')}>
+                                            <button style={styles.smallCopyBtn} onClick={() => copyToClipboard('INVKBKFR', t('deposit.bank_details.bic'))}>
                                                 <i className="far fa-copy"></i>
                                             </button>
                                         </div>
@@ -356,221 +514,297 @@ const Deposit = () => {
                         </div>
                     )}
                 </div>
-            </KycVerificationBanner>
-        );
-    }
+            ) : (
+                <div style={styles.container}>
+                    <header style={styles.header}>
+                        <h1 style={styles.title}>{t('sidebar.nav.deposit')}</h1>
+                        <p style={styles.subtitle}>{t('deposit.subtitle')}</p>
+                    </header>
 
-    // --- DESKTOP LAYOUT (Original) ---
-    return (
-        <KycVerificationBanner>
-            <div style={styles.container}>
-                <header style={styles.header}>
-                    <h1 style={styles.title}>{t('sidebar.nav.deposit')}</h1>
-                    <p style={styles.subtitle}>{t('deposit.subtitle')}</p>
-                </header>
-
-                <div style={styles.methodsGrid}>
-                    <div onClick={() => setActiveMethod('card')} style={{ ...styles.methodCard, ...(activeMethod === 'card' ? styles.activeMethod : {}) }}>
-                        <div style={styles.iconCircle}><i className="fas fa-credit-card"></i></div>
-                        <div style={styles.methodInfo}><h3>{t('deposit.methods.card.title')}</h3><p>{t('deposit.methods.card.desc')}</p></div>
-                        {activeMethod === 'card' && <i className="fas fa-check-circle" style={styles.checkIcon}></i>}
-                    </div>
-                    <div onClick={() => setActiveMethod('bank_transfer')} style={{ ...styles.methodCard, ...(activeMethod === 'bank_transfer' ? styles.activeMethod : {}) }}>
-                        <div style={styles.iconCircle}><i className="fas fa-university"></i></div>
-                        <div style={styles.methodInfo}><h3>{t('deposit.methods.bank.title')}</h3><p>{t('deposit.methods.bank.desc')}</p></div>
-                        {activeMethod === 'bank_transfer' && <i className="fas fa-check-circle" style={styles.checkIcon}></i>}
-                    </div>
-                </div>
-
-                <div style={styles.contentCard} className="fadeIn">
-                    {(message.text || hasPendingDeposit) && (
-                        <div style={{
-                            ...styles.alert,
-                            backgroundColor: (message.type === 'success' || hasPendingDeposit) ? '#fff3cd' : '#ffebee',
-                            color: (message.type === 'success' || hasPendingDeposit) ? '#856404' : '#c62828',
-                            border: (message.type === 'success' || hasPendingDeposit) ? '1px solid #ffeeba' : 'none',
-                            fontSize: '1.1rem',
-                            fontWeight: '600'
-                        }}>
-                            <i className={`fas ${(message.type === 'success' || hasPendingDeposit) ? 'fa-hourglass-half' : 'fa-exclamation-triangle'}`}></i> {message.text || t('deposit.messages.pending_alert')}
+                    <div style={styles.methodsGrid}>
+                        <div onClick={() => setActiveMethod('card')} style={{ ...styles.methodCard, ...(activeMethod === 'card' ? styles.activeMethod : {}) }}>
+                            <div style={styles.iconCircle}><i className="fas fa-credit-card"></i></div>
+                            <div style={styles.methodInfo}><h3>{t('deposit.methods.card.title')}</h3><p>{t('deposit.methods.card.desc')}</p></div>
+                            {activeMethod === 'card' && <i className="fas fa-check-circle" style={styles.checkIcon}></i>}
                         </div>
-                    )}
+                        <div onClick={() => setActiveMethod('bank_transfer')} style={{ ...styles.methodCard, ...(activeMethod === 'bank_transfer' ? styles.activeMethod : {}) }}>
+                            <div style={styles.iconCircle}><i className="fas fa-university"></i></div>
+                            <div style={styles.methodInfo}><h3>{t('deposit.methods.bank.title')}</h3><p>{t('deposit.methods.bank.desc')}</p></div>
+                            {activeMethod === 'bank_transfer' && <i className="fas fa-check-circle" style={styles.checkIcon}></i>}
+                        </div>
+                    </div>
 
-                    {activeMethod === 'card' ? (
-                        <form onSubmit={handleCardDeposit}>
-                            <div style={styles.amountSection}>
-                                <label style={styles.label}>{t('deposit.form.amount_label')}</label>
-                                <div style={styles.amountInputWrapper}>
-                                    <input type="number" style={styles.amountInput} value={amount} onChange={(e) => setAmount(e.target.value)} placeholder={t('deposit.form.amount_placeholder')} min="10" required />
-                                    <span style={styles.currency}>EUR</span>
-                                </div>
+                    <div style={styles.contentCard} className="fadeIn">
+                        {(message.text || hasPendingDeposit) && (
+                            <div style={{
+                                ...styles.alert,
+                                backgroundColor: (message.type === 'success' || hasPendingDeposit) ? '#fff3cd' : '#ffebee',
+                                color: (message.type === 'success' || hasPendingDeposit) ? '#856404' : '#c62828',
+                                border: (message.type === 'success' || hasPendingDeposit) ? '1px solid #ffeeba' : 'none',
+                                fontSize: '1.1rem',
+                                fontWeight: '600'
+                            }}>
+                                <i className={`fas ${(message.type === 'success' || hasPendingDeposit) ? 'fa-hourglass-half' : 'fa-exclamation-triangle'}`}></i> {message.text || t('deposit.messages.pending_alert')}
                             </div>
+                        )}
 
-                            <div style={styles.cardPreview}>
-                                <div style={styles.cardChip}></div>
-                                <div style={styles.cardWifi}><i className="fas fa-wifi"></i></div>
-                                <input
-                                    type="text"
-                                    style={{
-                                        ...styles.cardInputNumber,
-                                        borderBottom: cardNumber && !isCardValid() ? '2px solid #ff4d4d' : 'none'
-                                    }}
-                                    value={cardNumber}
-                                    onChange={handleCardNumberChange}
-                                    placeholder="0000 0000 0000 0000"
-                                    maxLength="19"
-                                    required
-                                />
-                                <div style={styles.cardBottom}>
-                                    <div style={{ flex: 1 }}>
-                                        <div style={styles.cardLabel}>{t('deposit.form.holder_label')}</div>
-                                        <input
-                                            type="text"
-                                            style={styles.cardInputSmall}
-                                            value={cardHolder}
-                                            onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
-                                            placeholder={t('deposit.form.holder_placeholder')}
-                                            required
-                                        />
+                        {activeMethod === 'card' ? (
+                            <form onSubmit={handleCardDeposit}>
+                                <div style={styles.amountSection}>
+                                    <label style={styles.label}>{t('deposit.form.amount_label')}</label>
+                                    <div style={styles.amountInputWrapper}>
+                                        <input type="number" style={styles.amountInput} value={amount} onChange={(e) => setAmount(e.target.value)} placeholder={t('deposit.form.amount_placeholder')} min="10" required />
+                                        <span style={styles.currency}>EUR</span>
                                     </div>
-                                    <div style={{ width: '60px' }}>
-                                        <div style={styles.cardLabel}>{t('deposit.form.expiry_label')}</div>
+                                </div>
+
+                                <div className="modern-card-container" style={{ marginBottom: '2rem' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem' }}>
+                                        <div style={{
+                                            width: '60px',
+                                            height: '42px',
+                                            background: 'linear-gradient(135deg, #d4af37 0%, #f9d976 100%)',
+                                            borderRadius: '8px',
+                                            boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                                        }}></div>
+                                        <div style={{ fontSize: '1.8rem', color: 'rgba(255,255,255,0.8)' }}>
+                                            <i className="fas fa-wifi"></i>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        contentEditable
+                                        suppressContentEditableWarning
+                                        className="card-number-display"
+                                        onKeyDown={(e) => {
+                                            if ([8, 46, 9, 27, 13, 37, 38, 39, 40].includes(e.keyCode) ||
+                                                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                                                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                                                return;
+                                            }
+                                            const cleanValue = e.currentTarget.textContent.replace(/\D/g, '');
+                                            if (cleanValue.length >= 16 && (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+                                            } else if (cleanValue.length >= 16) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        onInput={(e) => {
+                                            let value = e.currentTarget.textContent.replace(/\D/g, '');
+                                            if (value.length > 16) value = value.slice(0, 16);
+                                            const formatted = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                                            setCardNumber(formatted);
+                                            e.currentTarget.textContent = formatted;
+
+                                            const range = document.createRange();
+                                            const sel = window.getSelection();
+                                            range.setStart(e.currentTarget, e.currentTarget.childNodes.length);
+                                            range.collapse(true);
+                                            sel.removeAllRanges();
+                                            sel.addRange(range);
+                                        }}
+                                        onFocus={(e) => {
+                                            if (e.currentTarget.textContent === '0000 0000 0000 0000') {
+                                                e.currentTarget.textContent = '';
+                                            }
+                                        }}
+                                        onBlur={(e) => {
+                                            if (!e.currentTarget.textContent.trim()) {
+                                                e.currentTarget.textContent = '0000 0000 0000 0000';
+                                                setCardNumber('');
+                                            }
+                                        }}
+                                        style={{ fontSize: '1.8rem' }}
+                                    >
+                                        {cardNumber || '0000 0000 0000 0000'}
+                                    </div>
+
+                                    <div className="card-details-row">
+                                        <div className="card-holder-section">
+                                            <div className="card-label-text">{t('deposit.form.holder_label')}</div>
+                                            <input
+                                                className="card-value-text"
+                                                style={{ fontSize: '1.1rem' }}
+                                                value={cardHolder}
+                                                onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
+                                                placeholder={t('deposit.form.holder_placeholder')}
+                                            />
+                                        </div>
+                                        <div style={{ width: '100px', textAlign: 'right' }}>
+                                            <div className="card-label-text">EXP</div>
+                                            <div
+                                                contentEditable
+                                                suppressContentEditableWarning
+                                                className="card-expiry-text"
+                                                onKeyDown={(e) => {
+                                                    if ([8, 46, 9, 27, 13, 37, 38, 39, 40].includes(e.keyCode) ||
+                                                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true))) {
+                                                        return;
+                                                    }
+                                                    const cleanValue = e.currentTarget.textContent.replace(/\D/g, '');
+                                                    if (cleanValue.length >= 4 && (e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+                                                    } else if (cleanValue.length >= 4) {
+                                                        e.preventDefault();
+                                                    }
+                                                }}
+                                                onInput={(e) => {
+                                                    let value = e.currentTarget.textContent.replace(/\D/g, '');
+                                                    if (value.length > 4) value = value.slice(0, 4);
+                                                    if (value.length >= 2) {
+                                                        const formatted = `${value.slice(0, 2)}/${value.slice(2)}`;
+                                                        setExpiry(formatted);
+                                                        e.currentTarget.textContent = formatted;
+                                                    } else {
+                                                        setExpiry(value);
+                                                        e.currentTarget.textContent = value;
+                                                    }
+                                                    // Maintain cursor position
+                                                    const range = document.createRange();
+                                                    const sel = window.getSelection();
+                                                    range.setStart(e.currentTarget, e.currentTarget.childNodes.length);
+                                                    range.collapse(true);
+                                                    sel.removeAllRanges();
+                                                    sel.addRange(range);
+                                                }}
+                                                onFocus={(e) => {
+                                                    if (e.currentTarget.textContent === 'MM/AA') {
+                                                        e.currentTarget.textContent = '';
+                                                    }
+                                                }}
+                                                onBlur={(e) => {
+                                                    if (!e.currentTarget.textContent.trim()) {
+                                                        e.currentTarget.textContent = 'MM/AA';
+                                                        setExpiry('');
+                                                    }
+                                                }}
+                                                style={{ fontSize: '1.1rem' }}
+                                            >
+                                                {expiry || 'MM/AA'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+                                    <div style={{ flex: 1 }}>
+                                        <label style={styles.label}>{t('deposit.form.cvc_label')}</label>
                                         <input
                                             type="text"
                                             style={{
-                                                ...styles.cardInputSmall,
-                                                color: expiry && !isExpiryValid() ? '#ff9999' : 'white'
+                                                ...styles.input,
+                                                borderColor: cvc && !isCvcValid() ? 'red' : '#ddd'
                                             }}
-                                            value={expiry}
-                                            onChange={handleExpiryChange}
-                                            placeholder="MM/YY"
-                                            maxLength="5"
+                                            value={cvc}
+                                            onChange={handleCvcChange}
+                                            placeholder="123"
+                                            maxLength="4"
                                             required
                                         />
                                     </div>
+                                    <div style={{ flex: 1 }}>
+                                        <label style={styles.label}>{t('deposit.form.target_account')}</label>
+                                        <select style={styles.select} value={selectedWallet} onChange={(e) => setSelectedWallet(e.target.value)}>
+                                            {wallets.map(w => <option key={w.id} value={w.id}>{w.type === 'main' ? t('accounts.card.main') : t('accounts.card.savings')} ({w.balance} {w.currency})</option>)}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-                                <div style={{ flex: 1 }}>
-                                    <label style={styles.label}>{t('deposit.form.cvc_label')}</label>
-                                    <input
-                                        type="text"
-                                        style={{
-                                            ...styles.input,
-                                            borderColor: cvc && !isCvcValid() ? 'red' : '#ddd'
-                                        }}
-                                        value={cvc}
-                                        onChange={handleCvcChange}
-                                        placeholder="123"
-                                        maxLength="4"
-                                        required
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <label style={styles.label}>{t('deposit.form.target_account')}</label>
-                                    <select style={styles.select} value={selectedWallet} onChange={(e) => setSelectedWallet(e.target.value)}>
-                                        {wallets.map(w => <option key={w.id} value={w.id}>{w.type === 'main' ? t('accounts.card.main') : t('accounts.card.savings')} ({w.balance} {w.currency})</option>)}
-                                    </select>
-                                </div>
-                            </div>
+                                <button
+                                    type="submit"
+                                    style={{
+                                        ...styles.submitBtn,
+                                        opacity: isFormValid ? 1 : 0.7,
+                                        cursor: isFormValid ? 'pointer' : 'not-allowed',
+                                        backgroundColor: isFormValid ? '#003366' : '#64748b'
+                                    }}
+                                    disabled={submitting || !isFormValid}
+                                >
+                                    {submitting ? <i className="fas fa-spinner fa-spin"></i> : (
+                                        !isAmountValid() ? t('deposit.form.enter_amount') :
+                                            !isCardValid() ? t('deposit.form.invalid_card') :
+                                                !isExpiryValid() ? t('deposit.form.invalid_expiry') :
+                                                    !isCvcValid() ? t('deposit.form.invalid_cvc') :
+                                                        t('deposit.form.pay', { amount: amount })
+                                    )}
+                                </button>
+                                <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#888', marginTop: '1rem' }}><i className="fas fa-lock"></i> {t('deposit.form.secure_notice')}</p>
+                            </form>
+                        ) : (
+                            <div style={styles.transferInfo}>
+                                <div style={styles.qrCodePlaceholder}><i className="fas fa-qrcode"></i></div>
+                                <h3 style={{ color: '#003366', marginBottom: '1rem' }}>{t('deposit.methods.bank.title')}</h3>
+                                <p style={{ color: '#666', marginBottom: '2rem' }}>{t('deposit.methods.bank.desc_full')}</p>
 
-                            <button
-                                type="submit"
-                                style={{
-                                    ...styles.submitBtn,
-                                    opacity: isFormValid ? 1 : 0.7,
-                                    cursor: isFormValid ? 'pointer' : 'not-allowed',
-                                    backgroundColor: isFormValid ? '#003366' : '#64748b'
-                                }}
-                                disabled={submitting || !isFormValid}
-                            >
-                                {submitting ? <i className="fas fa-spinner fa-spin"></i> : (
-                                    !isAmountValid() ? t('deposit.form.enter_amount') :
-                                        !isCardValid() ? t('deposit.form.invalid_card') :
-                                            !isExpiryValid() ? t('deposit.form.invalid_expiry') :
-                                                !isCvcValid() ? t('deposit.form.invalid_cvc') :
-                                                    t('deposit.form.pay', { amount: amount })
-                                )}
-                            </button>
-                            <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#888', marginTop: '1rem' }}><i className="fas fa-lock"></i> {t('deposit.form.secure_notice')}</p>
-                        </form>
-                    ) : (
-                        <div style={styles.transferInfo}>
-                            <div style={styles.qrCodePlaceholder}><i className="fas fa-qrcode"></i></div>
-                            <h3 style={{ color: '#003366', marginBottom: '1rem' }}>{t('deposit.methods.bank.title')}</h3>
-                            <p style={{ color: '#666', marginBottom: '2rem' }}>{t('deposit.methods.bank.desc_full')}</p>
-
-                            <div style={styles.bankDetailRow}>
-                                <span>{t('deposit.bank_details.beneficiary')}</span>
-                                <strong>{currentUser.displayName || 'INVIK CLIENT'}</strong>
-                            </div>
-                            <div style={styles.bankDetailRow}>
-                                <span>{t('deposit.bank_details.bank_name')}</span>
-                                <strong>INVIK BANK SA</strong>
-                            </div>
-                            <div style={styles.bankDetailRow}>
-                                <span>{t('deposit.bank_details.bic')}</span>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <strong style={{ fontFamily: 'monospace' }}>INVKBKFR</strong>
-                                    <button style={styles.copyIconButton} onClick={() => copyToClipboard('INVKBKFR', 'BIC')}>
-                                        <i className="far fa-copy"></i>
-                                    </button>
+                                <div style={styles.bankDetailRow}>
+                                    <span>{t('deposit.bank_details.beneficiary')}</span>
+                                    <strong>{currentUser.displayName || 'INVIK CLIENT'}</strong>
                                 </div>
-                            </div>
-                            <div style={{ ...styles.bankDetailRow, border: 'none' }}>
-                                <span>{t('deposit.bank_details.iban')}</span>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <strong style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>{wallets.find(w => w.id === selectedWallet)?.iban || '...'}</strong>
-                                    <button style={styles.copyIconButton} onClick={() => copyToClipboard(wallets.find(w => w.id === selectedWallet)?.iban, 'IBAN')}>
-                                        <i className="far fa-copy"></i>
-                                    </button>
+                                <div style={styles.bankDetailRow}>
+                                    <span>{t('deposit.bank_details.bank_name')}</span>
+                                    <strong>INVIK BANK SA</strong>
                                 </div>
-                            </div>
-                            <div style={styles.copyTip}>{t('deposit.bank_details.processing_delay')}</div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Desktop Mini History for Deposits */}
-                <div style={{ ...styles.contentCard, marginTop: '2rem' }}>
-                    <h3 style={{ fontSize: '1.1rem', color: '#003366', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <i className="fas fa-history"></i> {t('deposit.history.title')}
-                    </h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        {paginatedHistory.map(tx => (
-                            <div key={tx.id} style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#f8fbff', borderRadius: '12px' }}>
-                                <div style={{ flex: 1 }}>
-                                    <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>{tx.amount} {tx.currency || 'EUR'}</div>
-                                    <div style={{ fontSize: '0.8rem', color: '#888' }}>{new Date(tx.createdAt?.toDate() || tx.createdAt).toLocaleDateString()} via {tx.method === 'card' ? t('deposit.history.methods.card') : t('deposit.history.methods.transfer')}</div>
+                                <div style={styles.bankDetailRow}>
+                                    <span>{t('deposit.bank_details.bic')}</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <strong style={{ fontFamily: 'monospace' }}>INVKBKFR</strong>
+                                        <button style={styles.copyIconButton} onClick={() => copyToClipboard('INVKBKFR', t('deposit.bank_details.bic'))}>
+                                            <i className="far fa-copy"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <span style={{
-                                    padding: '5px 12px',
-                                    borderRadius: '50px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 'bold',
-                                    backgroundColor: tx.status === 'pending' ? '#fff3cd' :
-                                        (tx.status === 'in_review' ? '#e8eaf6' :
-                                            (tx.status === 'rejected' ? '#ffebee' : '#e8f5e9')),
-                                    color: tx.status === 'pending' ? '#856404' :
-                                        (tx.status === 'in_review' ? '#283593' :
-                                            (tx.status === 'rejected' ? '#c62828' : '#2e7d32')),
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '4px'
-                                }}>
-                                    {(tx.status === 'pending' || tx.status === 'in_review') && <i className="fas fa-circle-notch fa-spin" style={{ fontSize: '0.7rem' }}></i>}
-                                    {tx.status === 'pending' ? t('status.pending') :
-                                        (tx.status === 'in_review' ? t('status.in_review') :
-                                            (tx.status === 'rejected' ? t('status.rejected') : t('status.completed')))}
-                                </span>
+                                <div style={{ ...styles.bankDetailRow, border: 'none' }}>
+                                    <span>{t('deposit.bank_details.iban')}</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <strong style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>{wallets.find(w => w.id === selectedWallet)?.iban || '...'}</strong>
+                                        <button style={styles.copyIconButton} onClick={() => copyToClipboard(wallets.find(w => w.id === selectedWallet)?.iban, 'IBAN')}>
+                                            <i className="far fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style={styles.copyTip}>{t('deposit.bank_details.processing_delay')}</div>
                             </div>
-                        ))}
-                        {depositHistory.length === 0 && <p style={{ textAlign: 'center', color: '#888' }}>{t('deposit.history.empty')}</p>}
+                        )}
                     </div>
-                    <PaginationControls />
+
+                    {/* Desktop Mini History for Deposits */}
+                    <div style={{ ...styles.contentCard, marginTop: '2rem' }}>
+                        <h3 style={{ fontSize: '1.1rem', color: '#003366', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <i className="fas fa-history"></i> {t('deposit.history.title')}
+                        </h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            {paginatedHistory.map(tx => (
+                                <div key={tx.id} style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#f8fbff', borderRadius: '12px' }}>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>{tx.amount} {tx.currency || 'EUR'}</div>
+                                        <div style={{ fontSize: '0.8rem', color: '#888' }}>{new Date(tx.createdAt?.toDate() || tx.createdAt).toLocaleDateString()} via {tx.method === 'card' ? t('deposit.history.methods.card') : t('deposit.history.methods.transfer')}</div>
+                                    </div>
+                                    <span style={{
+                                        padding: '5px 12px',
+                                        borderRadius: '50px',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 'bold',
+                                        backgroundColor: tx.status === 'pending' ? '#fff3cd' :
+                                            (tx.status === 'in_review' ? '#e8eaf6' :
+                                                (tx.status === 'rejected' ? '#ffebee' : '#e8f5e9')),
+                                        color: tx.status === 'pending' ? '#856404' :
+                                            (tx.status === 'in_review' ? '#283593' :
+                                                (tx.status === 'rejected' ? '#c62828' : '#2e7d32')),
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '4px'
+                                    }}>
+                                        {(tx.status === 'pending' || tx.status === 'in_review') && <i className="fas fa-circle-notch fa-spin" style={{ fontSize: '0.7rem' }}></i>}
+                                        {tx.status === 'pending' ? t('status.pending') :
+                                            (tx.status === 'in_review' ? t('status.in_review') :
+                                                (tx.status === 'rejected' ? t('status.rejected') : t('status.completed')))}
+                                    </span>
+                                </div>
+                            ))}
+                            {depositHistory.length === 0 && <p style={{ textAlign: 'center', color: '#888' }}>{t('deposit.history.empty')}</p>}
+                        </div>
+                        <PaginationControls />
+                    </div>
                 </div>
-            </div>
+            )}
         </KycVerificationBanner>
     );
 };
@@ -593,23 +827,6 @@ const styles = {
     amountInputWrapper: { display: 'inline-flex', alignItems: 'center', borderBottom: '2px solid #ddd' },
     amountInput: { border: 'none', fontSize: '2.5rem', fontWeight: '800', width: '150px', textAlign: 'right', color: '#003366', outline: 'none' },
     currency: { fontSize: '1.2rem', fontWeight: 'bold', color: '#888', marginLeft: '10px', paddingBottom: '10px' },
-    cardPreview: {
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        borderRadius: '16px',
-        padding: '2rem',
-        color: 'white',
-        boxShadow: '0 15px 35px rgba(118, 75, 162, 0.4)',
-        marginBottom: '1.5rem',
-        position: 'relative',
-        overflow: 'hidden'
-    },
-    cardChip: { width: '50px', height: '35px', backgroundColor: '#e0e0e0', borderRadius: '6px', marginBottom: '1rem', background: 'linear-gradient(135deg, #d4af37 0%, #f9d976 100%)' },
-    cardWifi: { position: 'absolute', top: '2rem', right: '2rem', fontSize: '1.5rem', opacity: 0.7 },
-    cardInputNumber: { background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', letterSpacing: '4px', width: '100%', outline: 'none', marginBottom: '1.5rem', fontFamily: 'monospace', boxSizing: 'border-box' },
-    cardBottom: { display: 'flex', justifyContent: 'space-between' },
-    cardLabel: { fontSize: '0.6rem', opacity: 0.7, marginBottom: '4px' },
-    cardValue: { fontSize: '0.9rem', fontWeight: '600', textTransform: 'uppercase' },
-    cardInputSmall: { background: 'transparent', border: 'none', color: 'white', fontSize: '0.9rem', width: '100%', outline: 'none', boxSizing: 'border-box' },
     input: { width: '100%', padding: '1rem', borderRadius: '10px', border: '1px solid #ddd', fontSize: '1rem', outline: 'none' },
     select: { width: '100%', padding: '1rem', borderRadius: '10px', border: '1px solid #ddd', fontSize: '1rem', outline: 'none', backgroundColor: 'white' },
     label: { display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: '#555' },
@@ -628,21 +845,8 @@ const styles = {
     mobileSelect: { width: '100%', height: '52px', padding: '12px 16px', borderRadius: '12px', border: '1px solid #ddd', backgroundColor: '#fff', fontSize: '1rem', boxSizing: 'border-box', appearance: 'none', backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23003366%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px top 50%', backgroundSize: '0.65rem auto' },
     mobileAmountInput: { border: 'none', fontSize: '3rem', fontWeight: 'bold', width: '150px', textAlign: 'center', color: '#003366', outline: 'none', background: 'transparent' },
     chipBtn: { padding: '5px 12px', borderRadius: '20px', border: '1px solid #003366', backgroundColor: '#e3f2fd', color: '#003366', fontWeight: 'bold', cursor: 'pointer' },
-    mobileCardPreview: {
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        borderRadius: '16px',
-        padding: '1.5rem',
-        color: 'white',
-        boxShadow: '0 15px 35px rgba(118, 75, 162, 0.4)',
-        marginBottom: '1rem',
-        position: 'relative',
-        overflow: 'hidden'
-    },
-    inputIconWrapper: { position: 'relative', display: 'flex', alignItems: 'center' },
-    inputIcon: { position: 'absolute', left: '12px', color: '#888' },
     fixedBottomBar: { position: 'fixed', bottom: 0, left: 0, right: 0, padding: '15px', backgroundColor: 'white', borderTop: '1px solid #eee', zIndex: 100 },
     mobileNextBtn: { width: '100%', padding: '14px', backgroundColor: '#003366', color: 'white', border: 'none', borderRadius: '12px', fontSize: '1.1rem', fontWeight: 'bold' },
-    copyBtn: { marginTop: '10px', padding: '8px 15px', borderRadius: '8px', border: '1px solid #ddd', background: '#f8f9fa', cursor: 'pointer', fontWeight: 'bold', width: '100%' },
     mobileDetailRow: { display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee', fontSize: '0.9rem', color: '#333' },
     smallCopyBtn: { background: 'none', border: 'none', color: '#00ccff', cursor: 'pointer', fontSize: '1rem', padding: '0 5px' },
     copyIconButton: { background: '#f0f4f8', border: 'none', color: '#003366', cursor: 'pointer', fontSize: '1rem', padding: '8px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' },
